@@ -1,16 +1,32 @@
 import React from "react";
 import Logo from "./logo";
-import Header from "./header";
 import "./authentication.css";
+
+function Header(): JSX.Element {
+  return (
+    <div className="headerInfo">
+      <p className="notice">
+        Welcome to TrashTracker
+        <br />
+        <br />
+        The easiest way to report and organize clean-up events in your
+        community!
+        <br />
+        <br />
+        Forgot your password?
+      </p>
+    </div>
+  );
+}
 
 function Form(): JSX.Element {
   return (
     <div className="containerInputs">
       <form>
         <div className="userInputs">
-          <p className="slogan">Let&apos;s do this!</p>
+          <p className="slogan">Enter your accounts email address</p>
 
-          <div className="logInInput">
+          <div className="group">
             <div className="form-row">
               <label htmlFor="email">Email</label>
               <input
@@ -21,26 +37,14 @@ function Form(): JSX.Element {
                 placeholder="ex: odinborson@gmail.com"
               />
             </div>
-            <div className="form-row">
-              <label htmlFor="password">Password</label>
-              <input
-                className="error"
-                type="text"
-                id="password"
-                name="userPassword"
-                required
-                pattern="(?=^.{8,32}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                placeholder="Your password"
-              />
-            </div>
           </div>
         </div>
-        <div className="userLogIn">
+        <div className="sendResetEmail">
           <button className="button" type="submit">
-            <span>Log in</span>
+            <span>Send reset email</span>
           </button>
-          <div className="resetPassword">
-            Forgot your password? <span>Reset password</span>
+          <div className="backToLogIn">
+            Back to <span>Log in</span> window
           </div>
         </div>
       </form>
@@ -48,16 +52,16 @@ function Form(): JSX.Element {
   );
 }
 
-function LogInForm(): JSX.Element {
+function ForgotPasswordForm(): JSX.Element {
   return (
     <div className="container">
       <Logo />
       <div className="main">
-        <Header text="Log in." />
+        <Header text="Forgot your password?" />
         <Form />
       </div>
     </div>
   );
 }
 
-export default LogInForm;
+export default ForgotPasswordForm;

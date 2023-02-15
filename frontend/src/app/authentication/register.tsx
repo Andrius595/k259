@@ -1,31 +1,7 @@
 import React, { useEffect } from "react";
+import Logo from "./logo";
+import Header from "./header";
 import "./authentication.css";
-
-function Logo(): JSX.Element {
-  return (
-    <div className="logo">
-      <div className="imageText">
-        <p className="logoText">Trash Tracker</p>
-      </div>
-    </div>
-  );
-}
-function Header(): JSX.Element {
-  return (
-    <div className="headerInfo">
-      <p className="notice">
-        Welcome to TrashTracker
-        <br />
-        <br />
-        The easiest way to report and organize clean-up events in your
-        community!
-        <br />
-        <br />
-        Sign up <i>now</i> to get started.
-      </p>
-    </div>
-  );
-}
 
 function Form(): JSX.Element {
   return (
@@ -126,7 +102,7 @@ function SignUpForm(): JSX.Element {
     <div className="container">
       <Logo />
       <div className="main">
-        <Header />
+        <Header text="Sign up now to get started!" />
         <Form />
       </div>
     </div>
