@@ -1,5 +1,3 @@
-*
-!.gitignore
-!/backend
-!/frontend
 frontend/.vscode/settings.json
+frontend/.next/
+frontend/.next/*
