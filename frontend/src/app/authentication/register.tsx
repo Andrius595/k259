@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./register.css";
+import "./authentication.css";
 
 function Logo(): JSX.Element {
   return (
@@ -10,7 +10,6 @@ function Logo(): JSX.Element {
     </div>
   );
 }
-
 function Header(): JSX.Element {
   return (
     <div className="headerInfo">
