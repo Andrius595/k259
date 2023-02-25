@@ -21,4 +21,6 @@ Route::get('/', function () {
 Route::group(['middleware' => 'guest'], static function () {
     Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
     Route::post('reset-password', [AuthController::class, 'resetPassword']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
 });
