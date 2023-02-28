@@ -91,6 +91,7 @@ async function submitForm() {
         </NuxtLink>
 
         <Button class="ml-3">Login</Button>
+        <Button class="ml-3" type="button" @click="navigateTo('/register')" >Register</Button>
       </div>
     </form>
   </AuthCard>
