@@ -32,7 +32,7 @@ async function submitForm() {
         <form @submit.prevent="submitForm">
           <!-- Name -->
           <div>
-            <Label for="first_name">First Name</Label>
+            <Label for="first_name">Vardas</Label>
             <Input
                 id="first_name"
                 type="text"
