@@ -56,7 +56,10 @@ function handleLogout() {
                 </button>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click="logout"> Logout</el-dropdown-item>
+                  <el-dropdown-item @click="navigateTo('/edit-profile')">Edit profile</el-dropdown-item>
+                </el-dropdown-menu>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="logout">Logout</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
               <!-- Authentication  -->

@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     ssr: false,
     runtimeConfig: {
         public: {
-            backendUrl: 'http://localhost:80',
+            backendUrl: 'http://localhost',
             frontendUrl: 'http://localhost:3000',
             authCookieName: 'Authorization',
         },

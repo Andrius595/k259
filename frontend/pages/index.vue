@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+await navigateTo('/dashboard')
+</script>
 
 <template>
   <Head>
