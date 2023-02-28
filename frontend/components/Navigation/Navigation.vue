@@ -4,8 +4,14 @@ import {useUserStore} from "~/stores/userStore";
 const userStore = useUserStore()
 const open = ref(false);
 
-function handleLogout() {
+async function handleLogout() {
   // TODO delete token and redirect to login
+
+  await $fetch('/api/auth/logout', {method: 'post'})
+
+  //send to login page
+  navigateTo('/login')
+
 }
 </script>
 
@@ -59,7 +65,7 @@ function handleLogout() {
                   <el-dropdown-item @click="navigateTo('/edit-profile')">Edit profile</el-dropdown-item>
                 </el-dropdown-menu>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click="logout">Logout</el-dropdown-item>
+                  <el-dropdown-item @click="handleLogout" >Logout</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
               <!-- Authentication  -->

@@ -4,7 +4,7 @@ const verified = computed(() => !!route.query.verified);
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-200">
+  <div class="min-h-screen bg-blue-200">
     <Navigation />
 
     <!-- Page Heading  -->
