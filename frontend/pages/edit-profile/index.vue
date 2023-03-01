@@ -32,7 +32,7 @@ async function submitForm() {
         <form @submit.prevent="submitForm">
           <!-- Name -->
           <div>
-            <Label for="first_name">Vardas</Label>
+            <Label for="first_name">First name</Label>
             <Input
                 id="first_name"
                 type="text"
@@ -74,10 +74,10 @@ async function submitForm() {
                 href="/login"
                 class="underline text-sm text-gray-600 hover:text-gray-900"
             >
-              Already registered?
+              Delete profile?
             </NuxtLink>
 
-            <Button class="ml-3">Register</Button>
+            <Button class="ml-3">Save</Button>
           </div>
         </form>
       </el-card>
