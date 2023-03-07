@@ -40,8 +40,16 @@ const user = userStore.getUser;
                 Create Litter
               </button>
             </a>
+            
+            <a href="/litter/list">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Litter list
+              </button>
+            </a>
           </div>
+          
         </div>
       </div>
+
   </NuxtLayout>
 </template>
