@@ -1,22 +1,26 @@
 <script setup lang="ts">
-
 const data = ref({
-  // liiter name
-  litter_name: "",
-  // liiter description
-  litter_description: "",
-  // liiter image
-  litter_image: "",
+  //'size','latitude','longitude','image_path','description','is_accessible_by_car','is_located_in_hole','is_under_water','is_on_the_waterside','is_hard_to_reach'
   // liiter size
   litter_size: "",
-  // liiter type
-  litter_type: "",
-  // liiter location
-  litter_location: "",
-  // liiter date
-  litter_date: "",
-  // liiter time
-  litter_time: "",
+  // liiter latitude
+  litter_latitude: "",
+  // liiter longitude
+  litter_longitude: "",
+  // liiter image path
+  litter_image_path: "",
+  // liiter description
+  litter_description: "",
+  // liiter is accessible by car
+  litter_is_accessible_by_car: "",
+  // liiter is located in hole
+  litter_is_located_in_hole: "",
+  // liiter is under water
+  litter_is_under_water: "",
+  // liiter is on the waterside
+  litter_is_on_the_waterside: "",
+  // liiter is hard to reach
+  litter_is_hard_to_reach: "",
 });
 
 const errors = ref<Record<string, string[]>>({});
@@ -40,17 +44,16 @@ async function submitForm() {
     <div class="container mx-auto mt-10">
       <el-card>
         <form @submit.prevent="submitForm">
-          <!-- Name -->
-          <div>
-            <Label for="litter_name">Litter name</Label>
+          <!-- Litter size -->
+          <div class="mt-4">
+            <Label for="litter_size">Litter size</Label>
             <Input
-              id="litter_name"
+              id="litter_size"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.litter_name"
-              :errors="errors.litter_name"
+              v-model="data.litter_size"
+              :errors="errors.litter_size"
               required
-              autoFocus
             />
           </div>
 
@@ -67,13 +70,37 @@ async function submitForm() {
           </div>
 
           <div class="mt-4">
-            <Label for="litter_image">Litter image (url)</Label>
+            <Label for="litter_latitude">Litter latitude</Label>
             <Input
-              id="litter_image"
+              id="litter_latitude"
+              type="text"
+              class="block mt-1 w-full"
+              v-model="data.litter_latitude"
+              :errors="errors.litter_latitude"
+              required
+            />
+          </div>
+
+          <div class="mt-4">
+            <Label for="litter_longitude">Litter longitude</Label>
+            <Input
+              id="litter_longitude"
+              type="text"
+              class="block mt-1 w-full"
+              v-model="data.litter_longitude"
+              :errors="errors.litter_longitude"
+              required
+            />
+          </div>
+
+          <div class="mt-4">
+            <Label for="litter_image_path">Litter image path</Label>
+            <Input
+              id="litter_image_path"
               type="file"
               class="block mt-1 w-full"
-              v-model="data.litter_image"
-              :errors="errors.litter_image"
+              v-model="data.litter_image_path"
+              :errors="errors.litter_image_path"
               required
             />
           </div>
@@ -93,59 +120,55 @@ async function submitForm() {
             </datalist>
           </div>
 
-          <div class="mt-4">
-            <Label for="litter_type">Litter type</Label>
+          <div class="mt-4 flex flex-col">
+            <Label for="litter_is_accessible_by_car"
+              >Litter is accessible by car</Label
+            >
             <input
-              list="litter_type_types"
-              v-model="data.litter_type"
-              id="litter_type"
-              name="litter_type"
+              type="checkbox"
+              id="litter_is_accessible_by_car"
+              name="litter_is_accessible_by_car"
+              v-model="data.litter_is_accessible_by_car"
             />
-            <datalist id="litter_type_types">
-              <option value="dog">Dog</option>
-              <option value="cat">Cat</option>
-              <option value="bird">Bird</option>
-              <option value="fish">Fish</option>
-              <option value="reptile">Reptile</option>
-              <option value="other">Other</option>
-            </datalist>
+
+            <Label for="litter_is_located_in_hole"
+              >Litter is located in hole</Label
+            >
+            <input
+              type="checkbox"
+              id="litter_is_located_in_hole"
+              name="litter_is_located_in_hole"
+              v-model="data.litter_is_located_in_hole"
+            />
+
+            <Label for="litter_is_under_water">Litter is under water</Label>
+            <input
+              type="checkbox"
+              id="litter_is_under_water"
+              name="litter_is_under_water"
+              v-model="data.litter_is_under_water"
+            />
+
+            <Label for="litter_is_on_the_waterside"
+              >Litter is on the waterside</Label
+            >
+            <input
+              type="checkbox"
+              id="litter_is_on_the_waterside"
+              name="litter_is_on_the_waterside"
+              v-model="data.litter_is_on_the_waterside"
+            />
+
+            <Label for="litter_is_hard_to_reach">Litter is hard to reach</Label>
+            <input
+              type="checkbox"
+              id="litter_is_hard_to_reach"
+              name="litter_is_hard_to_reach"
+              v-model="data.litter_is_hard_to_reach"
+            />
           </div>
 
-          <div class="mt-4">
-            <Label for="litter_location">Litter location</Label>
-            <Input
-              id="litter_location"
-              type="text"
-              class="block mt-1 w-full"
-              v-model="data.litter_location"
-              :errors="errors.litter_location"
-              required
-            />
-          </div>
-
-          <div class="mt-4">
-            <Label for="litter_date">Litter date</Label>
-            <Input
-              id="litter_date"
-              type="date"
-              class="block mt-1 w-full"
-              v-model="data.litter_date"
-              :errors="errors.litter_date"
-              required
-            />
-          </div>
-
-          <div class="mt-4">
-            <Label for="litter_time">Litter time</Label>
-            <Input
-              id="litter_time"
-              type="time"
-              class="block mt-1 w-full"
-              v-model="data.litter_time"
-              :errors="errors.litter_time"
-              required
-            />
-          </div>
+          
 
           <div class="flex items-center justify-end mt-4">
             <NuxtLink
