@@ -34,6 +34,7 @@ class StoreLitterRequest extends FormRequest
             'is_on_the_waterside' => 'required|boolean',
             'is_hard_to_reach' => 'required|boolean',
             'trash_types' => 'required|array|min:1',
+            'trash_types.*' => 'required|integer|exists:trash_types,id',
         ];
     }
 }

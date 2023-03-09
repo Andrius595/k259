@@ -30,6 +30,8 @@ class EventController extends Controller
 
         $event = Event::create($data);
 
+        $event->load('user');
+
         return $this->successResponse($event);
     }
 
@@ -38,6 +40,8 @@ class EventController extends Controller
      */
     public function show(Event $event): JsonResponse
     {
+        $event->load('user');
+
         return $this->successResponse($event);
     }
 
@@ -55,6 +59,8 @@ class EventController extends Controller
         $updated = $event->update($data);
 
         if ($updated) {
+            $event->load('user');
+
             return $this->successResponse($event);
         }
 
@@ -82,6 +88,8 @@ class EventController extends Controller
         ]);
 
         if ($updated) {
+            $event->load('user');
+
             return $this->successResponse($event);
         }
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LitterController;
+use App\Http\Controllers\TrashTypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::group(['prefix' => 'users'], static function () {
         Route::post('update-profile', [UserController::class, 'updateProfile']);
     });
+
+    Route::get('trash-types', [TrashTypeController::class, 'index']);
 
     Route::apiResource('litters', LitterController::class);
     Route::group(['prefix' => 'litters'], static function () {
