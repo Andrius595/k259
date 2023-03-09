@@ -34,6 +34,7 @@ class UpdateLitterRequest extends FormRequest
             'is_hard_to_reach' => 'required|boolean',
             'is_cleaned' => 'required|boolean',
             'trash_types' => 'required|array|min:1',
+            'trash_types.*' => 'required|integer|exists:trash_types,id',
         ];
     }
 }

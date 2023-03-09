@@ -32,6 +32,10 @@ class LitterController extends Controller
 
         $litter = Litter::create($data);
 
+        $litter->trashTypes()->attach($data['trash_types']);
+
+        $litter->load('user', 'trashTypes');
+
         return $this->successResponse($litter);
     }
 
@@ -40,6 +44,8 @@ class LitterController extends Controller
      */
     public function show(Litter $litter): JsonResponse
     {
+        $litter->load('user', 'trashTypes');
+
         return $this->successResponse($litter);
     }
 
@@ -54,9 +60,12 @@ class LitterController extends Controller
         $imagePath = $image->store('litter', 'public');
         $data['image_path'] = $imagePath;
 
+        $litter->trashTypes()->sync($data['trash_types']);
         $updated = $litter->update($data);
 
         if ($updated) {
+            $litter->load('user', 'trashTypes');
+
             return $this->successResponse($litter);
         }
 
@@ -84,6 +93,8 @@ class LitterController extends Controller
         ]);
 
         if ($updated) {
+            $litter->load('user', 'trashTypes');
+
             return $this->successResponse($litter);
         }
 
