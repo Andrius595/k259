@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\LitterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,13 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
         Route::post('update-profile', [UserController::class, 'updateProfile']);
     });
 
-    Route::apiResource('litter', LitterController::class);
-    Route::post('litter/{litter}/cleaned', [LitterController::class, 'markLitterAsCleaned']);
+    Route::apiResource('litters', LitterController::class);
+    Route::group(['prefix' => 'litters'], static function () {
+        Route::post('{litter}/cleaned', [LitterController::class, 'markLitterAsCleaned']);
+    });
+
+    Route::apiResource('events', EventController::class);
+    Route::group(['prefix' => 'events'], static function () {
+        Route::post('{event}/end', [EventController::class, 'markEventAsEnded']);
+    });
 });

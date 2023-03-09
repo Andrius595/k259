@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TrashTypeSeeder::class,
             LitterSeeder::class,
+            EventSeeder::class,
         ]);
     }
 }
