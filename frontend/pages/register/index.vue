@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {ServerSideResponse} from "~/types/generalTypes";
 definePageMeta({middleware: ["guest"]});
 
 const router = useRouter();
@@ -15,13 +16,13 @@ const errors = ref<Record<string, string[]>>({});
 async function submitForm() {
   errors.value = {};
 
-  const response = await $fetch('/api/auth/register', {method: 'POST', body: data.value})
+  const response: ServerSideResponse = await $fetch('/api/auth/register', {method: 'POST', body: data.value})
 
   if (response.status) {
     return navigateTo('/dashboard')
   }
 
-  // TODO show errors
+  errors.value = response.data.errors
 }
 </script>
 
@@ -108,8 +109,12 @@ async function submitForm() {
           Already registered?
         </NuxtLink>
 
-        <Button class="ml-3">Register</Button>
+        <Button class="ml-3" type="submit">Register</Button>
       </div>
     </form>
   </AuthCard>
 </template>
+
+<style scoped>
+
+</style>

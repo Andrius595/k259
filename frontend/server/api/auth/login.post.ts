@@ -1,8 +1,9 @@
 import {useBackFetch} from "~/composables/useBackFetch";
 import { H3Event, readBody } from 'h3'
 import {LoginCredentials} from "~/types/authTypes";
+import {ServerSideResponse} from "~/types/generalTypes";
 
-export default defineEventHandler(async (event: H3Event) => {
+export default defineEventHandler(async (event: H3Event): Promise<ServerSideResponse> => {
     const data: LoginCredentials = await readBody(event)
 
     const runtimeConfig = useRuntimeConfig()
@@ -18,8 +19,8 @@ export default defineEventHandler(async (event: H3Event) => {
             setCookie(event, runtimeConfig.public.authCookieName, `Bearer ${response.data}`, {httpOnly: true})
         }
 
-        return response.status
-    } catch(e) {
-        return false
+        return { status: response.status, data: response.data }
+    } catch(e: any) {
+        return { status: false, data: e.data }
     }
 })

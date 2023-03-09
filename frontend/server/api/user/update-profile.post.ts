@@ -1,12 +1,15 @@
 import {useBackFetch} from "~/composables/useBackFetch";
-import { H3Event } from 'h3'
+import {H3Event} from 'h3'
+import {ServerSideResponse} from "~/types/generalTypes";
 
-export default defineEventHandler(async (event: H3Event) => {
+export default defineEventHandler(async (event: H3Event): Promise<ServerSideResponse> => {
     const body = await readBody(event)
 
-    const response = await useBackFetch(event, 'update-profile', {method: 'POST', body})
+    try {
+        const response = await useBackFetch(event, 'api/users/update-profile', {method: 'POST', body})
 
-    return {
-        response
+        return {status: response.status, data: response.data}
+    } catch (e: any) {
+        return {status: false, data: e.data}
     }
 })

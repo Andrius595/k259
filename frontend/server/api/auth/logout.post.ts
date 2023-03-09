@@ -1,9 +1,10 @@
-import { useBackFetch } from "~/composables/useBackFetch";
-import { H3Event, readBody } from "h3";
-import { LoginCredentials } from "~/types/authTypes";
+import {H3Event} from "h3";
+import {ServerSideResponse} from "~/types/generalTypes";
 
-export default defineEventHandler(async (event: H3Event) => {
-  const runtimeConfig = useRuntimeConfig();
-  setCookie(event, runtimeConfig.public.authCookieName, ``, { httpOnly: true });
-  return "Logged out";
+export default defineEventHandler(async (event: H3Event): Promise<ServerSideResponse> => {
+    const runtimeConfig = useRuntimeConfig();
+
+    setCookie(event, runtimeConfig.public.authCookieName, '', {httpOnly: true});
+
+    return {status: true, data: null}
 });

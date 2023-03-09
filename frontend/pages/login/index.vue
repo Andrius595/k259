@@ -5,26 +5,32 @@ const router = useRouter();
 const route = useRoute();
 
 const data = ref({
-  email: '',
+  email: route.query.email ?? '',
   password: '',
   remember: false,
 });
-const status = ref(
-    (route.query.reset ?? "").length > 0 ? atob(route.query.reset as string) : ""
-);
+const status = ref(route.query.reset ?? "");
 const errors = ref<Record<string, string[]>>({});
+const errorMessage = ref<string>("");
 
 async function submitForm() {
   errors.value = {};
+  errorMessage.value = "";
   status.value = "";
 
   const response = await $fetch('/api/auth/login', {method: 'post', body: data.value})
 
-  if (response) {
+  if (response.status) {
     return await navigateTo('/dashboard')
   }
 
-  // TODO show errors
+  if (response.data.errors) {
+    errors.value = response.data.errors
+
+    return
+  }
+
+  errorMessage.value = response.data.data
 }
 </script>
 
@@ -38,6 +44,10 @@ async function submitForm() {
 
     <!-- Session Status -->
     <AuthSessionStatus class="mb-4" :status="status"/>
+
+    <div v-if="errorMessage.length" class="mb-4 text-sm text-red-600">
+      {{ errorMessage }}
+    </div>
 
     <form @submit.prevent="submitForm">
       <!-- Email Address -->
@@ -68,21 +78,7 @@ async function submitForm() {
         />
       </div>
 
-      <!-- Remember Me -->
-      <div class="block mt-4">
-        <label for="remember" class="inline-flex items-center">
-          <input
-              id="remember"
-              type="checkbox"
-              name="remember"
-              class="border rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              v-model="data.remember"
-          />
-          <span class="ml-2 text-sm text-gray-600"> Remember me! </span>
-        </label>
-      </div>
-
-      <div class="flex items-center justify-end mt-4">
+      <div class="flex items-center justify-end mt-3">
         <NuxtLink
             href="/forgot-password"
             class="underline text-sm text-gray-600 hover:text-gray-900"
