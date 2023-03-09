@@ -14,18 +14,26 @@ const data = ref({
   password_confirmation: null,
 });
 const errors = ref<Record<string, string[]>>({});
+const errorMessage = ref<string>('');
 const token = computed(() => route.params.token);
 
 async function submitForm() {
   errors.value = {};
+  errorMessage.value = '';
 
-  try {
     const response = await $fetch('/api/auth/reset-password', {method: 'POST', body: {token: token.value, ...data.value}})
 
-    // TODO navigateTo login
-  } catch (e) {
-    // TODO show errors
+  if (response.status) {
+    return navigateTo(`/login?reset=${response.data}&email=${data.value.email}`)
   }
+
+  if (response.data.errors) {
+    errors.value = response.data.errors
+
+    return
+  }
+
+  errorMessage.value = response.data.data
 }
 </script>
 
@@ -36,6 +44,10 @@ async function submitForm() {
         <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
       </NuxtLink>
     </template>
+
+    <div v-if="errorMessage.length" class="mb-4 text-sm text-red-600">
+      {{ errorMessage }}
+    </div>
 
     <form @submit.prevent="submitForm">
       <!-- Email Address -->

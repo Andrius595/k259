@@ -5,20 +5,29 @@ const email = ref<string>('');
 const resetEmailSent = ref(false);
 const status = ref("");
 const errors = ref<Record<string, string[]>>({});
+const errorMessage = ref<string>('');
 
 async function submitForm() {
   errors.value = {};
   status.value = "";
+  errorMessage.value = "";
 
-  try {
     const response = await $fetch('/api/auth/forgot-password', {method: 'POST', body: {email: email.value}})
 
-    resetEmailSent.value = true
+    if (response.status) {
+        resetEmailSent.value = true;
+        status.value = response.data;
 
-    // TODO show success message
-  } catch (e) {
-    // TODO show errors
-  }
+        return
+    }
+
+    if (response.data.errors) {
+        errors.value = response.data.errors
+
+        return
+    }
+
+    errorMessage.value = response.data.data
 }
 </script>
 
@@ -38,6 +47,10 @@ async function submitForm() {
 
     <!-- Session Status -->
     <AuthSessionStatus class="mb-4" :status="status" />
+
+    <div v-if="errorMessage.length" class="mb-4 text-sm text-red-600">
+      {{ errorMessage }}
+    </div>
 
     <form @submit.prevent="submitForm">
       <!-- Email Address -->

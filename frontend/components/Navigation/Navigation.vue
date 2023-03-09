@@ -5,13 +5,9 @@ const userStore = useUserStore()
 const open = ref(false);
 
 async function handleLogout() {
-  // TODO delete token and redirect to login
-
   await $fetch('/api/auth/logout', {method: 'post'})
 
-  //send to login page
-  navigateTo('/login')
-
+  return await navigateTo('/login')
 }
 </script>
 

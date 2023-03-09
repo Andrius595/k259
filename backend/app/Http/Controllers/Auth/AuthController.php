@@ -27,7 +27,7 @@ class AuthController extends Controller
             return $this->successResponse($user->createToken($request->get('user_agent'))->plainTextToken);
         }
 
-        return $this->errorResponse();
+        return $this->errorResponse('Invalid credentials', Response::HTTP_UNAUTHORIZED);
     }
 
     public function register(RegisterRequest $request): JsonResponse
@@ -49,19 +49,20 @@ class AuthController extends Controller
     }
     public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
-        $status = Password::sendResetLink($request->validated());
+        $resetStatus = Password::sendResetLink($request->validated());
 
-        return response()->json(
-            ['status' => __($status)],
-            $status === Password::RESET_LINK_SENT
-                ? Response::HTTP_OK
-                : Response::HTTP_BAD_REQUEST
-        );
+        $status = $resetStatus === Password::RESET_LINK_SENT;
+
+        if ($status) {
+            return $this->successResponse(__($resetStatus));
+        }
+
+        return $this->errorResponse(__($resetStatus));
     }
 
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
-        $status = Password::reset(
+        $resetStatus = Password::reset(
             $request->validated(),
             static function ($user, $password) {
                 $user->forceFill([
@@ -74,11 +75,12 @@ class AuthController extends Controller
             }
         );
 
-        return response()->json(
-            ['status' => __($status)],
-            $status === Password::PASSWORD_RESET
-                ? Response::HTTP_OK
-                : Response::HTTP_BAD_REQUEST
-        );
+        $status = $resetStatus === Password::PASSWORD_RESET;
+
+        if ($status) {
+            return $this->successResponse(__($resetStatus));
+        }
+
+        return $this->errorResponse(__($resetStatus));
     }
 }

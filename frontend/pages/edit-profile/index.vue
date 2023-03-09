@@ -12,16 +12,24 @@ const data = ref({
   email: userStore.getUser?.email ?? '',
 });
 const errors = ref<Record<string, string[]>>({});
+const errorMessage = ref<string>('');
 
 async function submitForm() {
   errors.value = {};
 
-  try {
     const response = await $fetch('/api/user/update-profile', {method: 'POST', body: data.value})
-    // TODO show success message
-  } catch (e) {
-    // TODO show errors
+
+  if (response.status) {
+    return await navigateTo('/dashboard')
   }
+
+  if (response.data.errors) {
+    errors.value = response.data.errors
+
+    return
+  }
+
+  errorMessage.value = response.data.data
 }
 </script>
 

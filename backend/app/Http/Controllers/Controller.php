@@ -18,7 +18,7 @@ class Controller extends BaseController
         return response()->json(['status' => true, 'data' => $data], $status);
     }
 
-    public function errorResponse($data = null, $status = Response::HTTP_BAD_REQUEST): JsonResponse
+    public function errorResponse($data = 'Server error. Try again later.', $status = Response::HTTP_BAD_REQUEST): JsonResponse
     {
         return response()->json(['status' => false, 'data' => $data], $status);
     }
