@@ -57,8 +57,10 @@ class LitterController extends Controller
         $data = $request->validated();
         // TODO delete old image
         $image = $request->file('image');
-        $imagePath = $image->store('litter', 'public');
-        $data['image_path'] = $imagePath;
+        if ($image) {
+            $imagePath = $image->store('litter', 'public');
+            $data['image_path'] = $imagePath;
+        }
 
         $litter->trashTypes()->sync($data['trash_types']);
         $updated = $litter->update($data);
