@@ -53,8 +53,11 @@ class EventController extends Controller
         $data = $request->validated();
         // TODO delete old image
         $image = $request->file('image');
-        $imagePath = $image->store('litter', 'public');
-        $data['image_path'] = $imagePath;
+        if ($image) {
+            $imagePath = $image->store('event', 'public');
+            $data['image_path'] = $imagePath;
+        }
+
 
         $updated = $event->update($data);
 
