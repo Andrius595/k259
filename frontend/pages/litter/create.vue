@@ -29,13 +29,17 @@ async function submitForm() {
 
   try {
     const response = await $fetch("/api/litter/create-litter", {
-      method: "POST",
+      method: "PUT",
       body: data.value,
     });
+    return await navigateTo("/dashboard");
     // TODO show success message
   } catch (e) {
     // TODO show errors
   }
+
+  
+
 }
 </script>
 
@@ -45,18 +49,6 @@ async function submitForm() {
       <el-card>
         <form @submit.prevent="submitForm">
           <!-- Litter size -->
-          <div class="mt-4">
-            <Label for="litter_size">Litter size</Label>
-            <Input
-              id="litter_size"
-              type="text"
-              class="block mt-1 w-full"
-              v-model="data.litter_size"
-              :errors="errors.litter_size"
-              required
-            />
-          </div>
-
           <div class="mt-4">
             <Label for="litter_description">Litter description</Label>
             <Input
@@ -94,7 +86,7 @@ async function submitForm() {
           </div>
 
           <div class="mt-4">
-            <Label for="litter_image_path">Litter image path</Label>
+            <Label for="litter_image_path">Litter image</Label>
             <Input
               id="litter_image_path"
               type="file"
