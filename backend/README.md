@@ -30,3 +30,8 @@ Run database migrations
 ```bash
 ./vendor/bin/sail artisan migrate:fresh
 ```
+
+Seed database
+```bash
+./vendor/bin/sail artisan migrate: fresh --seed
+```
