@@ -26,7 +26,7 @@ async function submitForm() {
   errors.value = {};
 
   try {
-    const response = await $fetch("/api/event/create-event", {
+    const response = await $fetch("/api/event/update-event", {
       method: "POST",
       body: data.value,
     });
@@ -39,26 +39,26 @@ async function submitForm() {
 
 <template>
   <NuxtLayout name="auth-layout">
-  
 
 
     <Head>
-      <Title>Create event</Title>
+      <Title>Update event</Title>
     </Head>
 
     <template #header>
       <div class="flex justify-between items-center">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Create event
+          Update event
         </h2>
       </div>
     </template>
 
-
+  
     <div class="container mx-auto mt-10">  
       <el-card>
         <form @submit.prevent="submitForm">
           <!-- Name -->
+
           <div>
             <Label for="event_title">Title</Label>
             <Input
