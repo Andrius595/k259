@@ -22,6 +22,11 @@ const data = ref({
   // liiter time
   litter_time: "",
 });
+
+//pull data from database to array
+const litters = ref([]);
+
+
 </script>
 
 <template>
