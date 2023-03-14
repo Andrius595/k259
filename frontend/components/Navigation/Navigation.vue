@@ -28,8 +28,18 @@ async function handleLogout() {
 
           <!-- Navigation Links  -->
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <NavigationLink href="/dashboard"> Dashboard</NavigationLink>
+            <NavigationLink href="/dashboard"> Dashboard 🏠</NavigationLink>
           </div>
+
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <NavigationLink href="/litter/list">Litters 🚮</NavigationLink>
+          </div>
+
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <NavigationLink href="/event/create">Events 🥳 (create)</NavigationLink>
+          </div>
+
+
         </div>
 
         <!-- Settings Dropdown  -->
