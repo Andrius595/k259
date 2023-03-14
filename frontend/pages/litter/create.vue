@@ -148,7 +148,7 @@
 
           <div class="flex items-center justify-end mt-4">
             <NuxtLink
-                href="/"
+                href="/litter/list"
                 class="underline text-sm text-gray-600 hover:text-gray-900"
             >
               Cancel
