@@ -226,7 +226,7 @@ async function submitForm() {
   if (response.status) {
     successMessage.value = 'Litter created successfully'
 
-    return
+    return await navigateTo('/litter/list')
   }
 
   if (response.data.errors) {

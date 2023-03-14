@@ -27,8 +27,10 @@ class LitterController extends Controller
         $data = $request->validated();
 
         $image = $request->file('image');
-        $imagePath = $image->store('litter', 'public');
-        $data['image_path'] = $imagePath;
+        if ($image) {
+            $imagePath = $image->store('litter', 'public');
+            $data['image_path'] = $imagePath;
+        }
 
         $litter = Litter::create($data);
 
