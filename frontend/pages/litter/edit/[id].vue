@@ -156,6 +156,7 @@
             </NuxtLink>
 
             <Button class="ml-3">Update</Button>
+            
           </div>
         </form>
       </el-card>
@@ -243,7 +244,7 @@ async function submitForm() {
   if (response.status) {
     successMessage.value = 'Litter updated successfully'
 
-    return
+    return await navigateTo('/litter/list')
   }
 
   if (response.data.errors) {
