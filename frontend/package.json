@@ -9,7 +9,10 @@
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.3",
+    "@types/leaflet": "^1.9.2",
     "@types/node": "^18.14.1",
+    "@vue-leaflet/vue-leaflet": "^0.9.0",
+    "leaflet": "^1.9.3",
     "nuxt": "^3.2.2"
   },
   "dependencies": {
