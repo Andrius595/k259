@@ -30,7 +30,7 @@ const navigateToLitter = () => {
     <!-- litter image from provided litter image_path location -->
     <div class="flex justify-center">
       <img
-        class="w-32 h-32 object-cover"
+        class="w-fill h-fill object-cover"
         :src="litter.litter.image_path || 'https://via.placeholder.com/150'"
         alt="litter image"
       />
@@ -38,7 +38,7 @@ const navigateToLitter = () => {
     </div>
     <!-- title -->
     <div class="mt-4">
-      <h1 class="text-2xl font-bold text-gray-900">Id: {{ litter.litter.id }}</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Litter Id: {{ litter.litter.id }}</h1>
     </div>
     <!-- description -->
     <div class="mt-4">
