@@ -38,19 +38,20 @@ const navigateToLitter = () => {
     </div>
     <!-- title -->
     <div class="mt-4">
-      <h1 class="text-2xl font-bold text-gray-900">{{ litter.litter.id }}</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Id: {{ litter.litter.id }}</h1>
     </div>
     <!-- description -->
     <div class="mt-4">
+      Description:
       <p class="text-gray-600">{{ litter.litter.description }}</p>
     </div>
     <!-- date -->
     <div class="mt-4">
-      <p class="text-gray-600">{{ litter.litter.created_at }}</p>
+      <p class="text-gray-600">Time: {{ litter.litter.created_at }}</p>
     </div>
     <!-- size -->
     <div class="mt-4">
-      <p class="text-gray-600">{{ litter.litter.size }}</p>
+      <p class="text-gray-600">Size: {{ litter.litter.size }}</p>
     </div>
     <!-- button -->
     <div class="mt-4">
