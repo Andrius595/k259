@@ -36,7 +36,6 @@
 import "leaflet/dist/leaflet.css";
 import {LMap, LTileLayer, LMarker, LPopup} from "@vue-leaflet/vue-leaflet";
 import {Litter} from "~/types/litterTypes";
-import L, { map } from "leaflet";
 
 const zoom = ref(7);
 const center = ref({lat: 55.2, lon: 24});
