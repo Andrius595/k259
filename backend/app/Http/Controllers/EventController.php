@@ -25,8 +25,10 @@ class EventController extends Controller
         $data = $request->validated();
 
         $image = $request->file('image');
-        $imagePath = $image->store('event', 'public');
-        $data['image_path'] = $imagePath;
+        if ($image) {
+            $imagePath = $image->store('event', 'public');
+            $data['image_path'] = $imagePath;
+        }
 
         $event = Event::create($data);
 
