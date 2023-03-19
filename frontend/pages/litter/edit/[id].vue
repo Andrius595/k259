@@ -73,12 +73,11 @@
               style="height: 500px;width: 700px;"
               :latitude="litter.latitude"
               :longitude="litter.longitude"
+              :myAccuracy="coords.accuracy"
+              :myLatitude="coords.latitude"
+              :myLongitude="coords.longitude"
               @update:latLng="updateCoordinates"
             />
-           
-
-
-            
         </div>
 
           <div class="mt-4 hidden">
@@ -196,7 +195,8 @@
 import Select from "~/components/Select.vue";
 import {TrashType} from "~/types/trashTypeTypes";
 import {Litter} from "~/types/litterTypes";
-
+import { useGeolocation } from '@vueuse/core'
+const { coords, locatedAt, error, resume, pause } = useGeolocation()
 definePageMeta({middleware: ["auth"]})
 
 const route = useRoute();

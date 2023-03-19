@@ -51,29 +51,31 @@
 
         <!-- REPLACE WITH MAP-->
           <div class="mt-4">
-            <Label for="litter_latitude">Latitude</Label>
-            <Input
-                id="litter_latitude"
-                type="text"
-                class="block mt-1 w-full"
-                v-model="data.latitude"
-                :errors="errors.latitude"
-                required
-            />
-          </div>
+            <Label for="litterMapForEdit">Location</Label>
+             <!--coordinates net to map-->
+             <div class="flex flex-row gap-4">
+              <div class="flex flex-col">
+                <span>Latitude:</span>
+                <span>{{data.latitude}}</span>
+              </div>
+              <div class="flex flex-col">
+                <span>Longitude:</span>
+                <span>{{data.longitude}}</span>
+              </div>
 
-          <div class="mt-4">
-            <Label for="litter_longitude">Longitude</Label>
-            <Input
-                id="litter_longitude"
-                type="text"
-                class="block mt-1 w-full"
-                v-model="data.longitude"
-                :errors="errors.longitude"
-                required
+            </div>
+            <!--LitterMapForEdit with latitude and longitude passed in as props-->
+            <LitterMapForEdit
+              id="litterMapForEdit"
+              style="height: 500px;width: 700px;"
+              :latitude="data.latitude"
+              :longitude="data.longitude"
+              :myAccuracy="coords.accuracy"
+              :myLatitude="coords.latitude"
+              :myLongitude="coords.longitude"
+              @update:latLng="updateCoordinates"
             />
-          </div>
-
+        </div>
           <div class="mt-4">
             <Label>Accessibility</Label>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-4">
@@ -165,15 +167,12 @@
 <script setup lang="ts">
 import Select from "~/components/Select.vue";
 import {TrashType} from "~/types/trashTypeTypes";
-import {Litter} from "~/types/litterTypes";
+import { useGeolocation } from '@vueuse/core'
 
 definePageMeta({middleware: ["auth"]})
-
-const litter = ref<Litter | null>(null)
+const { coords, locatedAt, error, resume, pause } = useGeolocation()
 const trashTypes = ref<TrashType[]>([])
-
 const selectedTrashTypes = ref<number[]>([])
-
 const errors = ref<Record<string, string>>({})
 const errorMessage = ref<string>('')
 const successMessage = ref<string>('')
@@ -200,7 +199,6 @@ async function loadTrashTypes() {
   const response = await $fetch('/api/trash-types')
   if (response.status) {
     trashTypes.value = response.data
-
     return
   }
 
@@ -238,15 +236,20 @@ async function submitForm() {
   errorMessage.value = response.data.data
 }
 
+function updateCoordinates(e:any) {
+  data.value.latitude = e.lat 
+  data.value.longitude = e.lng
+}
+
 
 const data = ref({
   //'size','latitude','longitude','image_path','description','is_accessible_by_car','is_located_in_hole','is_under_water','is_on_the_waterside','is_hard_to_reach'
   // liiter size
   size: "",
   // liiter latitude
-  latitude: "",
+  latitude: coords.value?.latitude,
   // liiter longitude
-  longitude: "",
+  longitude: coords.value?.longitude,
   // liiter image path
   image_path: "",
   // liiter description
