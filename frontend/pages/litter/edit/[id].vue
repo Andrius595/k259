@@ -54,6 +54,16 @@
           </div>
 
           <div class="mt-4">
+            <!--LitterMapForEdit with latitude and longitude passed in as props-->
+            <LitterMapForEdit
+              style="height: 500px;width: 500px;"
+              :latitude="litter.latitude"
+              :longitude="litter.longitude"
+              @update:latLng="updateCoordinates"
+            />
+        </div>
+
+          <div class="mt-4">
             <Label for="litter_latitude">Latitude</Label>
             <Input
                 id="litter_latitude"
@@ -255,4 +265,13 @@ async function submitForm() {
 
   errorMessage.value = response.data.data
 }
+
+
+function updateCoordinates(e:any) {
+  litter.value.latitude = e.lat
+  litter.value.longitude = e.lng
+}
+
+
+
 </script>
