@@ -34,6 +34,12 @@
             </l-popup>
           </l-marker>
         </template>
+        <l-circle
+        :latLng="{lat: props.myLatitude, lng: props.myLongitude}"
+        :radius="props.myAccuracy"
+        :color="'#3388ff'" 
+
+    />
       </l-map>
     </client-only>
   </div>
@@ -41,14 +47,16 @@
 
 <script setup lang="ts">
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker, LPopup } from "@vue-leaflet/vue-leaflet";
-import { Litter } from "~/types/litterTypes";
-import { emit } from "process";
+import { LMap, LTileLayer, LMarker, LPopup, LCircle } from "@vue-leaflet/vue-leaflet";
+import { circle } from "leaflet";
 
 //define props
 const props = defineProps<{
   latitude: number;
   longitude: number;
+  myAccuracy: number;
+  myLatitude: number;
+  myLongitude: number;
 }>();
 
 const zoom = ref(13);
@@ -79,4 +87,16 @@ const litterListCoordinates = computed(() => {
     },
   ];
 });
+
+/*
+
+      center: [47.313220, -1.319482],
+      circle: {
+        center: [47.413220, -1.0482],
+        radius: 6,
+        color: 'red'
+      },
+      */
+
+
 </script>
