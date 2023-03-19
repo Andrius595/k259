@@ -6,7 +6,7 @@ export default {
 
 <script setup lang="ts">
 type Props = {
-  modelValue?: string | null;
+  modelValue?: string[] | number[] | string;
   errors?: string[] | string;
   options?: {label: string, value: any}[];
 };

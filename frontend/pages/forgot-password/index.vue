@@ -12,7 +12,7 @@ async function submitForm() {
   status.value = "";
   errorMessage.value = "";
 
-    const response = await $fetch('/api/auth/forgot-password', {method: 'POST', body: {email: email.value}})
+    const response :any = await $fetch('/api/auth/forgot-password', {method: 'POST', body: {email: email.value}})
 
     if (response.status) {
         resetEmailSent.value = true;

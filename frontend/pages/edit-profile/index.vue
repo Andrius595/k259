@@ -17,7 +17,7 @@ const errorMessage = ref<string>('');
 async function submitForm() {
   errors.value = {};
 
-    const response = await $fetch('/api/user/update-profile', {method: 'POST', body: data.value})
+    const response :any = await $fetch('/api/user/update-profile', {method: 'POST', body: data.value})
 
   if (response.status) {
     return await navigateTo('/dashboard')

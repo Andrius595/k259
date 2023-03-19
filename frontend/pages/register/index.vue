@@ -16,7 +16,7 @@ const errors = ref<Record<string, string[]>>({});
 async function submitForm() {
   errors.value = {};
 
-  const response: ServerSideResponse = await $fetch('/api/auth/register', {method: 'POST', body: data.value})
+  const response: any = await $fetch('/api/auth/register', {method: 'POST', body: data.value})
 
   if (response.status) {
     return navigateTo('/dashboard')

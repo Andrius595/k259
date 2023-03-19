@@ -8,9 +8,9 @@ const LittersList = ref<Litter[]>([])
 await loadLitters()
 
 async function loadLitters() {
-  const response = await $fetch('/api/litter')
+  const response :any = await $fetch('/api/litter')
   if (response.status) {
-    LittersList.value = response.data
+    LittersList.value = response.data 
   }
 }
 

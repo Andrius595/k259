@@ -4,12 +4,12 @@ definePageMeta({middleware: ["guest"]});
 const router = useRouter();
 const route = useRoute();
 
-const data = ref({
+const data : any = ref({
   email: route.query.email ?? '',
   password: '',
   remember: false,
 });
-const status = ref(route.query.reset ?? "");
+const status : any = ref(route.query.reset ?? "");
 const errors = ref<Record<string, string[]>>({});
 const errorMessage = ref<string>("");
 
@@ -18,7 +18,7 @@ async function submitForm() {
   errorMessage.value = "";
   status.value = "";
 
-  const response = await $fetch('/api/auth/login', {method: 'post', body: data.value})
+  const response :any = await $fetch('/api/auth/login', {method: 'post', body: data.value})
 
   if (response.status) {
     return await navigateTo('/dashboard')

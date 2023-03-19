@@ -64,7 +64,7 @@ const zoom = ref(13);
 var latitude = props.latitude ;
 var longitude = props.longitude;
 
-const center = ref({ lat: latitude, lon: longitude });
+const center :any = ref({ lat: latitude, lon: longitude });
 
 const updatedLatLng = (e: any) => {
   console.log(e);
