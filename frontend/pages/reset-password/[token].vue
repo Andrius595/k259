@@ -21,7 +21,7 @@ async function submitForm() {
   errors.value = {};
   errorMessage.value = '';
 
-    const response = await $fetch('/api/auth/reset-password', {method: 'POST', body: {token: token.value, ...data.value}})
+    const response :any = await $fetch('/api/auth/reset-password', {method: 'POST', body: {token: token.value, ...data.value}})
 
   if (response.status) {
     return navigateTo(`/login?reset=${response.data}&email=${data.value.email}`)

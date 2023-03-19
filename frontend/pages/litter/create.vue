@@ -51,7 +51,7 @@
 
         <!-- REPLACE WITH MAP-->
           <div class="mt-4">
-            <Label for="litterMapForEdit">Location</Label>
+            <Label for="litterMapForForm">Location</Label>
              <!--coordinates net to map-->
              <div class="flex flex-row gap-4">
               <div class="flex flex-col">
@@ -64,9 +64,9 @@
               </div>
 
             </div>
-            <!--LitterMapForEdit with latitude and longitude passed in as props-->
-            <LitterMapForEdit
-              id="litterMapForEdit"
+            <!--LitterMapForForm with latitude and longitude passed in as props-->
+            <LitterMapForForm
+              id="litterMapForForm"
               style="height: 500px;width: 700px;"
               :latitude="data.latitude"
               :longitude="data.longitude"
@@ -196,7 +196,7 @@ await loadTrashTypes()
 
 
 async function loadTrashTypes() {
-  const response = await $fetch('/api/trash-types')
+  const response :any = await $fetch('/api/trash-types')
   if (response.status) {
     trashTypes.value = response.data
     return
@@ -216,7 +216,7 @@ async function submitForm() {
     ...data.value,
   }
 
-  const response = await $fetch(`/api/litter/`, {
+  const response :any = await $fetch(`/api/litter/`, {
     method: 'POST',
     body: datato,
   })

@@ -54,7 +54,7 @@
           </div>
 
           <div class="mt-4">
-            <Label for="litterMapForEdit">Location</Label>
+            <Label for="litterMapForForm">Location</Label>
              <!--coordinates net to map-->
              <div class="flex flex-row gap-4">
               <div class="flex flex-col">
@@ -67,9 +67,9 @@
               </div>
 
             </div>
-            <!--LitterMapForEdit with latitude and longitude passed in as props-->
-            <LitterMapForEdit
-              id="litterMapForEdit"
+            <!--LitterMapForForm with latitude and longitude passed in as props-->
+            <LitterMapForForm
+              id="litterMapForForm"
               style="height: 500px;width: 700px;"
               :latitude="litter.latitude"
               :longitude="litter.longitude"
@@ -203,7 +203,7 @@ const route = useRoute();
 
 const litterId = ref(route.params.id ?? null)
 
-const litter = ref<Litter | null>(null)
+const litter : any= ref<Litter | null>(null)
 const trashTypes = ref<TrashType[]>([])
 
 const selectedTrashTypes = ref<number[]>([])
@@ -231,7 +231,7 @@ await loadLitter()
 await loadTrashTypes()
 
 async function loadLitter() {
-  const response = await $fetch(`/api/litter/${litterId.value}`)
+  const response :any = await $fetch(`/api/litter/${litterId.value}`)
   if (response.status) {
     litter.value = response.data
     selectedTrashTypes.value = response.data.trash_types.map((trashType: TrashType) => trashType.id)
@@ -243,7 +243,7 @@ async function loadLitter() {
 }
 
 async function loadTrashTypes() {
-  const response = await $fetch('/api/trash-types')
+  const response :any = await $fetch('/api/trash-types')
   if (response.status) {
     trashTypes.value = response.data
 
@@ -264,7 +264,7 @@ async function submitForm() {
     trash_types: selectedTrashTypes.value,
   }
 
-  const response = await $fetch(`/api/litter/${litterId.value}`, {
+  const response :any = await $fetch(`/api/litter/${litterId.value}`, {
     method: 'PUT',
     body: data,
   })

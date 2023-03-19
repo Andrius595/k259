@@ -39,7 +39,7 @@ const user = userStore.getUser;
           <h2 class="font-semibold text-xl text-gray-800 leading-tight m-2">
             Šiukšlių žemėlapis 📍
           </h2>
-          <LitterMap style="height: 500px" />
+          <LitterMap style="height: 500px"/>
         </div>
       </div>
     </div>
