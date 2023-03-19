@@ -54,16 +54,34 @@
           </div>
 
           <div class="mt-4">
+            <Label for="litterMapForEdit">Location</Label>
+             <!--coordinates net to map-->
+             <div class="flex flex-row gap-4">
+              <div class="flex flex-col">
+                <span>Latitude:</span>
+                <span>{{litter.latitude}}</span>
+              </div>
+              <div class="flex flex-col">
+                <span>Longitude:</span>
+                <span>{{litter.longitude}}</span>
+              </div>
+
+            </div>
             <!--LitterMapForEdit with latitude and longitude passed in as props-->
             <LitterMapForEdit
-              style="height: 500px;width: 500px;"
+              id="litterMapForEdit"
+              style="height: 500px;width: 700px;"
               :latitude="litter.latitude"
               :longitude="litter.longitude"
               @update:latLng="updateCoordinates"
             />
+           
+
+
+            
         </div>
 
-          <div class="mt-4">
+          <div class="mt-4 hidden">
             <Label for="litter_latitude">Latitude</Label>
             <Input
                 id="litter_latitude"
@@ -75,7 +93,7 @@
             />
           </div>
 
-          <div class="mt-4">
+          <div class="mt-4 hidden">
             <Label for="litter_longitude">Longitude</Label>
             <Input
                 id="litter_longitude"
@@ -268,7 +286,7 @@ async function submitForm() {
 
 
 function updateCoordinates(e:any) {
-  litter.value.latitude = e.lat
+  litter.value.latitude = e.lat 
   litter.value.longitude = e.lng
 }
 
