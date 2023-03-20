@@ -35,11 +35,15 @@
           </l-marker>
         </template>
         <l-circle
-        :latLng="{lat: props.myLatitude, lng: props.myLongitude}"
-        :radius="props.myAccuracy"
-        :color="'#3388ff'" 
-
-    />
+          :latLng="{ lat: props.myLatitude, lng: props.myLongitude }"
+          :radius="props.myAccuracy"
+          :color="'#3388ff'"
+        />
+        <l-circle
+          :latLng="{ lat: props.myLatitude, lng: props.myLongitude }"
+          :radius="0"
+          :color="'red'"
+        />
       </l-map>
     </client-only>
   </div>
@@ -47,8 +51,13 @@
 
 <script setup lang="ts">
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker, LPopup, LCircle } from "@vue-leaflet/vue-leaflet";
-import { circle } from "leaflet";
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LPopup,
+  LCircle,
+} from "@vue-leaflet/vue-leaflet";
 
 //define props
 const props = defineProps<{
@@ -61,10 +70,10 @@ const props = defineProps<{
 
 const zoom = ref(13);
 
-var latitude = props.latitude ;
+var latitude = props.latitude;
 var longitude = props.longitude;
 
-const center :any = ref({ lat: latitude, lon: longitude });
+const center: any = ref({ lat: latitude, lon: longitude });
 
 const updatedLatLng = (e: any) => {
   console.log(e);
@@ -97,6 +106,4 @@ const litterListCoordinates = computed(() => {
         color: 'red'
       },
       */
-
-
 </script>

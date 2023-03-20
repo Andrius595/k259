@@ -53,7 +53,7 @@
           <div class="mt-4">
             <Label for="litterMapForForm">Location</Label>
              <!--coordinates net to map-->
-             <div class="flex flex-row gap-4">
+             <div class="flex flex-row gap-4 text-xs">
               <div class="flex flex-col">
                 <span>Latitude:</span>
                 <span>{{data.latitude}}</span>
@@ -67,7 +67,7 @@
             <!--LitterMapForForm with latitude and longitude passed in as props-->
             <LitterMapForForm
               id="litterMapForForm"
-              style="height: 500px;width: 700px;"
+              style="height: 500px;"
               :latitude="data.latitude"
               :longitude="data.longitude"
               :myAccuracy="coords.accuracy"

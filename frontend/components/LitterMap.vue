@@ -8,7 +8,7 @@
             name="OpenStreetMap"
         />
         <template v-for="litterListCoordinate in litterListCoordinates">
-          <l-marker :lat-lng="litterListCoordinate.geometry.coordinates" :radius="5" :options="{color: 'red'}">
+          <l-marker :lat-lng="litterListCoordinate.geometry.coordinates" :radius="5" :options="{color: 'red'}" >
             <l-popup>
               <div class="flex flex-col gap-1">
                 <h3 class="text-xl font-bold">Litter</h3>
@@ -27,6 +27,16 @@
             </l-popup>
           </l-marker>
         </template>
+        <l-circle
+          :latLng="{ lat: props.myLatitude, lng: props.myLongitude }"
+          :radius="props.myAccuracy"
+          :color="'#3388ff'"
+        />
+        <l-circle
+          :latLng="{ lat: props.myLatitude, lng: props.myLongitude }"
+          :radius="0"
+          :color="'red'"
+        />
       </l-map>
     </client-only>
   </div>
@@ -34,17 +44,23 @@
 
 <script setup lang="ts">
 import "leaflet/dist/leaflet.css";
-import {LMap, LTileLayer, LMarker, LPopup} from "@vue-leaflet/vue-leaflet";
+import {LMap, LTileLayer, LMarker, LPopup, LCircle} from "@vue-leaflet/vue-leaflet";
 import {Litter} from "~/types/litterTypes";
 
-const zoom = ref(7);
-const center = ref({lat: 55.2, lon: 24});
+
 
 const LittersList = ref<Litter[]>([])
 await loadLitters()
+const props = defineProps<{
+  myAccuracy: number;
+  myLatitude: number;
+  myLongitude: number;
+}>();
 
+const zoom = ref(13);
+const center :any = ref({lat: props.myLatitude, lon: props.myLongitude});
 
-const litterListCoordinates = computed(() => {
+const litterListCoordinates :any = computed(() => {
   return LittersList.value.map((litter) => {
     return {
       type: "Feature",
@@ -61,7 +77,7 @@ const litterListCoordinates = computed(() => {
 })
 
 async function loadLitters() {
-  const response = await $fetch('/api/litter')
+  const response : any = await $fetch('/api/litter')
   if (response.status) {
     LittersList.value = response.data
   }

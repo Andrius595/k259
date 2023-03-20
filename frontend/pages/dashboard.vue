@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {useUserStore} from "~/stores/userStore";
 import LitterMap from '~/components/LitterMap.vue'
-
+import { useGeolocation } from '@vueuse/core'
+const { coords, locatedAt, error, resume, pause } = useGeolocation()
 definePageMeta({middleware: ["auth"]});
 
 const userStore = useUserStore();
@@ -39,7 +40,11 @@ const user = userStore.getUser;
           <h2 class="font-semibold text-xl text-gray-800 leading-tight m-2">
             Šiukšlių žemėlapis 📍
           </h2>
-          <LitterMap style="height: 500px"/>
+          <LitterMap style="height: 500px"
+              :myAccuracy="coords.accuracy"
+              :myLatitude="coords.latitude"
+              :myLongitude="coords.longitude"
+              />
         </div>
       </div>
     </div>
