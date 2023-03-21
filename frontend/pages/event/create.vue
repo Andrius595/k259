@@ -1,42 +1,3 @@
-<script setup lang="ts">
-
-//'title','description','starting_at','latitude','longitude','image_path','has_ended',
-
-const data = ref({
-  // event title
-  event_title: "",
-  // event description
-  event_description: "",
-  // starting at date
-  starting_date: "",
-  // starting at time
-  starting_time: "",
-  // latitude
-  latitude: "",
-  // longitude
-  longitude: "",
-  // has ended
-  has_ended: "",
-  // image path
-  image_path: ""
-});
-
-const errors = ref<Record<string, string[]>>({});
-async function submitForm() {
-  errors.value = {};
-
-  try {
-    const response = await $fetch("/api/event/create-event", {
-      method: "POST",
-      body: data.value,
-    });
-    // TODO show success message
-  } catch (e) {
-    // TODO show errors
-  }
-}
-</script>
-
 <template>
   <NuxtLayout name="auth-layout">
   
@@ -108,30 +69,33 @@ async function submitForm() {
             />
           </div>
 
+          <!-- REPLACE WITH MAP-->
           <div class="mt-4">
-            <Label for="longitude">Longitude</Label>
-            <Input
-              id="longitude"
-              type="text"
-              class="block mt-1 w-full"
-              v-model="data.longitude"
-              :errors="errors.longitude"
-              required
+            <Label for="litterMapForForm">Location</Label>
+            <!--coordinates net to map-->
+            <div class="flex flex-row gap-4 text-xs">
+              <div class="flex flex-col">
+                <span>Latitude:</span>
+                <span>{{ data.latitude }}</span>
+              </div>
+              <div class="flex flex-col">
+                <span>Longitude:</span>
+                <span>{{ data.longitude }}</span>
+              </div>
+            </div>
+            <!--LitterMapForForm with latitude and longitude passed in as props-->
+            <LitterMapForForm
+              id="litterMapForForm"
+              style="height: 500px"
+              v-if="coordsLoaded"
+              :latitude="data.latitude"
+              :longitude="data.longitude"
+              :myAccuracy="coords.accuracy"
+              :myLatitude="coords.latitude"
+              :myLongitude="coords.longitude"
+              @update:latLng="updateCoordinates"
             />
           </div>
-
-          <div class="mt-4">
-            <Label for="latitude">Latitude</Label>
-            <Input
-              id="latitude"
-              type="text"
-              class="block mt-1 w-full"
-              v-model="data.latitude"
-              :errors="errors.latitude"
-              required
-            />
-          </div>
-
           
           <div class="mt-4">
             <Label for="image_path">Image (url)</Label>
@@ -160,3 +124,60 @@ async function submitForm() {
     </div>
   </NuxtLayout>
 </template>
+
+<script setup lang="ts">
+import { useGeolocation } from "@vueuse/core";
+
+definePageMeta({ middleware: ["auth"] });
+const { coords } = useGeolocation();
+var coordsLoaded = false
+console.log(coords.value.latitude)
+//wait for coords to change, then continue
+watch(coords, (newCoords) => {
+  if (newCoords) {
+    console.log(coords.value.latitude)
+    coordsLoaded = true
+  }
+})
+
+const errors = ref<Record<string, string[]>>({});
+
+
+async function submitForm() {
+  errors.value = {};
+
+  try {
+    const response = await $fetch("/api/event/create-event", {
+      method: "POST",
+      body: data.value,
+    });
+    // TODO show success message
+  } catch (e) {
+    // TODO show errors
+  }
+}
+
+function updateCoordinates(e:any) {
+  data.value.latitude = e.lat 
+  data.value.longitude = e.lng
+}
+
+const data = ref({
+  // event title
+  event_title: "",
+  // event description
+  event_description: "",
+  // starting at date
+  starting_date: "",
+  // starting at time
+  starting_time: "",
+  // latitude
+  latitude: coords.value?.latitude,
+  // longitude
+  longitude: coords.value?.longitude,
+  // has ended
+  has_ended: "",
+  // image path
+  image_path: ""
+});
+</script>

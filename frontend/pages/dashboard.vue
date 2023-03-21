@@ -1,8 +1,25 @@
 <script setup lang="ts">
+import { useGeolocation } from '@vueuse/core'
 import {useUserStore} from "~/stores/userStore";
 import LitterMap from '~/components/LitterMap.vue'
-import { useGeolocation } from '@vueuse/core'
-const { coords, locatedAt, error, resume, pause } = useGeolocation()
+
+//wait for const { coords } = useGeolocation() to load, then continue
+const { coords } = useGeolocation()
+
+var coordsLoaded = false
+console.log(coords.value.latitude)
+//wait for coords to change, then continue
+watch(coords, (newCoords) => {
+  if (newCoords) {
+    console.log(coords.value.latitude)
+    coordsLoaded = true
+  }
+})
+
+
+
+
+
 definePageMeta({middleware: ["auth"]});
 
 const userStore = useUserStore();
@@ -40,7 +57,10 @@ const user = userStore.getUser;
           <h2 class="font-semibold text-xl text-gray-800 leading-tight m-2">
             Šiukšlių žemėlapis 📍
           </h2>
+          <!-- load map after coords is loaded -->
+
           <LitterMap style="height: 500px"
+              v-if="coordsLoaded" 
               :myAccuracy="coords.accuracy"
               :myLatitude="coords.latitude"
               :myLongitude="coords.longitude"

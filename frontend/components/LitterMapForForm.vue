@@ -75,12 +75,6 @@ var longitude = props.longitude;
 
 const center: any = ref({ lat: latitude, lon: longitude });
 
-const updatedLatLng = (e: any) => {
-  console.log(e);
-  latitude = e.lat;
-  longitude = e.lng;
-};
-
 const litterListCoordinates = computed(() => {
   return [
     {
@@ -96,14 +90,4 @@ const litterListCoordinates = computed(() => {
     },
   ];
 });
-
-/*
-
-      center: [47.313220, -1.319482],
-      circle: {
-        center: [47.413220, -1.0482],
-        radius: 6,
-        color: 'red'
-      },
-      */
 </script>
