@@ -31,7 +31,7 @@ const navigateToLitter = () => {
     <div class="flex justify-center">
       <img
         class="w-fill h-fill object-cover"
-        :src="litter.litter.image_path || 'https://via.placeholder.com/150'"
+        :src="litter.litter.image_src || 'https://via.placeholder.com/150'"
         alt="litter image"
       />
 

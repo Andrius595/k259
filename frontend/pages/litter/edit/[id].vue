@@ -54,6 +54,37 @@
           </div>
 
           <div class="mt-4">
+            <Label for="litter_image_path">Image</Label>
+            <div v-if="litter.image_path" class="flex">
+              <div class="relative">
+                <span class="absolute z-10 right-3 hover:cursor-pointer" @click="removeCurrentImage">
+                  <el-icon :size="20">
+                    <Close />
+                  </el-icon>
+                </span>
+
+                <el-image
+                    style="height: 200px"
+                    :src="litter.image_src"
+                    fit="contain"
+                    :preview-src-list="[litter.image_src]"
+                />
+              </div>
+            </div>
+            <el-upload
+                v-else
+                ref="upload"
+                v-model:file-list="fileList"
+                :on-exceed="handleExceed"
+                :auto-upload="false"
+                list-type="picture"
+                :limit="1"
+            >
+              <el-button type="primary">Click to upload</el-button>
+            </el-upload>
+          </div>
+
+          <div class="mt-4">
             <Label for="litterMapForForm">Location</Label>
              <!--coordinates net to map-->
              <div class="flex flex-row gap-4 text-xs">
@@ -196,9 +227,13 @@ import Select from "~/components/Select.vue";
 import {TrashType} from "~/types/trashTypeTypes";
 import {Litter} from "~/types/litterTypes";
 import { useGeolocation } from '@vueuse/core'
-const { coords, locatedAt, error, resume, pause } = useGeolocation()
+import {genFileId, UploadInstance, UploadProps, UploadRawFile, UploadUserFile} from "element-plus";
+import {Close} from "@element-plus/icons-vue";
+import {serialize} from "object-to-formdata";
+
 definePageMeta({middleware: ["auth"]})
 
+const { coords, locatedAt, error, resume, pause } = useGeolocation()
 const route = useRoute();
 
 const litterId = ref(route.params.id ?? null)
@@ -207,6 +242,10 @@ const litter : any= ref<Litter | null>(null)
 const trashTypes = ref<TrashType[]>([])
 
 const selectedTrashTypes = ref<number[]>([])
+
+const fileList = ref<UploadUserFile[]>([])
+const upload = ref<UploadInstance>()
+const deleteCurrentImage = ref<boolean>(false)
 
 const errors = ref<Record<string, string>>({})
 const errorMessage = ref<string>('')
@@ -262,11 +301,20 @@ async function submitForm() {
   const data = {
     ...litter.value,
     trash_types: selectedTrashTypes.value,
+    is_accessible_by_car: litter.value.is_accessible_by_car ? 1 : 0,
+    is_located_in_hole: litter.value.is_located_in_hole ? 1 : 0,
+    is_under_water: litter.value.is_under_water ? 1 : 0,
+    is_on_the_waterside: litter.value.is_on_the_waterside ? 1 : 0,
+    is_hard_to_reach: litter.value.is_hard_to_reach ? 1 : 0,
+    is_cleaned: litter.value.is_cleaned ? 1 : 0,
+    image: fileList.value[0]?.raw,
   }
 
-  const response :any = await $fetch(`/api/litter/${litterId.value}`, {
+  const body = serialize(data)
+
+  const response: any = await $fetch(`/api/litter/${litterId.value}`, {
     method: 'PUT',
-    body: data,
+    body,
   })
 
   if (response.status) {
@@ -290,6 +338,16 @@ function updateCoordinates(e:any) {
   litter.value.longitude = e.lng
 }
 
+function removeCurrentImage() {
+  litter.value.image_src = null
+  litter.value.image_path = null
+  deleteCurrentImage.value = true
+}
 
-
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  upload.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  file.uid = genFileId()
+  upload.value!.handleStart(file)
+}
 </script>
