@@ -1,23 +1,31 @@
-import { H3Event, getCookie } from 'h3'
-import { $fetch, FetchOptions } from 'ofetch'
+import {getCookie, H3Event} from 'h3'
+import {$fetch, FetchOptions} from 'ofetch'
+import {serialize} from 'object-to-formdata'
+
+export type CustomFetchOptions = FetchOptions & { sendsFiles?: boolean }
 
 export type BackResponseType = {
     status: boolean
     data: any
 }
 
-export const useBackFetch = async (event: H3Event, path: string, options: FetchOptions) => {
+export const useBackFetch = async (event: H3Event, path: string, options: CustomFetchOptions) => {
     const runtimeConfig = useRuntimeConfig()
     let authCookie = getCookie(event, runtimeConfig.public.authCookieName)
 
     let headers: any = {
         accept: "application/json",
-        "content-type": "application/json",
         ...options.headers,
         authorization: authCookie
     };
 
-    console.log('bf', path, headers)
+    if (options.sendsFiles) {
+        options.body._method = options.method
+        options.method = 'POST'
+        options.body = serialize(options.body)
+    }
+
+    console.log('options', options)
 
     options.baseURL = runtimeConfig.public.backendUrl
 

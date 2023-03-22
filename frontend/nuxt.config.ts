@@ -15,5 +15,6 @@ export default defineNuxtConfig({
         'nuxt-windicss',
         '@element-plus/nuxt',
         '@pinia/nuxt',
+        '@vueuse/nuxt',
     ]
 })

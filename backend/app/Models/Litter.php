@@ -26,7 +26,10 @@ class Litter extends Model
         'is_on_the_waterside',
         'is_hard_to_reach',
         'is_cleaned',
+    ];
 
+    protected $appends = [
+        'image_src',
     ];
 
     public function trashTypes(): BelongsToMany
@@ -37,5 +40,16 @@ class Litter extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // laravel image attribute
+    public function getImageSrcAttribute()
+    {
+        // TODO return no-image if image_path is null
+        if (str_starts_with($this->image_path, 'http')) {
+            return $this->image_path;
+        }
+
+        return asset('storage/' . $this->image_path);
     }
 }
