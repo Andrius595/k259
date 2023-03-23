@@ -15,6 +15,7 @@ class Litter extends Model
 
     protected $fillable = [
         'user_id',
+        'cleaner_id',
         'size',
         'latitude',
         'longitude',
@@ -38,6 +39,11 @@ class Litter extends Model
     }
 
     public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function cleaner(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

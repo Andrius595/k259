@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('litters', static function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('cleaner_id')->nullable()->references('id')->on('users');
+            $table->boolean('is_cleaned')->default(false);
             $table->integer('size');
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
@@ -24,7 +26,6 @@ return new class extends Migration
             $table->boolean('is_under_water')->default(false);
             $table->boolean('is_on_the_waterside')->default(false);
             $table->boolean('is_hard_to_reach')->default(false);
-            $table->boolean('is_cleaned')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
