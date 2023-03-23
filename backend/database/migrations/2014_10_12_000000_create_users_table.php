@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->nullable()->constrained()->nullOnDelete();
+            $table->bigInteger('points')->default(0);
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
