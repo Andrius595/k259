@@ -48,7 +48,6 @@ class Litter extends Model
         return $this->belongsTo(User::class);
     }
 
-    // laravel image attribute
     public function getImageSrcAttribute()
     {
         // TODO return no-image if image_path is null
