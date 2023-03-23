@@ -21,4 +21,11 @@ class UserController extends Controller
 
         return $this->errorResponse();
     }
+
+    public function getPointsLeaderboard(): JsonResponse
+    {
+        $users = User::query()->orderBy('points', 'desc')->take(10)->get();
+
+        return $this->successResponse($users);
+    }
 }
