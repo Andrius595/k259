@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('users/points-leaderboard', [UserController::class, 'getPointsLeaderboard']);
+
 Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::get('user', [AuthController::class, 'user']);
 
