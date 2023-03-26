@@ -39,12 +39,18 @@ async function handleLogout() {
             <NavigationLink href="/event/create">Events 🥳 (create)</NavigationLink>
           </div>
 
+          
 
         </div>
 
         <!-- Settings Dropdown  -->
         <div class="hidden sm:flex sm:items-center sm:ml-6">
+          <span class="relative -top-2.5 -right-2.5 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-pink-500 px-1.5 text-sm text-white">
+            {{ userStore.getPoints }}
+            <span class="sr-only"> Points </span>
+          </span>
           <client-only>
+
             <el-dropdown align="right">
 
                 <button
@@ -120,7 +126,6 @@ async function handleLogout() {
           Dashboard
         </NavigationResponsiveLink>
       </div>
-
       <!-- Responsive Settings Options  -->
       <div class="pt-4 pb-1 border-t border-gray-200">
         <div class="flex items-center px-4">
@@ -140,7 +145,6 @@ async function handleLogout() {
               />
             </svg>
           </div>
-
           <div class="ml-3">
             <div class="font-medium text-base text-gray-800">
               {{ user?.name }}
