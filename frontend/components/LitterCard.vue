@@ -18,6 +18,9 @@ const litter = defineProps<{ litter: Litter }>();
 const navigateToLitter = () => {
   navigateTo(`/litter/edit/${litter.litter.id}`);
 };
+const navigateToLitterCollect = () => {
+  navigateTo(`/litter/collect/${litter.litter.id}`);
+};
 
 
 </script>
@@ -60,8 +63,13 @@ const navigateToLitter = () => {
         @click="navigateToLitter"
       >
         Edit
-      
-      </button>
+    </button>
+    <button
+        class="bg-lime-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-5"
+        @click="navigateToLitterCollect"
+      >
+        Collect!
+    </button>
     </div>
   </div>
 </template>

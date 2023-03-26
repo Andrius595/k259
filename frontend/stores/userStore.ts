@@ -16,6 +16,11 @@ export const useUserStore = defineStore('user', {
                 ? `${state.user.first_name} ${state.user.last_name}`
                 : ''
         ),
+        getPoints: (state) => (
+            state.user
+                ? `${state.user.points}`
+                : '0'
+        ),
     },
     actions: {
         setUser(userData: UserData) {
