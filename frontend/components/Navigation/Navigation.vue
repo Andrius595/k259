@@ -28,15 +28,15 @@ async function handleLogout() {
 
           <!-- Navigation Links  -->
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <NavigationLink href="/dashboard"> Dashboard 🏠</NavigationLink>
+            <NavigationLink href="/dashboard"> Pagrindinis 🏠</NavigationLink>
           </div>
 
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <NavigationLink href="/litter/list">Litters 🚮</NavigationLink>
+            <NavigationLink href="/litter/list">Šiukšlės 🚮</NavigationLink>
           </div>
 
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <NavigationLink href="/event/create">Events 🥳 (create)</NavigationLink>
+            <NavigationLink href="/event/create">Sukurti įvyki 🥳</NavigationLink>
           </div>
 
           
@@ -47,7 +47,7 @@ async function handleLogout() {
         <div class="hidden sm:flex sm:items-center sm:ml-6">
           <span class="relative -top-2.5 -right-2.5 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-pink-500 px-1.5 text-sm text-white">
             {{ userStore.getPoints }}
-            <span class="sr-only"> Points </span>
+            <span class="sr-only"> Taškai </span>
           </span>
           <client-only>
 
@@ -74,10 +74,10 @@ async function handleLogout() {
                 </button>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click="navigateTo('/edit-profile')">Edit profile</el-dropdown-item>
+                  <el-dropdown-item @click="navigateTo('/edit-profile')">Redaguoti profilį</el-dropdown-item>
                 </el-dropdown-menu>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click="handleLogout" >Logout</el-dropdown-item>
+                  <el-dropdown-item @click="handleLogout" >Atsijungti</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
               <!-- Authentication  -->
