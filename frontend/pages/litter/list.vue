@@ -6,7 +6,7 @@ import LitterCard from '~/components/LitterCard.vue';
 
 const LittersList = ref<Litter[]>([])
 await loadLitters()
-
+definePageMeta({middleware: ["auth"]});
 async function loadLitters() {
   const response :any = await $fetch('/api/litter')
   if (response.status) {
