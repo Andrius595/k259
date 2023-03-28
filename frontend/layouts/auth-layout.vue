@@ -21,7 +21,7 @@ const verified = computed(() => !!route.query.verified);
         <div
           class="my-12 p-6 bg-gray-900 text-white font-semibold shadow-sm sm:rounded-lg"
         >
-          Your email has been verified, thank you!
+          Jūsų el. paštas patvirtintas, ačiū!
         </div>
       </div>
 

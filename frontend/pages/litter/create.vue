@@ -1,13 +1,13 @@
 <template>
   <NuxtLayout name="auth-layout">
     <Head>
-      <Title>Create litter</Title>
+      <Title>Sukurti šiukšles</Title>
     </Head>
 
     <template #header>
       <div class="flex justify-between items-center">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Create litter
+          Sukurti šiukšles
         </h2>
       </div>
     </template>
@@ -17,7 +17,7 @@
         <form @submit.prevent="submitForm">
           <!-- Litter size -->
           <div class="mt-4">
-            <Label for="litter_size">Size</Label>
+            <Label for="litter_size">Dydis</Label>
             <Select
                 v-model="data.size"
                 :errors="errors.size"
@@ -27,7 +27,7 @@
           </div>
 
           <div class="mt-4">
-            <Label for="litter_description">Description</Label>
+            <Label for="litter_description">Aprašymas</Label>
             <Textarea
                 id="litter_description"
                 class="block mt-1 w-full"
@@ -38,7 +38,7 @@
 
           <!-- litter image_path-->
           <div class="mt-4">
-            <Label for="litter_image_path">Image</Label>
+            <Label for="litter_image_path">Nuotrauka</Label>
             <el-upload
                 ref="upload"
                 v-model:file-list="fileList"
@@ -47,21 +47,21 @@
                 list-type="picture"
                 :limit="1"
             >
-              <el-button type="primary">Click to upload</el-button>
+              <el-button type="primary">Patalpinti</el-button>
             </el-upload>
           </div>
 
           <!-- REPLACE WITH MAP-->
           <div class="mt-4">
-            <Label for="litterMapForForm">Location</Label>
+            <Label for="litterMapForForm">Vieta</Label>
             <!--coordinates net to map-->
             <div class="flex flex-row gap-4 text-xs">
               <div class="flex flex-col">
-                <span>Latitude:</span>
+                <span>Platuma:</span>
                 <span>{{ data.latitude }}</span>
               </div>
               <div class="flex flex-col">
-                <span>Longitude:</span>
+                <span>Ilguma:</span>
                 <span>{{ data.longitude }}</span>
               </div>
             </div>
@@ -79,7 +79,7 @@
             />
           </div>
           <div class="mt-4">
-            <Label>Accessibility</Label>
+            <Label>Prieinamumas</Label>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-4">
               <div class="flex gap-4">
                 <Input
@@ -90,7 +90,7 @@
                     :checked="data.is_accessible_by_car"
                 />
                 <Label for="litter_is_accessible_by_car"
-                >Litter is accessible by car</Label
+                >Pasiekiama automobiliu</Label
                 >
               </div>
 
@@ -103,7 +103,7 @@
                     :checked="data.is_located_in_hole"
                 />
                 <Label for="litter_is_located_in_hole"
-                >Litter is located in hole</Label
+                >Šiukšlė duobėje</Label
                 >
               </div>
 
@@ -115,7 +115,7 @@
                     @change="data.is_under_water = $event.target.checked"
                     :checked="data.is_under_water"
                 />
-                <Label for="litter_is_under_water">Litter is under water</Label>
+                <Label for="litter_is_under_water">Šiukšlė vandenyje</Label>
               </div>
 
               <div class="flex gap-4">
@@ -127,7 +127,7 @@
                     :checked="data.is_on_the_waterside"
                 />
                 <Label for="litter_is_on_the_waterside"
-                >Litter is on the waterside</Label
+                >Šiukšlė prie vandens</Label
                 >
               </div>
               <div class="flex gap-4">
@@ -139,14 +139,14 @@
                     :checked="data.is_hard_to_reach"
                 />
                 <Label for="litter_is_hard_to_reach"
-                >Litter is hard to reach</Label
+                >Sunkiai pasiekiama</Label
                 >
               </div>
             </div>
           </div>
 
           <div class="mt-4">
-            <Label for="litter_description">Trash type</Label>
+            <Label for="litter_description">Tipas</Label>
             <Select
                 v-model="selectedTrashTypes"
                 :errors="errors.trash_types"
@@ -161,10 +161,10 @@
                 href="/litter/list"
                 class="underline text-sm text-gray-600 hover:text-gray-900"
             >
-              Cancel
+              Atšaukti
             </NuxtLink>
 
-            <Button class="ml-3">Create</Button>
+            <Button class="ml-3">Sukurti</Button>
           </div>
         </form>
       </el-card>

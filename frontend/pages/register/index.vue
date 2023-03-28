@@ -37,7 +37,7 @@ async function submitForm() {
     <form @submit.prevent="submitForm">
       <!-- Name -->
       <div>
-        <Label for="first_name">First Name</Label>
+        <Label for="first_name">Vardas</Label>
         <Input
             id="first_name"
             type="text"
@@ -50,7 +50,7 @@ async function submitForm() {
       </div>
 
       <div class="mt-4">
-        <Label for="last_name">Last Name</Label>
+        <Label for="last_name">Pavardė</Label>
         <Input
             id="last_name"
             type="text"
@@ -63,7 +63,7 @@ async function submitForm() {
 
       <!-- Email Address -->
       <div class="mt-4">
-        <Label for="email">Email</Label>
+        <Label for="email">el. paštas</Label>
         <Input
             id="email"
             type="email"
@@ -76,7 +76,7 @@ async function submitForm() {
 
       <!-- Password -->
       <div class="mt-4">
-        <Label for="password">Password</Label>
+        <Label for="password">slaptažodis</Label>
         <Input
             id="password"
             type="password"
@@ -90,7 +90,7 @@ async function submitForm() {
 
       <!-- Confirm Password -->
       <div class="mt-4">
-        <Label for="password_confirmation">Confirm Password</Label>
+        <Label for="password_confirmation">Patvirkinkite slaptažodį</Label>
         <Input
             id="password_confirmation"
             type="password"
@@ -106,10 +106,10 @@ async function submitForm() {
             href="/login"
             class="underline text-sm text-gray-600 hover:text-gray-900"
         >
-          Already registered?
+          Esate prisiregistravę?
         </NuxtLink>
 
-        <Button class="ml-3" type="submit">Register</Button>
+        <Button class="ml-3" type="submit">Registruotis</Button>
       </div>
     </form>
   </AuthCard>

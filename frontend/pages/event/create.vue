@@ -4,13 +4,13 @@
 
 
     <Head>
-      <Title>Create event</Title>
+      <Title>Sukurti įvyki</Title>
     </Head>
 
     <template #header>
       <div class="flex justify-between items-center">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Create event
+          Sukurti įvyki
         </h2>
       </div>
     </template>
@@ -21,7 +21,7 @@
         <form @submit.prevent="submitForm">
           <!-- Name -->
           <div>
-            <Label for="event_title">Title</Label>
+            <Label for="event_title">Pavadinimas</Label>
             <Input
               id="event_title"
               type="text"
@@ -34,7 +34,7 @@
           </div>
 
           <div class="mt-4">
-            <Label for="event_description"> Description</Label>
+            <Label for="event_description">Aprašymas</Label>
             <Input
               id="event_description"
               type="text"
@@ -46,7 +46,7 @@
           </div>
 
           <div class="mt-4">
-            <Label for="starting_date">Date</Label>
+            <Label for="starting_date">Data</Label>
             <Input
               id="starting_date"
               type="date"
@@ -58,7 +58,7 @@
           </div>
 
           <div class="mt-4">
-            <Label for="starting_time">Starting at</Label>
+            <Label for="starting_time">Prasideda</Label>
             <Input
               id="starting_time"
               type="time"
@@ -71,15 +71,15 @@
 
           <!-- REPLACE WITH MAP-->
           <div class="mt-4">
-            <Label for="litterMapForForm">Location</Label>
+            <Label for="litterMapForForm">Vieta</Label>
             <!--coordinates net to map-->
             <div class="flex flex-row gap-4 text-xs">
               <div class="flex flex-col">
-                <span>Latitude:</span>
+                <span>Platuma:</span>
                 <span>{{ data.latitude }}</span>
               </div>
               <div class="flex flex-col">
-                <span>Longitude:</span>
+                <span>Ilguma:</span>
                 <span>{{ data.longitude }}</span>
               </div>
             </div>
@@ -98,7 +98,7 @@
           </div>
           
           <div class="mt-4">
-            <Label for="image_path">Image (url)</Label>
+            <Label for="image_path">Nuotrauka</Label>
             <Input
               id="image_path"
               type="file"
@@ -114,10 +114,10 @@
               href="/login"
               class="underline text-sm text-gray-600 hover:text-gray-900"
             >
-              cancel
+              Atšaukti
             </NuxtLink>
 
-            <Button class="ml-3">Save</Button>
+            <Button class="ml-3">Išsaugoti</Button>
           </div>
         </form>
       </el-card>

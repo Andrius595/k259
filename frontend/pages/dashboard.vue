@@ -30,12 +30,12 @@ const user = userStore.getUser;
 <template>
   <NuxtLayout name="auth-layout">
     <Head>
-      <Title>Dashboard</Title>
+      <Title>Pagrindinis</Title>
     </Head>
 
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Dashboard
+        Pagrindinis
       </h2>
     </template>
 
@@ -43,8 +43,8 @@ const user = userStore.getUser;
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white border-b border-gray-200">
-            Welcome,
-            {{ user?.first_name }}, you're logged in!
+            Sveiki,
+            {{ user?.first_name }}, Jūs prisijungęs!
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@ const user = userStore.getUser;
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white border-b border-gray-200">
           <h2 class="font-semibold text-xl text-gray-800 leading-tight m-2">
-            Šiukšlių žemėlapis 📍
+            Šiukšlių žemėlapis
           </h2>
           <!-- load map after coords is loaded -->
 

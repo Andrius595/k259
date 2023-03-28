@@ -19,12 +19,12 @@ async function loadLitters() {
 <template>
   <NuxtLayout name="auth-layout">
     <Head>
-      <Title>Litter list</Title>
+      <Title>Šiukšlių sąrašas</Title>
     </Head>
 
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        List of all litters
+        Visų šiukšlių sąrašas
       </h2>
     </template>
 
@@ -37,7 +37,7 @@ async function loadLitters() {
           <div class="p-6 bg-white border-b border-gray-200">
             <a href="/litter/create" class="pr-8">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Create new Litter 🆕
+          Sukurti naują šiukšlę
         </button>
       </a>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
