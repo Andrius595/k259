@@ -11,9 +11,9 @@
           <l-marker :lat-lng="litterListCoordinate.geometry.coordinates" :radius="5" :options="{color: 'red'}" >
             <l-popup>
               <div class="flex flex-col gap-1">
-                <h3 class="text-xl font-bold">Litter</h3>
+                <h3 class="text-xl font-bold">Šiukšlė</h3>
                 <div class="flex flex-row">
-                  <div class="font-bold">Description:</div>
+                  <div class="font-bold">Aprašymas:</div>
                   <div class="ml-2">{{litterListCoordinate.properties.description}}</div>
                 </div>
                 <div class="flex flex-row">
