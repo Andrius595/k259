@@ -64,7 +64,7 @@ const navigateToLitterCollect = () => {
       >
         Redaguoti
     </button>
-    <button
+    <button v-if="litter.litter.is_cleaned === 0"
         class="bg-lime-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-5"
         @click="navigateToLitterCollect"
       >
