@@ -1,25 +1,15 @@
-// Purpose: Display litter information in a card
-//
-// Props:
-//   litter: Litter object
-//
-// Usage:
-//   <LitterCard :litter="litter" />
-
-//Property 'litter' does not exist on type
-
 <script setup lang="ts">
-import { Litter } from '~~/types/litterTypes';
+import { Event } from '~~/types/eventTypes';
 
 // props
-const litter = defineProps<{ litter: Litter }>();
+const event = defineProps<{ event: Event }>();
 
 // methods
-const navigateToLitter = () => {
-  navigateTo(`/litter/edit/${litter.litter.id}`);
+const navigateToEvent = () => {
+  navigateTo(`/event/edit/${event.event.id}`);
 };
-const navigateToLitterCollect = () => {
-  navigateTo(`/litter/collect/${litter.litter.id}`);
+const navigateToEventJoin = () => {
+  navigateTo(`/l`);
 };
 
 
@@ -34,39 +24,39 @@ const navigateToLitterCollect = () => {
     <div class="flex justify-center">
       <img
         class="w-fill h-fill object-cover"
-        :src="litter.litter.image_path || 'https://via.placeholder.com/150'"
+        :src="event.event.image_path || 'https://via.placeholder.com/150'"
         alt="litter image"
       />
 
     </div>
     <!-- title -->
     <div class="mt-4">
-      <h1 class="text-2xl font-bold text-gray-900">Šiukšlės ID: {{ litter.litter.id }}</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Šiukšlės ID: {{ event.event.id }}</h1>
     </div>
     <!-- description -->
     <div class="mt-4">
       Aprašymas:
-      <p class="text-gray-600">{{ litter.litter.description }}</p>
+      <p class="text-gray-600">{{ event.event.description }}</p>
     </div>
     <!-- date -->
     <div class="mt-4">
-      <p class="text-gray-600">Laikas: {{ litter.litter.created_at }}</p>
+      <p class="text-gray-600">Sukurtas: {{ event.event.created_at }}</p>
     </div>
     <!-- size -->
     <div class="mt-4">
-      <p class="text-gray-600">Dydis: {{ litter.litter.size }}</p>
+      <p class="text-gray-600">Prasideda: {{ event.event.starting_at }}</p>
     </div>
     <!-- button -->
     <div class="mt-4">
       <button
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        @click="navigateToLitter"
+        @click="navigateToEvent"
       >
         Redaguoti
     </button>
-    <button v-if="litter.litter.is_cleaned === 0"
+    <button
         class="bg-lime-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-5"
-        @click="navigateToLitterCollect"
+        @click="navigateToEventJoin"
       >
         Surinkti!
     </button>
