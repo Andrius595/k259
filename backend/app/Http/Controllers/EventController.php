@@ -10,11 +10,11 @@ use Illuminate\Http\JsonResponse;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        $litter = Litter::all();
+        $events = Event::all();
 
-        return $this->successResponse($litter);
+        return $this->successResponse($events);
     }
 
     /**
@@ -99,5 +99,18 @@ class EventController extends Controller
         }
 
         return $this->errorResponse();
+    }
+
+    public function joinEvent(Event $event): JsonResponse
+    {
+        if ($event->has_user_joined) {
+            return $this->errorResponse('You have already joined this event');
+        }
+
+        $event->joinedUsers()->attach(auth()->user()->id);
+
+        $event->load('user');
+
+        return $this->successResponse($event);
     }
 }

@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::apiResource('events', EventController::class);
     Route::group(['prefix' => 'events'], static function () {
         Route::post('{event}/end', [EventController::class, 'markEventAsEnded']);
+        Route::post('{event}/join', [EventController::class, 'joinEvent']);
     });
 
     Route::apiResource('companies', CompanyController::class);
