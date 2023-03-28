@@ -1,17 +1,17 @@
 <template>
     <NuxtLayout name="auth-layout">
       <Head>
-        <Title>Collect litter</Title>
+        <Title>Surinkti šiukšles</Title>
       </Head>
   
       <template #header>
         <div class="flex justify-between items-center">
           <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Collect litter
+            Surinkti šiukšles
           </h2>
           <div v-if="litter?.is_cleaned">
             <div class="bg-green-600 py-2 px-4 rounded">
-              <span class="text-white">Cleaned</span>
+              <span class="text-white">Išvalyta</span>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
                 :auto-upload="false"
                 list-type="picture"
                 :limit="1"
-            > <el-button type="primary">Upload cleaned area</el-button>
+            > <el-button type="primary">Patalpinti išvalytą vietą</el-button>
             </el-upload>
   
             <div class="flex items-center justify-end mt-4">
@@ -74,10 +74,10 @@
                   href="/litter/list"
                   class="underline text-sm text-gray-600 hover:text-gray-900"
               >
-                Cancel
+                Atšaukti
               </NuxtLink>
   
-              <Button class="ml-3">Update</Button>
+              <Button class="ml-3">Atnaujinti</Button>
               
             </div>
           </form>

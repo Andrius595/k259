@@ -42,13 +42,13 @@ async function submitForm() {
 
 
     <Head>
-      <Title>Update event</Title>
+      <Title>Atnaujinti įvyki</Title>
     </Head>
 
     <template #header>
       <div class="flex justify-between items-center">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Update event
+          Atnaujinti įvyki
         </h2>
       </div>
     </template>
@@ -60,7 +60,7 @@ async function submitForm() {
           <!-- Name -->
 
           <div>
-            <Label for="event_title">Title</Label>
+            <Label for="event_title">Pavadinimas</Label>
             <Input
               id="event_title"
               type="text"
@@ -73,7 +73,7 @@ async function submitForm() {
           </div>
 
           <div class="mt-4">
-            <Label for="event_description"> Description</Label>
+            <Label for="event_description">Aprašymas</Label>
             <Input
               id="event_description"
               type="text"
@@ -85,7 +85,7 @@ async function submitForm() {
           </div>
 
           <div class="mt-4">
-            <Label for="starting_date">Date</Label>
+            <Label for="starting_date">Data</Label>
             <Input
               id="starting_date"
               type="date"
@@ -97,7 +97,7 @@ async function submitForm() {
           </div>
 
           <div class="mt-4">
-            <Label for="starting_time">Starting at</Label>
+            <Label for="starting_time">Prasideda</Label>
             <Input
               id="starting_time"
               type="time"
@@ -109,7 +109,7 @@ async function submitForm() {
           </div>
 
           <div class="mt-4">
-            <Label for="longitude">Longitude</Label>
+            <Label for="longitude">Ilguma</Label>
             <Input
               id="longitude"
               type="text"
@@ -121,7 +121,7 @@ async function submitForm() {
           </div>
 
           <div class="mt-4">
-            <Label for="latitude">Latitude</Label>
+            <Label for="latitude">Platuma</Label>
             <Input
               id="latitude"
               type="text"
@@ -134,7 +134,7 @@ async function submitForm() {
 
           
           <div class="mt-4">
-            <Label for="image_path">Image (url)</Label>
+            <Label for="image_path">Nuotrauka</Label>
             <Input
               id="image_path"
               type="file"
@@ -150,10 +150,10 @@ async function submitForm() {
               href="/login"
               class="underline text-sm text-gray-600 hover:text-gray-900"
             >
-              cancel
+              Atšaukti
             </NuxtLink>
 
-            <Button class="ml-3">Save</Button>
+            <Button class="ml-3">Išsaugoti</Button>
           </div>
         </form>
       </el-card>

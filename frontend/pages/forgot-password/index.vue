@@ -40,9 +40,8 @@ async function submitForm() {
     </template>
 
     <div class="mb-4 text-sm text-gray-600">
-      Forgot your password? No problem. Just let us know your email address and
-      we will email you a password reset link that will allow you to choose a
-      new one.
+      Pamiršote slaptažodį? Jokių problemų. Tiesiog įveskite savo el. pašto adresą ir atsiųsime slaptažodžio
+      nustatymo iš naujo nuorodą, kuri leis pasirinkti naują slaptažodį.
     </div>
 
     <!-- Session Status -->
@@ -55,7 +54,7 @@ async function submitForm() {
     <form @submit.prevent="submitForm">
       <!-- Email Address -->
       <div>
-        <Label for="email">Email</Label>
+        <Label for="email">el. paštas</Label>
         <Input
             id="email"
             type="email"
@@ -69,7 +68,7 @@ async function submitForm() {
 
       <div class="flex items-center justify-end mt-4">
         <Button class="ml-3" :disabled="resetEmailSent">
-          Email Password Reset Link
+           Siųsti el. paštą
         </Button>
       </div>
     </form>

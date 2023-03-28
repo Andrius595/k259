@@ -52,7 +52,7 @@ async function submitForm() {
     <form @submit.prevent="submitForm">
       <!-- Email Address -->
       <div>
-        <Label for="email">Email</Label>
+        <Label for="email">el. paštas</Label>
         <Input
             id="email"
             type="email"
@@ -66,7 +66,7 @@ async function submitForm() {
 
       <!-- Password -->
       <div class="mt-4">
-        <Label for="password">Password</Label>
+        <Label for="password">slaptažodis</Label>
         <Input
             id="password"
             type="password"
@@ -83,10 +83,10 @@ async function submitForm() {
             href="/forgot-password"
             class="underline text-sm text-gray-600 hover:text-gray-900"
         >
-          Forgot your password?
+          Pamiršote slaptažodį?
         </NuxtLink>
 
-        <Button class="ml-3">Login</Button>
+        <Button class="ml-3">Prisijungti</Button>
         <Button class="ml-3" type="button" @click="navigateTo('/register')" >Register</Button>
       </div>
     </form>

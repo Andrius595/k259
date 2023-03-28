@@ -52,7 +52,7 @@ async function submitForm() {
     <form @submit.prevent="submitForm">
       <!-- Email Address -->
       <div class="mt-4">
-        <Label for="email">Email</Label>
+        <Label for="email">el. paštas</Label>
         <Input
             id="email"
             type="email"
@@ -66,7 +66,7 @@ async function submitForm() {
 
       <!-- Password -->
       <div class="mt-4">
-        <Label for="password">New Password</Label>
+        <Label for="password">Naujas slaptažodis</Label>
         <Input
             id="password"
             type="password"
@@ -79,7 +79,7 @@ async function submitForm() {
 
       <!-- Confirm Password -->
       <div class="mt-4">
-        <Label for="password_confirmation">Confirm Password</Label>
+        <Label for="password_confirmation">Patvirkinkite slaptažodį</Label>
         <Input
             id="password_confirmation"
             type="password"
@@ -91,7 +91,7 @@ async function submitForm() {
       </div>
 
       <div class="flex items-center justify-end mt-4">
-        <Button>Reset Password</Button>
+        <Button>Atnaujinti slaptažodį</Button>
       </div>
     </form>
   </AuthCard>
