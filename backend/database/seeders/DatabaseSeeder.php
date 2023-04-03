@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             TrashTypeSeeder::class,
             LitterSeeder::class,
             EventSeeder::class,
+            CompanySeeder::class,
         ]);
     }
 }
