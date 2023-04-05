@@ -39,6 +39,9 @@ async function handleLogout() {
             <NavigationLink href="/event/list">Renginiai 🥳</NavigationLink>
           </div>
 
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <NavigationLink href="/company/list">Remėjai 🤝</NavigationLink>
+          </div>
           
 
         </div>
