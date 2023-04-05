@@ -13,4 +13,3 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
         return {status: false, data: e.data}
     }
 })
-
