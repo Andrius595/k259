@@ -11,17 +11,17 @@ Usage:
     <div class="flex justify-center">
       <img
         class="w-fill h-fill object-cover"
-        :src="company.logo_Src || 'https://via.placeholder.com/150'"
+        :src="company.company.logo_path || 'https://via.placeholder.com/150'"
         alt="company logo"
       />
     </div>
     <!-- title -->
     <div class="mt-4">
-      <h1 class="text-2xl font-bold text-gray-900">{{ company.title }}</h1>
+      <h1 class="text-2xl font-bold text-gray-900">{{ company.company.title }}</h1>
     </div>
     <!-- description -->
     <div class="mt-4">
-      <p class="text-gray-600">{{ company.description }}</p>
+      <p class="text-gray-600">{{ company.company.description }}</p>
     </div>
     <!-- button -->
     <div class="mt-4">
@@ -29,7 +29,7 @@ Usage:
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         @click="navigateToCompany"
       >
-        Edit
+        Redaguoti
       </button>
     </div>
   </div>

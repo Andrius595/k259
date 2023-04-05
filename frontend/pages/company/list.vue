@@ -7,7 +7,7 @@ const companiesList = ref<Company[]>([]);
 await loadCompanies();
 
 async function loadCompanies() {
-  const response: any = await $fetch('/api/companies');
+  const response: any = await $fetch('/api/company');
   console.log("MyResponse");
   console.log(response);
   console.log("MyResponse");
@@ -21,12 +21,12 @@ async function loadCompanies() {
 <template>
   <NuxtLayout name="auth-layout">
     <Head>
-      <Title>Companies list</Title>
+      <Title>Remėjų sąrašas</Title>
     </Head>
 
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        List of all companies
+        Sąrašas visų remėjų
       </h2>
     </template>
 
@@ -36,7 +36,7 @@ async function loadCompanies() {
           <div class="p-6 bg-white border-b border-gray-200">
             <a href="/company/create" class="pr-8">
               <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Create new company 🆕
+                Pridėti naują remėją 🆕
               </button>
             </a>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
