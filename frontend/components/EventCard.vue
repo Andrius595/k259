@@ -31,7 +31,7 @@ const navigateToEventJoin = () => {
     </div>
     <!-- title -->
     <div class="mt-4">
-      <h1 class="text-2xl font-bold text-gray-900">Šiukšlės ID: {{ event.event.id }}</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Renginio ID: {{ event.event.id }}</h1>
     </div>
     <!-- description -->
     <div class="mt-4">
@@ -58,7 +58,7 @@ const navigateToEventJoin = () => {
         class="bg-lime-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-5"
         @click="navigateToEventJoin"
       >
-        Surinkti!
+        Prisijungti!
     </button>
     </div>
   </div>
