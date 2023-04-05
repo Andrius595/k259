@@ -18,7 +18,7 @@ class EventFactory extends Factory
         $randomUser = User::all()->random();
         return [
             'user_id' => $randomUser->id,
-            'title' => $this->faker->sentence,
+            'title' => $this->faker->word,
             'description' => $this->faker->paragraph,
             'starting_at' => $this->faker->dateTime,
             'latitude' => $this->faker->latitude,
