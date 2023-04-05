@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Event } from '~~/types/eventTypes';
-
+import {DateTime} from 'luxon'
 // props
 const event = defineProps<{ event: Event }>();
 
@@ -31,7 +31,8 @@ const navigateToEventJoin = () => {
     </div>
     <!-- title -->
     <div class="mt-4">
-      <h1 class="text-2xl font-bold text-gray-900">Renginio ID: {{ event.event.id }}</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Renginio pavadinimas: </h1>
+      <h1 class="text-2xl text-gray-900">{{ event.event.title }}</h1>
     </div>
     <!-- description -->
     <div class="mt-4">
@@ -40,7 +41,7 @@ const navigateToEventJoin = () => {
     </div>
     <!-- date -->
     <div class="mt-4">
-      <p class="text-gray-600">Sukurtas: {{ event.event.created_at }}</p>
+      <p class="text-gray-600">Sukurtas: {{ DateTime.fromISO(event.event.created_at || "0").toFormat('yyyy-MM-dd HH:mm') }}</p>
     </div>
     <!-- size -->
     <div class="mt-4">
