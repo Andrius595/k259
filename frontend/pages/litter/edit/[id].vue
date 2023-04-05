@@ -252,9 +252,9 @@ const errorMessage = ref<string>('')
 const successMessage = ref<string>('')
 
 const litterSizeOptions = [
-  {value: 1, label: 'Small'},
-  {value: 2, label: 'Medium'},
-  {value: 3, label: 'Large'},
+  {value: 1, label: 'Mažas'},
+  {value: 2, label: 'Vidutinis'},
+  {value: 3, label: 'Didelis'},
 ]
 
 const trashTypesOptions = computed(() => {
