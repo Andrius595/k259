@@ -14,16 +14,8 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
             }
 
             const duomenys = {
-                size: fields.size[0],
+                title: fields.title[0],
                 description: fields.description[0],
-                latitude: fields.latitude[0],
-                longitude: fields.longitude[0],
-                trash_types: fields['trash_types[]'],
-                is_accessible_by_car: fields.is_accessible_by_car[0],
-                is_located_in_hole: fields.is_located_in_hole[0],
-                is_under_water: fields.is_under_water[0],
-                is_on_the_waterside: fields.is_on_the_waterside[0],
-                is_hard_to_reach: fields.is_hard_to_reach[0],
             }
 
             let img = null
@@ -47,7 +39,7 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
     }
 
     try {
-        const response = await useBackFetch(event, `api/litters/`, {
+        const response = await useBackFetch(event, `api/companies/`, {
             method: 'POST',
             sendsFiles: true,
             body
@@ -57,4 +49,4 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
     } catch (e: any) {
         return {status: false, data: e.data}
     }
-})
+});
