@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LitterController;
+use App\Http\Controllers\PrizeController;
 use App\Http\Controllers\TrashTypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -42,4 +43,6 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     });
 
     Route::apiResource('companies', CompanyController::class);
+
+    Route::apiResource('prizes', PrizeController::class);
 });
