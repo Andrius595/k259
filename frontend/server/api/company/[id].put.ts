@@ -37,7 +37,6 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
         image: data.files
     }
 
-
     try {
         const response = await useBackFetch(event, `api/companies/${companyId}`, {
             method: 'PUT',

@@ -137,7 +137,7 @@ async function submitForm() {
 
   const data = {
     ...company.value,
-    image: fileList.value[0].raw,
+    image: fileList.value[0]?.raw,
   };
 
   const body = serialize(data)
