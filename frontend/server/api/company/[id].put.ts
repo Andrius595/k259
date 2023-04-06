@@ -5,7 +5,7 @@ import formidable, {Fields, Files} from "formidable";
 import fs from "fs";
 
 export default defineEventHandler(async (event: H3Event): Promise<ServerSideResponse> => {
-    const litterId = event.context.params?.id
+    const companyId = event.context.params?.id
     const form = formidable({multiples: true})
 
     const data: any = await new Promise((resolve, reject) => {
@@ -15,18 +15,10 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
             }
 
             const duomenys = {
-                size: fields.size[0],
+                title: fields.title[0],
                 description: fields.description[0],
-                latitude: fields.latitude[0],
-                longitude: fields.longitude[0],
-                trash_types: fields['trash_types[]'],
-                is_accessible_by_car: fields.is_accessible_by_car[0],
-                is_located_in_hole: fields.is_located_in_hole[0],
-                is_under_water: fields.is_under_water[0],
-                is_on_the_waterside: fields.is_on_the_waterside[0],
-                is_hard_to_reach: fields.is_hard_to_reach[0],
-                is_cleaned: fields.is_cleaned[0],
             }
+
 
             let img = null
             const image = files.image
@@ -45,10 +37,8 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
         image: data.files
     }
 
-    console.log('bbbbbbbbbbb', body)
-
     try {
-        const response = await useBackFetch(event, `api/litters/${litterId}`, {
+        const response = await useBackFetch(event, `api/companies/${companyId}`, {
             method: 'PUT',
             sendsFiles: true,
             body
