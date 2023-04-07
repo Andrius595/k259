@@ -28,11 +28,13 @@
           </l-marker>
         </template>
         <l-circle
+          v-if="showMyLocation"
           :latLng="{ lat: props.myLatitude, lng: props.myLongitude }"
           :radius="props.myAccuracy"
           :color="'#3388ff'"
         />
         <l-circle
+          v-if="showMyLocation"
           :latLng="{ lat: props.myLatitude, lng: props.myLongitude }"
           :radius="0"
           :color="'red'"
@@ -57,8 +59,14 @@ const props = defineProps<{
   myLongitude: number;
 }>();
 
-const zoom = ref(13);
-const center :any = ref({lat: props.myLatitude, lon: props.myLongitude});
+
+const showMyLocation = computed(() => {
+  return props.myLatitude !== Infinity && props.myLongitude !== Infinity && props.myAccuracy !== Infinity;
+})
+
+const center :any = ref(showMyLocation.value ? {lat: props.myLatitude, lon: props.myLongitude} : {lat: 54.687157, lon: 25.279652});
+const zoom = ref(showMyLocation.value ? 13 : 7);
+
 
 const litterListCoordinates :any = computed(() => {
   return LittersList.value.map((litter) => {
