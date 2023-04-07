@@ -6,20 +6,6 @@ import LitterMap from '~/components/LitterMap.vue'
 //wait for const { coords } = useGeolocation() to load, then continue
 const { coords } = useGeolocation()
 
-var coordsLoaded = false
-console.log(coords.value.latitude)
-//wait for coords to change, then continue
-watch(coords, (newCoords) => {
-  if (newCoords) {
-    console.log(coords.value.latitude)
-    coordsLoaded = true
-  }
-})
-
-
-
-
-
 definePageMeta({middleware: ["auth"]});
 
 const userStore = useUserStore();
@@ -43,8 +29,7 @@ const user = userStore.getUser;
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white border-b border-gray-200">
-            Sveiki,
-            {{ user?.first_name }}, Jūs prisijungęs!
+            Sveiki, {{ user?.first_name }}, Jūs prisijungęs!
           </div>
         </div>
       </div>
@@ -60,7 +45,6 @@ const user = userStore.getUser;
           <!-- load map after coords is loaded -->
 
           <LitterMap style="height: 500px"
-              v-if="coordsLoaded" 
               :myAccuracy="coords.accuracy"
               :myLatitude="coords.latitude"
               :myLongitude="coords.longitude"
