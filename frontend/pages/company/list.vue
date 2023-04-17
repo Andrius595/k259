@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { Company } from '~~/types/companyTypes';
+import {Company} from '~~/types/companyTypes';
 import CompanyCard from '~/components/CompanyCard.vue';
+import {useUserStore} from "~/stores/userStore";
+import {AllPermissions} from "~/enums/permissions";
 
+const userStore = useUserStore()
 
 const companiesList = ref<Company[]>([]);
 await loadCompanies();
 
+const canCreateCompany = computed(() => {
+  return userStore.hasPermission(AllPermissions.canCreateCompany)
+})
+
 async function loadCompanies() {
   const response: any = await $fetch('/api/company');
-  console.log("MyResponse");
-  console.log(response);
-  console.log("MyResponse");
   if (response.status) {
     companiesList.value = response.data;
   }
@@ -34,22 +38,22 @@ async function loadCompanies() {
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white border-b border-gray-200">
-            <a href="/company/create" class="pr-8">
+            <a v-if="canCreateCompany" href="/company/create" class="pr-8">
               <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Pridėti naują remėją 🆕
               </button>
             </a>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  <!-- Check if companiesList is empty -->
-  <template v-if="companiesList.length === 0">
-    <p>No companies found.</p>
-  </template>
+              <!-- Check if companiesList is empty -->
+              <template v-if="companiesList.length === 0">
+                <p>No companies found.</p>
+              </template>
 
-  <!-- If companiesList is not empty, display CompanyCard components -->
-  <template v-else>
-    <CompanyCard v-for="company in companiesList" :key="company.id" :company="company" />
-  </template>
-</div>
+              <!-- If companiesList is not empty, display CompanyCard components -->
+              <template v-else>
+                <CompanyCard v-for="company in companiesList" :key="company.id" :company="company"/>
+              </template>
+            </div>
 
           </div>
         </div>

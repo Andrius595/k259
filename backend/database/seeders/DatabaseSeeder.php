@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Config\PermissionsConfig;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,9 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        $users = User::factory(10)->create();
 
         $this->call([
+            PermissionsSeeder::class,
             TrashTypeSeeder::class,
             LitterSeeder::class,
             EventSeeder::class,
@@ -22,5 +25,19 @@ class DatabaseSeeder extends Seeder
             PrizeSeeder::class,
             PrizeCodeSeeder::class,
         ]);
+
+        $userRole = Role::firstOrCreate(['name' => PermissionsConfig::USER]);
+
+        foreach ($users as $user) {
+            $user->assignRole($userRole);
+        }
+
+        $admin = User::factory()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'email' => 'admin@admin.com',
+            ]);
+
+        $admin->assignRole(PermissionsConfig::ADMIN);
     }
 }

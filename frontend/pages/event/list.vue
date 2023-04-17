@@ -1,13 +1,17 @@
 <script setup lang="ts">
-//  table list of all litters from database
-
 import { Event } from '~~/types/eventTypes';
 
 import EventCard from '~/components/EventCard.vue';
+import {useUserStore} from "~/stores/userStore";
+import {AllPermissions} from "~/enums/permissions";
 
+const userStore = useUserStore()
 const EventsList = ref<Event[]>([])
 await loadLitters()
-definePageMeta({middleware: ["auth"]});
+
+const canCreateEvent = computed(() => {
+  return userStore.hasPermission(AllPermissions.canCreateEvent)
+})
 
 async function loadLitters() {
   const response :any = await $fetch('/api/event')
@@ -37,7 +41,7 @@ async function loadLitters() {
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           
           <div class="p-6 bg-white border-b border-gray-200">
-            <a href="/event/create" class="pr-8">
+            <a v-if="canCreateEvent" href="/event/create" class="pr-8">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Sukurti naują renginį
         </button>

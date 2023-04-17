@@ -1,14 +1,10 @@
 <script setup lang="ts">
-//  table list of all litters from database
-
 import { Litter } from '~~/types/litterTypes';
 import LitterCard from '~/components/LitterCard.vue';
 
 const LittersList = ref<Litter[]>([])
 await loadLitters()
 
-console.log('list', LittersList.value)
-definePageMeta({middleware: ["auth"]});
 async function loadLitters() {
   const response :any = await $fetch('/api/litter')
   if (response.status) {

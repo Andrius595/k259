@@ -115,7 +115,7 @@ async function submitForm() {
 
   if (response.data.errors) {
     errors.value = response.data.errors
-    console.log("error")
+
     return
   }
 

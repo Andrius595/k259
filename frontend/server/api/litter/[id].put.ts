@@ -45,8 +45,6 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
         image: data.files
     }
 
-    console.log('bbbbbbbbbbb', body)
-
     try {
         const response = await useBackFetch(event, `api/litters/${litterId}`, {
             method: 'PUT',

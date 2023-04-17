@@ -131,11 +131,9 @@ import { useGeolocation } from "@vueuse/core";
 definePageMeta({ middleware: ["auth"] });
 const { coords } = useGeolocation();
 var coordsLoaded = false
-console.log(coords.value.latitude)
 //wait for coords to change, then continue
 watch(coords, (newCoords) => {
   if (newCoords) {
-    console.log(coords.value.latitude)
     coordsLoaded = true
   }
 })

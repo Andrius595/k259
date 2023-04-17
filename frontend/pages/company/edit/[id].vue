@@ -120,7 +120,7 @@ const successMessage = ref<string>("");
 await loadCompany()
 
 async function loadCompany() {
-  const response :any = await $fetch(`/api/company/${companyId.value}`)
+  const response: ServerSideResponse = await $fetch(`/api/company/${companyId.value}`)
   if (response.status) {
     company.value = response.data
 
@@ -156,7 +156,7 @@ async function submitForm() {
 
   if (response.data.errors) {
     errors.value = response.data.errors
-    console.log("error")
+
     return
   }
 

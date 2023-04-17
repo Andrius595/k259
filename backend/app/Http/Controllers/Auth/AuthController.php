@@ -83,4 +83,24 @@ class AuthController extends Controller
 
         return $this->errorResponse(__($resetStatus));
     }
+
+    public function roles(): JsonResponse
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        $roleNames = $user->getRoleNames();
+
+        return $this->successResponse($roleNames);
+    }
+
+    public function permissions(): JsonResponse
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        $permissionNames = $user->getAllPermissions()->pluck('name');
+
+        return $this->successResponse($permissionNames);
+    }
 }
