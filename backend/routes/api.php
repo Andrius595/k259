@@ -42,4 +42,6 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     });
 
     Route::apiResource('companies', CompanyController::class);
+
+    Route::apiResource('gift', GiftController::class);
 });
