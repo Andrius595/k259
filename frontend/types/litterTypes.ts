@@ -8,12 +8,12 @@ export type Litter = {
     longitude: string|number
     image_path: string|null
     description: string|null
-    is_accessible_by_car: boolean
-    is_located_in_hole: boolean
-    is_under_water: boolean
-    is_on_the_waterside: boolean
-    is_hard_to_reach: boolean
-    is_cleaned: boolean
+    is_accessible_by_car: 0|1
+    is_located_in_hole: 0|1
+    is_under_water: 0|1
+    is_on_the_waterside: 0|1
+    is_hard_to_reach: 0|1
+    is_cleaned: 0|1
     created_at: string|null
     updated_at: string|null
     deleted_at: string|null

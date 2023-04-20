@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ServerSideResponse} from "~/types/generalTypes";
+
 definePageMeta({middleware: ["guest"]});
 
 const router = useRouter();
@@ -16,7 +17,7 @@ const errors = ref<Record<string, string[]>>({});
 async function submitForm() {
   errors.value = {};
 
-  const response: any = await $fetch('/api/auth/register', {method: 'POST', body: data.value})
+  const response: ServerSideResponse = await $fetch('/api/auth/register', {method: 'POST', body: data.value})
 
   if (response.status) {
     return navigateTo('/dashboard')
@@ -27,12 +28,19 @@ async function submitForm() {
 </script>
 
 <template>
-  <AuthCard>
-    <template #logo>
-      <NuxtLink href="/">
-        <ApplicationLogo class="w-20 h-20 fill-current text-gray-500"/>
-      </NuxtLink>
+  <NuxtLayout name="auth-layout">
+    <Head>
+      <Title>Registracija</Title>
+    </Head>
+
+    <template #header>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        Registracija
+      </h2>
     </template>
+    <div class="my-12">
+      <!-- grid filled with <LitterCard> -->
+      <div class="w-full mx-auto sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
 
     <form @submit.prevent="submitForm">
       <!-- Name -->
@@ -112,7 +120,9 @@ async function submitForm() {
         <Button class="ml-3" type="submit">Registruotis</Button>
       </div>
     </form>
-  </AuthCard>
+      </div>
+    </div>
+  </NuxtLayout>
 </template>
 
 <style scoped>

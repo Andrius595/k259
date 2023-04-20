@@ -9,10 +9,10 @@ export type Event = {
     latitude: string|number
     longitude: string|number
     image_path: string|null
-    has_ended: boolean
+    has_ended: 1|0
     created_at: string|null
     updated_at: string|null
     deleted_at: string|null
-    has_user_joined: boolean
+    has_user_joined: 1|0
     user?: UserData
 }

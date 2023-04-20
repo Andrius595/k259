@@ -20,12 +20,11 @@ export const useBackFetch = async (event: H3Event, path: string, options: Custom
     };
 
     if (options.sendsFiles) {
+        // @ts-ignore
         options.body._method = options.method
         options.method = 'POST'
         options.body = serialize(options.body)
     }
-
-    console.log('options', options)
 
     options.baseURL = runtimeConfig.public.backendUrl
 

@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import {useUserStore} from "~/stores/userStore";
+
 const route = useRoute();
 const verified = computed(() => !!route.query.verified);
+
+const userStore = useUserStore();
+
+if (!userStore.getUser) {
+  await userStore.fetchData()
+}
 </script>
 
 <template>

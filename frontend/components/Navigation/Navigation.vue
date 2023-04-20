@@ -47,14 +47,14 @@ async function handleLogout() {
         </div>
 
         <!-- Settings Dropdown  -->
-        <div class="hidden sm:flex sm:items-center sm:ml-6">
+        <div v-if="userStore.isLoggedIn" class="hidden sm:flex sm:items-center sm:ml-6">
           <span class="relative -top-2.5 -right-2.5 inline-flex items-center justify-center gap-1 rounded-full border-2 border-white bg-pink-500 px-1.5 text-sm text-white">
             {{ userStore.getPoints }}
             <span class="sr-only"> Taškai </span>
           </span>
           <client-only>
 
-            <el-dropdown align="right">
+            <el-dropdown>
 
                 <button
                     class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out"
@@ -86,6 +86,10 @@ async function handleLogout() {
               <!-- Authentication  -->
             </el-dropdown>
           </client-only>
+        </div>
+        <div v-else class="flex justify-between items-center">
+          <NavigationLink to="/login">Prisijungimas</NavigationLink>
+          <NavigationLink to="/register">Registracija</NavigationLink>
         </div>
 
         <!-- Hamburger  -->

@@ -20,7 +20,7 @@
                   <div class="font-bold">ID:</div>
                   <div class="ml-2">{{litterListCoordinate.properties.id}}</div>
                 </div>
-                <button class="bg-blue-500 hover:bg-blue-700 transition font-bold py-2 px-4 rounded mt-2">
+                <button v-if="litterListCoordinate.properties.canEdit" class="bg-blue-500 hover:bg-blue-700 transition font-bold py-2 px-4 rounded mt-2">
                   <NuxtLink :href="`/litter/edit/${litterListCoordinate.properties.id}`"><span class="text-white">Edit litter</span></NuxtLink>
                 </button>
               </div>
@@ -48,8 +48,11 @@
 import "leaflet/dist/leaflet.css";
 import {LMap, LTileLayer, LMarker, LPopup, LCircle} from "@vue-leaflet/vue-leaflet";
 import {Litter} from "~/types/litterTypes";
+import {useUserStore} from "~/stores/userStore";
+import {AllPermissions} from "~/enums/permissions";
+import {AllRoles} from "~/enums/roles";
 
-
+const userStore = useUserStore()
 
 const LittersList = ref<Litter[]>([])
 await loadLitters()
@@ -58,6 +61,10 @@ const props = defineProps<{
   myLatitude: number;
   myLongitude: number;
 }>();
+
+function canEditLitter(litter: Litter) {
+  return userStore.isLoggedIn && userStore.hasPermission(AllPermissions.canUpdateLitter) && (litter.user_id === userStore.getUser?.id || userStore.hasRole(AllRoles.Admin))
+}
 
 
 const showMyLocation = computed(() => {
@@ -75,6 +82,7 @@ const litterListCoordinates :any = computed(() => {
       properties: {
         description: litter.description,
         id: litter.id,
+        canEdit: canEditLitter(litter)
       },
       geometry: {
         type: "Point",

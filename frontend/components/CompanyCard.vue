@@ -11,21 +11,22 @@ Usage:
     <div class="flex justify-center">
       <img
         class="w-fill h-fill object-cover"
-        :src="company.company.logo_path || 'https://via.placeholder.com/150'"
+        :src="company.logo_path || 'https://via.placeholder.com/150'"
         alt="company logo"
       />
     </div>
     <!-- title -->
     <div class="mt-4">
-      <h1 class="text-2xl font-bold text-gray-900">{{ company.company.title }}</h1>
+      <h1 class="text-2xl font-bold text-gray-900">{{ company.title }}</h1>
     </div>
     <!-- description -->
     <div class="mt-4">
-      <p class="text-gray-600">{{ company.company.description }}</p>
+      <p class="text-gray-600">{{ company.description }}</p>
     </div>
     <!-- button -->
     <div class="mt-4">
       <button
+          v-if="canEditCompany"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         @click="navigateToCompany"
       >
@@ -37,12 +38,18 @@ Usage:
 
 <script setup lang="ts">
 import { Company } from '~/types/companyTypes';
+import {useUserStore} from "~/stores/userStore";
+import {AllPermissions} from "~/enums/permissions";
 
+const userStore = useUserStore()
 // props
-const company = defineProps<{ company: Company }>();
+const props = defineProps<{ company: Company }>()
 
+const canEditCompany = computed(() => {
+  return userStore.hasPermission(AllPermissions.canUpdateCompany)
+})
 // methods
 const navigateToCompany = () => {
-  navigateTo(`/company/edit/${company.company.id}`);
+  navigateTo(`/company/edit/${props.company.id}`)
 };
 </script>

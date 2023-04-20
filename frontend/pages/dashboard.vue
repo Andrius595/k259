@@ -6,8 +6,6 @@ import LitterMap from '~/components/LitterMap.vue'
 //wait for const { coords } = useGeolocation() to load, then continue
 const { coords } = useGeolocation()
 
-definePageMeta({middleware: ["auth"]});
-
 const userStore = useUserStore();
 
 const user = userStore.getUser;
@@ -25,18 +23,9 @@ const user = userStore.getUser;
       </h2>
     </template>
 
-    <div class="my-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6 bg-white border-b border-gray-200">
-            Sveiki, {{ user?.first_name }}, Jūs prisijungęs!
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- create litter button /litter/create.vue-->
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-12">
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white border-b border-gray-200">
           <h2 class="font-semibold text-xl text-gray-800 leading-tight m-2">

@@ -19,7 +19,6 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
 
         return {status: response.status, data: response.data}
     } catch (e: any) {
-        console.log(e)
         return {status: false, data: e.data}
     }
 })

@@ -271,6 +271,8 @@ await loadTrashTypes()
 
 async function loadLitter() {
   const response :any = await $fetch(`/api/litter/${litterId.value}`)
+
+  // TODO also check if user is admin or litter belongs to current user, otherwise redirect to list
   if (response.status) {
     litter.value = response.data
     selectedTrashTypes.value = response.data.trash_types.map((trashType: TrashType) => trashType.id)
