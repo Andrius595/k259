@@ -38,6 +38,10 @@ async function handleLogout() {
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <NavigationLink href="/event/list">Renginiai 🥳</NavigationLink>
           </div>
+          
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <NavigationLink href="/gift/list">Prizai 🎁</NavigationLink>
+          </div>
 
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <NavigationLink href="/company/list">Remėjai 🤝</NavigationLink>
