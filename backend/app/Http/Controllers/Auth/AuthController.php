@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Config\PermissionsConfig;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
@@ -37,6 +38,8 @@ class AuthController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);
+
+        $user->assignRole(PermissionsConfig::USER);
 
         event(new Registered($user));
 
