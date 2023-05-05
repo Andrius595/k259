@@ -46,7 +46,7 @@ async function loadCompanies() {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <!-- Check if companiesList is empty -->
               <template v-if="companiesList.length === 0">
-                <p>No companies found.</p>
+                <p>Toks remėjas nerastas.</p>
               </template>
 
               <!-- If companiesList is not empty, display CompanyCard components -->

@@ -71,7 +71,7 @@ async function submitForm() {
 
       <!-- Email Address -->
       <div class="mt-4">
-        <Label for="email">el. paštas</Label>
+        <Label for="email">El. paštas</Label>
         <Input
             id="email"
             type="email"
@@ -84,7 +84,7 @@ async function submitForm() {
 
       <!-- Password -->
       <div class="mt-4">
-        <Label for="password">slaptažodis</Label>
+        <Label for="password">Slaptažodis</Label>
         <Input
             id="password"
             type="password"

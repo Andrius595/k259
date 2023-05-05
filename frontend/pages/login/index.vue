@@ -59,7 +59,7 @@ async function submitForm() {
         <form @submit.prevent="submitForm">
           <!-- Email Address -->
           <div>
-            <Label for="email">el. paštas</Label>
+            <Label for="email">El. paštas</Label>
             <Input
                 id="email"
                 type="email"
@@ -73,7 +73,7 @@ async function submitForm() {
 
           <!-- Password -->
           <div class="mt-4">
-            <Label for="password">slaptažodis</Label>
+            <Label for="password">Slaptažodis</Label>
             <Input
                 id="password"
                 type="password"
@@ -94,7 +94,7 @@ async function submitForm() {
             </NuxtLink>
 
             <Button class="ml-3">Prisijungti</Button>
-            <Button class="ml-3" type="button" @click="navigateTo('/register')">Register</Button>
+            <Button class="ml-3" type="button" @click="navigateTo('/register')">Registruotis</Button>
           </div>
         </form>
       </div>
