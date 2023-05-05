@@ -37,15 +37,13 @@ async function loadPrizes() {
     <div class="my-12">
       <!-- grid filled with <LitterCard> -->
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <!--once load Litters is finished display litter card-->
               <PrizeCard v-for="prize in PrizeList" :key="prize.id" :prize="prize" />
-            </div>
+             </div>
           </div>
-        </div>
+        </div> 
     </div>
   </NuxtLayout>
 </template>
