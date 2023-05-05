@@ -44,7 +44,7 @@ async function handleLogout() {
           </div>
 
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <NavigationLink href="/gift/list">Prizai 🎁</NavigationLink>
+            <NavigationLink href="/prize/list">Prizai 🎁</NavigationLink>
           </div>
           
 
