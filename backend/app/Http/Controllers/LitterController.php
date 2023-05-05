@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Litter\CleanLitterRequest;
 use App\Http\Requests\Litter\StoreLitterRequest;
 use App\Http\Requests\Litter\UpdateLitterRequest;
 use App\Models\Litter;
 use App\PointTypes\LitterCleaned;
 use Illuminate\Http\JsonResponse;
+use Location\Coordinate;
+use Location\Distance\Haversine;
 
 class LitterController extends Controller
 {
@@ -96,15 +99,29 @@ class LitterController extends Controller
         return $this->errorResponse();
     }
 
-    public function markLitterAsCleaned(Litter $litter): JsonResponse
+    public function markLitterAsCleaned(CleanLitterRequest $request, Litter $litter): JsonResponse
     {
         if ($litter->is_cleaned) {
-            return $this->errorResponse('Litter is already marked as cleaned');
+            return $this->errorResponse('Šiuklė jau išvalyta.');
         }
+
+
+        $userLocation = new Coordinate($request->latitude, $request->longitude);
+        $litterLocation = new Coordinate($litter->latitude, $litter->longitude);
+        $distance = $userLocation->getDistance($litterLocation, new Haversine());
+
+        if ($distance > 500) {
+            return $this->errorResponse('Negalite surinkti šiukšlių, nes esate per toli nuo jų.');
+        }
+
+        // TODO delete old image
+        $image = $request->file('cleaned_image');
+        $imagePath = $image->store('litter_cleaned', 'public');
 
         $updated = $litter->update([
             'is_cleaned' => true,
             'cleaner_id' => auth()->user()?->id,
+            'cleaned_image_path' => $imagePath,
         ]);
 
         if ($updated) {

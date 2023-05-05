@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
             $table->string('image_path')->nullable();
+            $table->string('cleaned_image_path')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_accessible_by_car')->default(false);
             $table->boolean('is_located_in_hole')->default(false);

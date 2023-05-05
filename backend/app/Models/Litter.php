@@ -20,6 +20,7 @@ class Litter extends Model
         'latitude',
         'longitude',
         'image_path',
+        'cleaned_image_path',
         'description',
         'is_accessible_by_car',
         'is_located_in_hole',

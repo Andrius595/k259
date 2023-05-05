@@ -13,7 +13,6 @@ class StoreLitterRequest extends FormRequest
     {
         return true;
     }
-    // localhost:3000/reset-password/hkjfhjklsdf
 
     /**
      * Get the validation rules that apply to the request.
@@ -26,7 +25,7 @@ class StoreLitterRequest extends FormRequest
             'size' => 'required|integer',
             'latitude' => 'required|numeric|min:-90|max:90',
             'longitude' => 'required|numeric|min:-180|max:180',
-            'image' => 'nullable|image',
+            'image' => 'required|image',
             'description' => 'nullable|string',
             'is_accessible_by_car' => 'required|boolean',
             'is_located_in_hole' => 'required|boolean',
