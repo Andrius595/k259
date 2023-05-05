@@ -46,7 +46,6 @@ async function loadPrizes() {
             </div>
           </div>
         </div>
-      </div>
     </div>
   </NuxtLayout>
 </template>
