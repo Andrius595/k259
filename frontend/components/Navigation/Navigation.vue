@@ -42,6 +42,10 @@ async function handleLogout() {
           <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <NavigationLink href="/company/list">Remėjai 🤝</NavigationLink>
           </div>
+
+          <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <NavigationLink href="/gift/list">Prizai 🎁</NavigationLink>
+          </div>
           
 
         </div>
@@ -130,7 +134,7 @@ async function handleLogout() {
     <div v-show="open" class="block sm:hidden">
       <div class="pt-2 pb-3 space-y-1">
         <NavigationResponsiveLink href="/dashboard">
-          Dashboard
+          Pagrindinis
         </NavigationResponsiveLink>
       </div>
       <!-- Responsive Settings Options  -->
@@ -165,7 +169,7 @@ async function handleLogout() {
         <div class="mt-3 space-y-1">
           <!-- Authentication  -->
           <NavigationResponsiveButton @click="handleLogout">
-            Logout
+            Atsijungti
           </NavigationResponsiveButton>
         </div>
       </div>

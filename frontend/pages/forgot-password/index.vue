@@ -54,7 +54,7 @@ async function submitForm() {
     <form @submit.prevent="submitForm">
       <!-- Email Address -->
       <div>
-        <Label for="email">el. paštas</Label>
+        <Label for="email">El. paštas</Label>
         <Input
             id="email"
             type="email"
