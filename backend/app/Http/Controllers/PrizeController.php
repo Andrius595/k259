@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePrizeRequest;
 use App\Http\Requests\UpdatePrizeRequest;
+use App\Mail\PrizeRedeemed;
 use App\Models\Prize;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 
 class PrizeController extends Controller
 {
@@ -70,5 +73,30 @@ class PrizeController extends Controller
         $prize->delete();
 
         return $this->successResponse();
+    }
+
+    public function redeemPrize(Prize $prize)
+    {
+        $prize->load('prizeCodes');
+
+        $availablePrizeCodes = $prize->prizeCodes()->where('is_redeemed', false)->get();
+
+        if (empty($availablePrizeCodes)) {
+            return $this->errorResponse('Šio prizo nebeliko');
+        }
+
+        $prizeCode = $availablePrizeCodes->first();
+
+        $updated = $prize->update([
+            'is_redeemed' => true,
+        ]);
+
+        if (!$updated) {
+            return $this->errorResponse('Nepavyko atsiimti prizo', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        Mail::to(auth()->user())->send(new PrizeRedeemed($prize, $prizeCode));
+
+        return $this->successResponse('Prizas išsiųstas į jūsų el. paštą');
     }
 }

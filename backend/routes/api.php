@@ -53,4 +53,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::apiResource('companies', CompanyController::class)->except(['index']);
 
     Route::apiResource('prizes', PrizeController::class)->except(['index']);
+    Route::group(['prefix' => 'prizes'], static function () {
+        Route::post('{prize}/redeem', [PrizeController::class, 'redeemPrize']);
+    });
 });
