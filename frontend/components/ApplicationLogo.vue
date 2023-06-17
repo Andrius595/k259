@@ -1,3 +1,3 @@
 <template>
-  <img src="logo.png" alt="EkoRanka">
+  <img src="../public/logo.png" alt="EkoRanka">
 </template>
