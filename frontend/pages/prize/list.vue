@@ -14,7 +14,7 @@ const canCreateEvent = computed(() => {
 })
 
 async function loadPrizes() {
-  const response :any = await $fetch('/api/event')
+  const response :any = await $fetch('/api/prize')
   if (response.status) {
     PrizeList.value = response.data 
   }

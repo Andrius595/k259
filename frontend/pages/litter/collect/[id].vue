@@ -75,8 +75,10 @@
 
         <form class="mt-5" @submit.prevent="submitForm">
 
-          <el-upload ref="upload" v-model:file-list="fileList" :on-exceed="handleExceed" :auto-upload="false"
-            list-type="picture" :limit="1"> <el-button type="primary">Įkelti išvalytą aplinką</el-button>
+          <el-upload 
+          ref="upload" v-model:file-list="fileList" :on-exceed="handleExceed" :auto-upload="false"
+            list-type="picture" :limit="1"> 
+            <el-button type="primary">Įkelti išvalytą aplinką</el-button>
           </el-upload>
 
           <div class="flex items-center justify-end mt-4">
@@ -171,8 +173,8 @@ async function submitForm() {
 
   const body = serialize(data)
 
-  const response: any = await $fetch(`/api/litter/${litterId.value}`, {
-    method: 'PUT',
+  const response: any = await $fetch(`/api/litter/${litterId.value}/cleaned`, {
+    method: 'POST',
     body,
   })
 
