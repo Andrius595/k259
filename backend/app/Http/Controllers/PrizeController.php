@@ -87,7 +87,7 @@ class PrizeController extends Controller
 
         $prizeCode = $availablePrizeCodes->first();
 
-        $updated = $prize->update([
+        $updated = $prizeCode->update([
             'is_redeemed' => true,
         ]);
 
