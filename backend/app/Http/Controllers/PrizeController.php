@@ -80,14 +80,13 @@ class PrizeController extends Controller
         $prize->load('prizeCodes');
 
         $availablePrizeCodes = $prize->prizeCodes()->where('is_redeemed', false)->get();
-
-        if (empty($availablePrizeCodes)) {
+        if ($availablePrizeCodes::empty()) {
             return $this->errorResponse('Šio prizo nebeliko');
         }
 
         $prizeCode = $availablePrizeCodes->first();
 
-        $updated = $prize->update([
+        $updated = $prizeCode->update([
             'is_redeemed' => true,
         ]);
 
