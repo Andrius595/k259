@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {Prize} from "~/types/prizeTypes";
 
 definePageMeta({middleware: ["auth"]})
 const route = useRoute();
@@ -33,7 +34,6 @@ async function submitForm() {
   try {
     const response = await $fetch(`/api/prize/${prizeId}/redeem`, {
       method: "POST",
-      body: data.value,
     });
     // TODO show success message
   } catch (e) {
