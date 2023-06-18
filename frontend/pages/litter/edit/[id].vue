@@ -34,7 +34,7 @@
         <form @submit.prevent="submitForm">
           <!-- Litter size -->
           <div class="mt-4">
-            <Label for="litter_size">Dydis</Label>
+            <Label for="litter_size">Šiukšlių dydis</Label>
             <Select
                 v-model="litter.size"
                 :errors="errors.size"

@@ -13,22 +13,16 @@ class TrashTypeSeeder extends Seeder
     public function run(): void
     {
         $trashTypes = [
-            'Plastic',
-            'Glass',
-            'Paper',
-            'Metal',
-            'Wood',
-            'Food',
-            'Textile',
-            'Automotive',
-            'Construction',
-            'Electronics',
-            'Construction',
-            'Dangerous',
-            'Household',
-            'Liquid',
-            'Animal carcass',
-            'Other',
+            'Plastikas',
+            'Stiklas',
+            'Popierius',
+            'Metalas',
+            'Mediena',
+            'Maisto atliekos',
+            'Tekstilė',
+            'Statybinės medžiagos',
+            'Elektronika',
+            'Kita',
         ];
 
         foreach ($trashTypes as $trashType) {
