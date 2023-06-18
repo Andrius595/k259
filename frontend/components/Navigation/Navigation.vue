@@ -48,7 +48,7 @@ async function handleLogout() {
           </div>
         </div>
         <!-- points bubble -->
-        <div
+        <div v-if="userStore.isLoggedIn"
           class=" flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium leading-5 text-black  focus:outline-none transition duration-150 ease-in-out
         "
         >
@@ -56,7 +56,7 @@ async function handleLogout() {
             class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800
         "
           >
-            Jūsų taškai: {{userStore.getPoints}}
+            Taškai: {{userStore.getPoints}}
           </span>
         </div>
 
