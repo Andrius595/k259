@@ -73,7 +73,7 @@ const navigateToEventJoin = () => {
     </button>
     <button
         v-if="canJoinEvent"
-        class="bg-lime-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+        class="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
         @click="navigateToEventJoin"
       >
         Plačiau!
