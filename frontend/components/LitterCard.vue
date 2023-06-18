@@ -61,7 +61,6 @@ function formatSize(size: number) {
           :src="litter.image_src || 'https://via.placeholder.com/150'"
           alt="litter image"
       />
-
     </div>
     <!-- title -->
     <div class="mt-4">
@@ -80,6 +79,13 @@ function formatSize(size: number) {
     <div class="mt-4">
       <p class="text-gray-600">Dydis: {{ formatSize(litter.size) }}</p>
     </div>
+
+    <div v-if="litter?.is_cleaned" class="mt-4">
+          <div class="bg-green-600 py-2 px-4 rounded">
+            <p class="text-white text-center">Šiukšlės surinktos: {{ DateTime.fromISO(litter.updated_at).toFormat('yyyy-MM-dd HH:mm') }}</p>
+          </div>
+    </div>
+    
     <!-- button -->
     <div class="mt-4">
       <button
