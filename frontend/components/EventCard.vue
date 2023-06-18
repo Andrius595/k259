@@ -22,7 +22,7 @@ const navigateToEvent = () => {
   navigateTo(`/event/edit/${props.event.id}`);
 };
 const navigateToEventJoin = () => {
-  navigateTo(`/l`);
+  navigateTo(`/event/join/${props.event.id}`);
 };
 
 
@@ -60,6 +60,8 @@ const navigateToEventJoin = () => {
     <div class="mt-4">
       <p class="text-gray-600">Prasideda: {{ event.starting_at }}</p>
     </div>
+    
+    
     <!-- button -->
     <div class="mt-4">
       <button
@@ -74,8 +76,10 @@ const navigateToEventJoin = () => {
         class="bg-lime-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-5"
         @click="navigateToEventJoin"
       >
-        Prisijungti!
+        Plačiau!
     </button>
+    <!-- if event.has_user_joined true, show green big text-->
+    <p v-if="event.has_user_joined" class="text-2xl text-green-500">Jūs jau prisijungęs!</p>
     </div>
   </div>
 </template>
