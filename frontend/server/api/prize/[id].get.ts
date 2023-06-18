@@ -6,7 +6,7 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
     const eventId = event.context.params?.id
 
     try {
-        const response = await useBackFetch(event, `api/prize/${eventId}`, {method: 'GET'})
+        const response = await useBackFetch(event, `api/prizes/${eventId}`, {method: 'GET'})
 
         return {status: response.status, data: response.data}
     } catch (e: any) {
