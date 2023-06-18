@@ -32,7 +32,7 @@ async function submitForm() {
   errors.value = {};
 
   try {
-    const response = await $fetch(`/api/prize/${prizeId}/redeem`, {
+    const response = await $fetch(`/api/prize/${prizeId.value}/redeem`, {
       method: "POST",
     });
     // TODO show success message
