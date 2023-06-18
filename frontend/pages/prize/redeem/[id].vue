@@ -33,7 +33,7 @@ async function submitForm() {
   try {
     const response = await $fetch(`/api/prize/${prizeId}/redeem`, {
       method: "POST",
-      body: prize.value,
+      body: data.value,
     });
     // TODO show success message
   } catch (e) {
@@ -75,7 +75,7 @@ async function submitForm() {
             Kaina:
           </label>
           <p class="text-gray-700 text-base">
-            {{ prize.price }}
+            {{ prize.price }} taškų
           </p>
         </div>
 
@@ -132,6 +132,12 @@ async function submitForm() {
           </div>
         </form>
       </el-card>
+    </div>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
+      <div class="overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-6 border-b border-gray-200">
+        </div>
+      </div>
     </div>
   </NuxtLayout>
 </template>
