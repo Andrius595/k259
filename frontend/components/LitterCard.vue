@@ -52,10 +52,11 @@ function formatSize(size: number) {
 <template>
   <!-- card -->
   <div
-      class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
+      class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg hover:bg-gray-100 border-2 border-gray-200 transition duration-50 ease-in-out transform hover:-translate-y-1 hover:scale-101"
   >
     <!-- litter image from provided litter image_path location -->
-    <div class="flex justify-center">
+    <div class="flex justify-center min-h-60
+    ">
       <img
           class="w-fill h-fill object-cover"
           :src="litter.image_src || 'https://via.placeholder.com/150'"
@@ -69,7 +70,7 @@ function formatSize(size: number) {
     <!-- description -->
     <div class="mt-4">
       Aprašymas:
-      <p class="text-gray-600">{{ litter.description }}</p>
+      <p class="text-gray-600 min-h-40 ">{{ litter.description }}</p>
     </div>
     <!-- date -->
     <div class="mt-4">
@@ -81,7 +82,7 @@ function formatSize(size: number) {
     </div>
 
     <div v-if="litter?.is_cleaned" class="mt-4">
-          <div class="bg-green-600 py-2 px-4 rounded">
+          <div class="bg-green-600 py-2 px-4 rounded ml-2 mr-2">
             <p class="text-white text-center">Šiukšlės surinktos: {{ DateTime.fromISO(litter.updated_at).toFormat('yyyy-MM-dd HH:mm') }}</p>
           </div>
     </div>
@@ -90,13 +91,13 @@ function formatSize(size: number) {
     <div class="mt-4">
       <button
           v-if="canEditLitter"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
           @click="navigateToLitter"
       >
         Redaguoti
       </button>
       <button v-if="canCleanLitter"
-              class="bg-lime-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-5"
+              class="bg-lime-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
               @click="navigateToLitterCollect"
       >
         Surinkti!

@@ -6,9 +6,9 @@ Usage:
 -->
 
 <template>
-  <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+  <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg hover:bg-gray-100 border-2 border-gray-200 transition duration-50 ease-in-out transform hover:-translate-y-1 hover:scale-101">
     <!-- company logo -->
-    <div class="flex justify-center">
+    <div class="flex justify-center min-h-60">
       <img
         class="w-fill h-fill object-cover"
         :src="company.logo_path || 'https://via.placeholder.com/150'"
@@ -20,7 +20,7 @@ Usage:
       <h1 class="text-2xl font-bold text-gray-900">{{ company.title }}</h1>
     </div>
     <!-- description -->
-    <div class="mt-4">
+    <div class="mt-4 min-h-40">
       <p class="text-gray-600">{{ company.description }}</p>
     </div>
     <!-- button -->
