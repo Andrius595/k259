@@ -17,7 +17,7 @@
         <form @submit.prevent="submitForm">
           <!-- Litter size -->
           <div class="mt-4">
-            <Label for="litter_size">Dydis</Label>
+            <Label for="litter_size">Šiukšlių dydis</Label>
             <Select
                 v-model="data.size"
                 :errors="errors.size"
@@ -146,7 +146,7 @@
           </div>
 
           <div class="mt-4">
-            <Label for="litter_description">Tipas</Label>
+            <Label for="litter_description">Didžiąją šiušklių dalį sudaro</Label>
             <Select
                 v-model="selectedTrashTypes"
                 :errors="errors.trash_types"
@@ -201,9 +201,9 @@ const errorMessage = ref<string>("");
 const successMessage = ref<string>("");
 
 const litterSizeOptions = [
-  {value: 1, label: "Small"},
-  {value: 2, label: "Medium"},
-  {value: 3, label: "Large"},
+  {value: 1, label: "Mažos"},
+  {value: 2, label: "Vidutinės"},
+  {value: 3, label: "Didelės"},
 ];
 
 const trashTypesOptions = computed(() => {
