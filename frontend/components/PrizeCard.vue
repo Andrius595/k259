@@ -49,6 +49,7 @@ const navigateToClaim = () => {
   <div class="mt-4">
     <p class="text-gray-600">Kaina: {{ prize.price }} taškų</p>
   </div>
+  
   <!-- button -->
   <div class="mt-4">
     <button

@@ -42,7 +42,7 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
 
     const body = {
         ...data.fields,
-        image: data.files
+        cleaned_image: data.files
     }
 
     try {
