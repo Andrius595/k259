@@ -23,6 +23,9 @@ const navigateToLitter = () => {
 const navigateToLitterCollect = () => {
   navigateTo(`/litter/collect/${props.litter.id}`);
 };
+const navigateToLitterView = () => {
+  navigateTo(`/litter/view/${props.litter.id}`);
+};
 
 const canEditLitter = computed(() => {
   return (
