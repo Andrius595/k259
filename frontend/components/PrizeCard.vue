@@ -25,7 +25,7 @@ const navigateToEdit = () => {
 };
 
 const navigateToClaim = () => {
-
+  navigateTo(`/prize/redeem/${props.prize.id}/`);
 };
 
 </script>

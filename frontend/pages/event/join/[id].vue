@@ -103,7 +103,7 @@ async function submitForm() {
 
   try {
     //api/events/{event}/join
-    const response = await $fetch(`api/event/${eventId.value}/join`, {
+    const response = await $fetch(`/api/event/${eventId.value}/join`, {
       method: "POST",
       body,
     })
