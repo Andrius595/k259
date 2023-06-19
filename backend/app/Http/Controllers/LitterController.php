@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Litter\CleanLitterRequest;
+use App\Http\Requests\Litter\ListLitterRequest;
 use App\Http\Requests\Litter\StoreLitterRequest;
 use App\Http\Requests\Litter\UpdateLitterRequest;
 use App\Models\Litter;
-use App\PointTypes\LitterCleaned;
 use Illuminate\Http\JsonResponse;
 use Location\Coordinate;
 use Location\Distance\Haversine;
@@ -16,9 +16,16 @@ class LitterController extends Controller
     /**
      * Returns all litter.
      */
-    public function index(): JsonResponse
+    public function index(ListLitterRequest $request): JsonResponse
     {
-        $litter = Litter::all();
+        $query = Litter::where('is_cleaned', $request->get('showCleaned'));
+
+        $user = auth('sanctum')->user();
+        if ($user && $request->get('showMine')) {
+            $query->where('user_id', $user->id);
+        }
+
+        $litter = $query->paginate($request->get('perPage', 15));
 
         return $this->successResponse($litter);
     }
