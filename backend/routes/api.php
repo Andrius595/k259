@@ -25,6 +25,7 @@ Route::get('users/points-leaderboard', [UserController::class, 'getPointsLeaderb
 
 Route::get('trash-types', [TrashTypeController::class, 'index']);
 Route::get('litters', [LitterController::class, 'index']);
+Route::get('litters/{litter}', [LitterController::class, 'show']);
 Route::get('events', [EventController::class, 'index']);
 Route::get('companies', [CompanyController::class, 'index']);
 Route::get('prizes', [PrizeController::class, 'index']);
@@ -39,7 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     });
 
 
-    Route::apiResource('litters', LitterController::class)->except(['index']);
+    Route::apiResource('litters', LitterController::class)->except(['index', 'show']);
     Route::group(['prefix' => 'litters'], static function () {
         Route::post('{litter}/cleaned', [LitterController::class, 'markLitterAsCleaned']);
     });

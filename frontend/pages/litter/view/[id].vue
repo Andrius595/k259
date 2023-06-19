@@ -1,25 +1,14 @@
 <script setup lang="ts">
-import Select from "~/components/Select.vue";
-import { TrashType } from "~/types/trashTypeTypes";
-import { Litter } from "~/types/litterTypes";
-import { useGeolocation } from "@vueuse/core";
-import {
-  genFileId,
-  UploadInstance,
-  UploadProps,
-  UploadRawFile,
-  UploadUserFile,
-} from "element-plus";
-import { Close } from "@element-plus/icons-vue";
-import { serialize } from "object-to-formdata";
-import { AllPermissions } from "~/enums/permissions";
-import { useUserStore } from "~/stores/userStore";
-import { AllRoles } from "~/enums/roles";
+import {TrashType} from "~/types/trashTypeTypes";
+import {Litter} from "~/types/litterTypes";
+import {useGeolocation} from "@vueuse/core";
+import {AllPermissions} from "~/enums/permissions";
+import {useUserStore} from "~/stores/userStore";
+import {AllRoles} from "~/enums/roles";
 
-definePageMeta({ middleware: ["auth"] });
 const userStore = useUserStore();
 
-const { coords, locatedAt, error, resume, pause } = useGeolocation();
+const { coords, error} = useGeolocation();
 const route = useRoute();
 
 const litterId = ref(route.params.id ?? null);
@@ -28,10 +17,6 @@ const litter: any = ref<Litter | null>(null);
 const trashTypes = ref<TrashType[]>([]);
 
 const selectedTrashTypes = ref<number[]>([]);
-
-const fileList = ref<UploadUserFile[]>([]);
-const upload = ref<UploadInstance>();
-const deleteCurrentImage = ref<boolean>(false);
 
 const errors = ref<Record<string, string>>({});
 const errorMessage = ref<string>("");
@@ -42,7 +27,6 @@ const litterSizeOptions = [
   { value: 2, label: "Vidutinis" },
   { value: 3, label: "Didelis" },
 ];
-
 
 await loadLitter();
 await loadTrashTypes();
