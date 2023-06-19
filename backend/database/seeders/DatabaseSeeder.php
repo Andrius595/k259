@@ -14,23 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::factory(10)->create();
-
         $this->call([
             PermissionsSeeder::class,
             TrashTypeSeeder::class,
-            LitterSeeder::class,
-            EventSeeder::class,
-            CompanySeeder::class,
-            PrizeSeeder::class,
-            PrizeCodeSeeder::class,
         ]);
-
-        $userRole = Role::firstOrCreate(['name' => PermissionsConfig::USER]);
-
-        foreach ($users as $user) {
-            $user->assignRole($userRole);
-        }
 
         $admin = User::factory()->create([
             'first_name' => 'Admin',
