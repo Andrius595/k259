@@ -34,7 +34,7 @@ const navigateToEventJoin = () => {
     <div class="flex justify-center min-h-60">
       <img
         class="w-fill h-fill object-cover rounded-lg"
-        :src="event.image_path || 'https://via.placeholder.com/150'"
+        :src="event.image_src || 'https://via.placeholder.com/150'"
         alt="litter image"
       />
 

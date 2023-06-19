@@ -27,6 +27,7 @@ class Event extends Model
     protected $appends = [
         'has_user_joined',
         'joined_users_count',
+        'image_src',
     ];
 
     public function user(): BelongsTo
@@ -47,5 +48,15 @@ class Event extends Model
     public function getJoinedUsersCountAttribute(): int
     {
         return $this->joinedUsers()->count();
+    }
+
+    public function getImageSrcAttribute()
+    {
+        // TODO return no-image if image_path is null
+        if (str_starts_with($this->image_path, 'http')) {
+            return $this->image_path;
+        }
+
+        return asset('storage/' . $this->image_path, false);
     }
 }

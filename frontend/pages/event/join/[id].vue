@@ -24,7 +24,7 @@
 
         <!-- event image -->
         <div class="mt-4">
-          <img :src="event.image_path" alt="event image" class="w-full">
+          <img :src="event.image_src" alt="event image" class="w-full">
         </div>
 
         <!-- event description -->
