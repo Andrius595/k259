@@ -2,17 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Event\ListEventRequest;
 use App\Http\Requests\Event\StoreEventRequest;
 use App\Http\Requests\Event\UpdateEventRequest;
 use App\Models\Event;
-use App\Models\Litter;
 use Illuminate\Http\JsonResponse;
 
 class EventController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(ListEventRequest $request): JsonResponse
     {
-        $events = Event::all();
+        $user = auth('sanctum')->user();
+
+        $query = Event::query();
+
+        if ($user && $request->get('showJoined')) {
+            $query->whereHas('joinedUsers', function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+            });
+        } elseif ($user && !$request->get('showJoined')) {
+            $query->whereDoesntHave('joinedUsers', function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+            });
+        }
+
+
+        if ($request->get('showUpcoming')) {
+            $query->where('starting_at', '>', now());
+        } else {
+            $query->where('starting_at', '<=', now());
+        }
+
+        $events = $query->paginate($request->get('perPage', 15));
 
         return $this->successResponse($events);
     }
@@ -42,7 +63,7 @@ class EventController extends Controller
      */
     public function show(Event $event): JsonResponse
     {
-        $event->load('user');
+        $event->load('user', 'joinedUsers');
 
         return $this->successResponse($event);
     }

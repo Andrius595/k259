@@ -68,7 +68,6 @@
             <!--LitterMapForForm with latitude and longitude passed in as props-->
             <LitterMapForForm
                 id="litterMapForForm"
-                v-if="coordsLoaded"
                 style="height: 500px"
                 :latitude="data.latitude"
                 :longitude="data.longitude"
@@ -282,9 +281,10 @@ const data = ref({
   // liiter size
   size: "",
   // liiter latitude
-  latitude: coords.value?.latitude,
+  latitude: coords.value?.latitude === Infinity ? 54.687157 : coords.value.latitude,
   // liiter longitude
-  longitude: coords.value?.longitude,
+  longitude: coords.value?.longitude === Infinity ? 25.279652 : coords.value.longitude,
+
   // liiter image path
   image_path: "",
   // liiter description

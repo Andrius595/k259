@@ -116,7 +116,7 @@ async function loadLitters() {
               />
             </div>
             <div v-if="LittersList.length === 0">
-              <h3 class="text-center text-gray-700 text-2xl mt-4">Nėra šiukšlių</h3>
+              <h3 class="text-center text-gray-700 text-2xl mt-4">Nėra šiukšlių atitinkančių pasirinktus parametrus</h3>
             </div>
             <div class="mt-2">
               <el-pagination

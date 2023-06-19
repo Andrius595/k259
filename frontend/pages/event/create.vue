@@ -87,7 +87,6 @@
             <LitterMapForForm
               id="litterMapForForm"
               style="height: 500px"
-              v-if="coordsLoaded"
               :latitude="data.latitude"
               :longitude="data.longitude"
               :myAccuracy="coords.accuracy"
@@ -176,9 +175,9 @@ const data = ref({
   // starting at time
   starting_time: "",
   // latitude
-  latitude: coords.value?.latitude,
+  latitude: coords.value?.latitude === Infinity ? 54.687157 : coords.value.latitude,
   // longitude
-  longitude: coords.value?.longitude,
+  longitude: coords.value?.longitude === Infinity ? 25.279652 : coords.value.longitude,
   // has ended
   has_ended: "",
   // image path

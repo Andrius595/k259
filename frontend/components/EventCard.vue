@@ -14,9 +14,6 @@ const canEditEvent = computed(() => {
   return userStore.hasPermission(AllPermissions.canUpdateEvent) && (props.event.user_id === userStore.getUser?.id || userStore.hasRole(AllRoles.Admin))
 });
 
-const canJoinEvent = computed(() => {
-  return userStore.isLoggedIn && !props.event.has_user_joined && !props.event.has_ended
-})
 // methods
 const navigateToEvent = () => {
   navigateTo(`/event/edit/${props.event.id}`);
@@ -63,7 +60,7 @@ const navigateToEventJoin = () => {
     
     
     <!-- button -->
-    <div class="mt-4">
+    <div class="flex mt-4">
       <button
         v-if="canEditEvent"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -72,12 +69,17 @@ const navigateToEventJoin = () => {
         Redaguoti
     </button>
     <button
-        v-if="canJoinEvent"
-        class="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2"
         @click="navigateToEventJoin"
       >
         Plačiau!
     </button>
+      <div
+          v-if="event.has_ended"
+          class="bg-red-500 rounded text-white font-bold py-2 px-4 rounded ml-2"
+      >
+        Pasibaigęs
+      </div>
     <!-- if event.has_user_joined true, show green big text-->
     <p v-if="event.has_user_joined" class="text-2xl text-green-500">Jūs jau prisijungęs!</p>
     </div>

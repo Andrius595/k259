@@ -24,10 +24,10 @@ class Company extends Model
     public function getLogoSrcAttribute()
     {
         // TODO return no-image if image_path is null
-        if (str_starts_with($this->image_path, 'http')) {
-            return $this->image_path;
+        if (str_starts_with($this->logo_path, 'http')) {
+            return $this->logo_path;
         }
 
-        return asset('storage/' . $this->image_path);
+        return asset('storage/' . $this->logo_path);
     }
 }

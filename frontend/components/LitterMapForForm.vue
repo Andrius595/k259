@@ -12,7 +12,6 @@
           layer-type="base"
           name="OpenStreetMap"
         />
-        <template v-for="litterListCoordinate in litterListCoordinates">
           <l-marker
             :lat-lng="litterListCoordinate.geometry.coordinates"
             :radius="5"
@@ -33,13 +32,14 @@
               </div>
             </l-popup>
           </l-marker>
-        </template>
         <l-circle
+            v-if="showMyLocation"
           :latLng="{ lat: props.myLatitude, lng: props.myLongitude }"
           :radius="props.myAccuracy"
           :color="'#3388ff'"
         />
         <l-circle
+            v-if="showMyLocation"
           :latLng="{ lat: props.myLatitude, lng: props.myLongitude }"
           :radius="0"
           :color="'red'"
@@ -61,33 +61,35 @@ import {
 
 //define props
 const props = defineProps<{
-  latitude: number;
-  longitude: number;
+  latitude: {
+    type: Number;
+    default: 54.687157;
+  };
+  longitude: {
+    type: Number;
+    default: 25.279652;
+  };
   myAccuracy: number;
   myLatitude: number;
   myLongitude: number;
 }>();
 
-const zoom = ref(13);
+const showMyLocation = computed(() => {
+  return props.myLatitude !== Infinity && props.myLongitude !== Infinity && props.myAccuracy !== Infinity;
+})
 
-var latitude = props.latitude;
-var longitude = props.longitude;
+const center :any = ref(showMyLocation.value ? {lat: props.myLatitude, lon: props.myLongitude} : {lat: 54.687157, lon: 25.279652});
+const zoom = ref(showMyLocation.value ? 13 : 7);
 
-const center: any = ref({ lat: latitude, lon: longitude });
-
-const litterListCoordinates = computed(() => {
-  return [
-    {
+const litterListCoordinate = ref({
       type: "Feature",
       properties: {
         //coordinates from props  as a description:
-        description: `lat: ${latitude}, lon: ${longitude}`,
+        description: `lat: ${props.latitude}, lon: ${props.longitude}`,
       },
       geometry: {
         type: "Point",
-        coordinates: { lng: longitude, lat: latitude },
+        coordinates: { lng: props.longitude, lat: props.latitude },
       },
-    },
-  ];
 });
 </script>
