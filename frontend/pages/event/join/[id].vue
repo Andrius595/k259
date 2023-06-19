@@ -14,9 +14,9 @@
       </div>
     </template>
 
-    <div class="container mx-auto mt-10">  
+    <div class="container mx-auto mt-10">
       <el-card>
-        
+
         <!-- event name -->
         <div class="mt-4">
           <h1 class="text-2xl font-bold text-gray-900">Renginio pavadinimas: {{ event.title }}</h1>
@@ -43,20 +43,23 @@
         <div class="mt-4">
           <h1 class="text-xl font-bold text-gray-900">Dalyvių skaičius:</h1>
           <p class="text-gray-900">{{ event.joined_users_count }}</p>
-          
+
         </div>
 
         <!-- join event button -->
-        <form class="mt-5" @submit.prevent="submitForm">
+        <form v-if="canJoinEvent" class="mt-5" @submit.prevent="submitForm">
           <div class="mt-4">
             <Button class="ml-3">Prisijungti</Button>
-        </div>
+          </div>
         </form>
-        
 
-
-
-
+        <el-alert
+          v-if="successMessage"
+          :title="successMessage"
+          type="success"
+          show-icon
+          :closable="false"
+          class="mt-5" />
 
       </el-card>
     </div>
@@ -70,12 +73,14 @@
 </template>
 
 <script setup lang="ts">
-import { serialize } from "object-to-formdata";
+import {useUserStore} from "~/stores/userStore";
+
 definePageMeta({middleware: ["auth"]})
 const route = useRoute();
 const eventId = ref(route.params.id ?? null)
+const userStore = useUserStore()
 
-const event : any= ref<Event | null>(null)
+const event: any = ref<Event | null>(null)
 
 const errors = ref<Record<string, string>>({})
 const errorMessage = ref<string>('')
@@ -83,8 +88,12 @@ const successMessage = ref<string>('')
 
 await loadEvent()
 
+const canJoinEvent = computed(() => {
+  return userStore.isLoggedIn && !event.value.has_user_joined && !event.value.has_ended
+})
+
 async function loadEvent() {
-  const response :any = await $fetch(`/api/event/${eventId.value}`)
+  const response: any = await $fetch(`/api/event/${eventId.value}`)
 
   // TODO also check if user is admin or litter belongs to current user, otherwise redirect to list
   if (response.status) {
@@ -93,33 +102,22 @@ async function loadEvent() {
   }
 }
 
-const joinEvent = () => {
-  navigateTo(`/event/list/`);
-};
-const data = {
-    ...event.value,
-    has_user_joined:  event.value.has_user_joined ? false : true,
-    event_id: eventId.value
-  }
-
-const body = serialize(data)
-
 async function submitForm() {
   errors.value = {}
 
-  try {
-    //api/events/{event}/join
-    const response = await $fetch(`/api/event/${eventId.value}/join`, {
-      method: "POST",
-      body,
-    })
-    // TODO show success message
-    successMessage.value = response.message
-    //joinEvent()
-  } catch (e) {
-    // TODO show errors
-    errorMessage.value = e.message
+
+  const response: any = await $fetch(`/api/event/${eventId.value}/join`, {
+    method: "POST"
+  })
+
+  if (response.status) {
+    event.value = response.data
+    successMessage.value = "Sėkmingai prisijungėte prie renginio"
+
+    return
   }
+
+  errorMessage.value = "Nepavyko prisijungti prie renginio"
 }
 
 </script>

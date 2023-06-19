@@ -127,8 +127,6 @@ const data = ref({
   title: "",
   // company description
   description: "",
-  // image path
-  image_path: ""
 });
 
 const handleExceed: UploadProps['onExceed'] = (files) => {
