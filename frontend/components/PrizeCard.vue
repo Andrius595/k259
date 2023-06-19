@@ -15,13 +15,13 @@ const canEditPrize = computed(() => {
 
 //can claim prize if pize.price is less than user.points
 const canClaimPrize = computed(() => {
-  return ( userStore.hasRole(AllRoles.Admin)) || (userStore.user?.points >= props.prize.price)
+  return userStore.getUser && (userStore.getUser.points >= props.prize.price)
 });
 
 
 // methods
 const navigateToEdit = () => {
-  navigateTo(`/prize/${props.prize.id}/edit/`);
+  navigateTo(`/prize/edit/${props.prize.id}`);
 };
 
 const navigateToClaim = () => {

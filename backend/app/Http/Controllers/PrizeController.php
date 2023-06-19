@@ -17,8 +17,7 @@ class PrizeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $prizes = Prize::with('prizeCodes')
-            ->whereHas('prizeCodes', static function ($query) {
+        $prizes = Prize::whereHas('prizeCodes', static function ($query) {
                 $query->where('is_redeemed', false);
             })->get();
 
@@ -33,8 +32,6 @@ class PrizeController extends Controller
         $prize = Prize::create($request->validated());
 
         $prize->prizeCodes()->createMany($request->prize_codes);
-
-        $prize->load('prizeCodes');
 
         return $this->successResponse($prize);
     }
@@ -75,12 +72,18 @@ class PrizeController extends Controller
         return $this->successResponse();
     }
 
-    public function redeemPrize(Prize $prize)
+    public function redeemPrize(Prize $prize): JsonResponse
     {
+        $user = auth()->user();
+
+        if ($prize->price > $user->points) {
+            return $this->errorResponse('Jūsų turimų taškų nepakanka');
+        }
+
         $prize->load('prizeCodes');
 
         $availablePrizeCodes = $prize->prizeCodes()->where('is_redeemed', false)->get();
-        if ($availablePrizeCodes::empty()) {
+        if ($availablePrizeCodes->isEmpty()) {
             return $this->errorResponse('Šio prizo nebeliko');
         }
 
@@ -93,6 +96,8 @@ class PrizeController extends Controller
         if (!$updated) {
             return $this->errorResponse('Nepavyko atsiimti prizo', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
+        $user->decrement('points', $prize->price);
 
         Mail::to(auth()->user())->send(new PrizeRedeemed($prize, $prizeCode));
 

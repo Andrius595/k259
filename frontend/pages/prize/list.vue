@@ -3,15 +3,11 @@ import { Prize } from "~~/types/prizeTypes";
 
 import PrizeCard from "~/components/PrizeCard.vue";
 import { useUserStore } from "~/stores/userStore";
-import { AllPermissions } from "~/enums/permissions";
 
 const userStore = useUserStore();
 const PrizeList = ref<Prize[]>([]);
 await loadPrizes();
 
-const canCreateEvent = computed(() => {
-  return userStore.hasPermission(AllPermissions.canCreateEvent);
-});
 
 async function loadPrizes() {
   const response: any = await $fetch("/api/prize");
