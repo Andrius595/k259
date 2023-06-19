@@ -6,6 +6,7 @@ const open = ref(false);
 
 async function handleLogout() {
   await $fetch("/api/auth/logout", { method: "post" });
+  userStore.clearState();
 
   return await navigateTo("/login");
 }

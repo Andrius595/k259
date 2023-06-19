@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async () => {
     await userStore.fetchData()
 
     if (!userStore.getUser) {
-        userStore.$reset()
+        userStore.clearState()
 
         return await navigateTo('/login')
     }
