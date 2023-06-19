@@ -16,7 +16,7 @@
             :lat-lng="litterListCoordinate.geometry.coordinates"
             :radius="5"
             :draggable="true"
-            @update:latLng="$emit('update:latLng', $event)"
+            @update:latLng="emit('update:latLng', $event)"
             :options="{ color: 'red' }"
           >
             <l-popup>
@@ -59,6 +59,8 @@ import {
   LCircle,
 } from "@vue-leaflet/vue-leaflet";
 
+const emit = defineEmits(['update:latLng'])
+
 //define props
 const props = defineProps<{
   latitude: {
@@ -76,6 +78,14 @@ const props = defineProps<{
 
 const showMyLocation = computed(() => {
   return props.myLatitude !== Infinity && props.myLongitude !== Infinity && props.myAccuracy !== Infinity;
+})
+
+watch(() => showMyLocation.value, (newVal, oldVal) => {
+  if (newVal && !oldVal) {
+    center.value = {lat: props.myLatitude, lon: props.myLongitude};
+    emit('update:latLng', {lat: props.myLatitude, lng: props.myLongitude})
+    zoom.value = 13;
+  }
 })
 
 const center :any = ref(showMyLocation.value ? {lat: props.myLatitude, lon: props.myLongitude} : {lat: 54.687157, lon: 25.279652});
