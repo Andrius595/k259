@@ -2,8 +2,11 @@
 import { Litter } from "~~/types/litterTypes";
 import LitterCard from "~/components/LitterCard.vue";
 import { watch } from 'vue'
+import {useUserStore} from "~/stores/userStore";
 
 const LittersList = ref<Litter[]>([]);
+
+const userStore = useUserStore();
 
 const paginationData = ref({
   page: 1,
@@ -65,7 +68,7 @@ async function loadLitters() {
                 </button>
               </a>
               <div class="flex gap-4 pt-2 sm:pt-0">
-                <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
+                <ul v-if="userStore.getUser" class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
                   <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r bg-gray-200 rounded-t-md sm:rounded-t-none sm:rounded-l-md">
                     <div class="flex items-center">
                       <div class="w-full text-center py-3 mx-3">Pranešėjas</div>
