@@ -8,8 +8,8 @@ import {UserData} from "~/types/userTypes";
 export const useUserStore = defineStore('user', {
     state: () => ({
         user: null as UserData | null,
-        roles: [] as string[],
-        permissions: [] as string[],
+        roles: useLocalStorage('pinia/auth/roles', [] as string[]),
+        permissions: useLocalStorage('pinia/auth/permissions', [] as string[]),
     }),
     getters: {
         isLoggedIn: (state) => !!state.user,
@@ -30,20 +30,36 @@ export const useUserStore = defineStore('user', {
     actions: {
         async fetchData() {
             const user = await $fetch('/api/user', { method: 'GET' });
-            const roles = await $fetch('/api/user/roles', { method: 'GET' });
-            const permissions = await $fetch('/api/user/permissions', { method: 'GET' });
+
+            console.log('user', user, this.roles, this.permissions)
+            if (!user) {
+                this.clearState()
+                return
+            }
+
+            if (this.roles.length === 0) {
+                const roles = await $fetch('/api/user/roles', { method: 'GET' });
+                console.log('roles', roles)
+                this.setRoles(roles)
+            }
+
+            if (this.permissions.length === 0) {
+                const permissions = await $fetch('/api/user/permissions', { method: 'GET' });
+                console.log('permissions', permissions)
+                this.setPermissions(permissions)
+            }
 
             this.setUser(user)
-            this.setRoles(roles)
-            this.setPermissions(permissions)
         },
         setUser(userData: UserData) {
             this.user = userData
         },
         setRoles(roles: string[]) {
+            localStorage.setItem('pinia/auth/roles', JSON.stringify(roles))
             this.roles = roles
         },
         setPermissions(permissions: string[]) {
+            localStorage.setItem('pinia/auth/permissions', JSON.stringify(permissions))
             this.permissions = permissions
         },
         hasPermission(permission: string) {
@@ -51,6 +67,15 @@ export const useUserStore = defineStore('user', {
         },
         hasRole(role: string) {
             return this.roles.includes(role)
+        },
+        clearState() {
+            localStorage.setItem('pinia/auth/roles', JSON.stringify([]))
+            localStorage.setItem('pinia/auth/permissions', JSON.stringify([]))
+            this.$reset()
         }
+    },
+    hydrate(state) {
+        state.roles = useLocalStorage('pinia/auth/roles', [] as string[]) as unknown as string[]
+        state.permissions = useLocalStorage('pinia/auth/permissions', [] as string[]) as unknown as string[]
     }
 })

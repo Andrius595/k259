@@ -9,5 +9,5 @@ export default defineNuxtRouteMiddleware(async () => {
         return await navigateTo('/dashboard')
     }
 
-    userStore.$reset()
+    userStore.clearState()
 });
