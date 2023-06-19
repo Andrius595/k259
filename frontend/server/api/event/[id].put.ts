@@ -5,6 +5,7 @@ import formidable, {Fields, Files} from 'formidable'
 import fs from "fs";
 
 export default defineEventHandler(async (event: H3Event): Promise<ServerSideResponse> => {
+    const eventId = event.context.params?.id
     const form = formidable({multiples: true})
 
     const data: any = await new Promise((resolve, reject) => {
@@ -43,8 +44,8 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
     }
     console.log(body)
     try {
-        const response = await useBackFetch(event, `api/events/`, {
-            method: 'POST',
+        const response = await useBackFetch(event, `api/events/${eventId}`, {
+            method: 'PUT',
             sendsFiles: true,
             body
         })

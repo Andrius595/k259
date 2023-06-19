@@ -1,31 +1,64 @@
 <script setup lang="ts">
+import {serialize} from 'object-to-formdata'
+import {ServerSideResponse} from "~/types/generalTypes";
+import {Close} from "@element-plus/icons-vue";
 
-//'title','description','starting_at','latitude','longitude','image_path','has_ended',
+definePageMeta({ middleware: ["auth"] });
 
-const data = ref({
-  // event title
-  prize_name: "",
-  // event description
-  prize_description: "",
-  // starting at date
-  prize_price: ""
-});
 
-const errors = ref<Record<string, string[]>>({});
-async function submitForm() {
-  errors.value = {};
+const prize: any= ref<Prize | null>(null)
+const route = useRoute();
+const prizeId = ref(route.params.id ?? null)
 
-  try {
-    const response = await $fetch("/api/prize/update-prize", {
-      method: "POST",
-      body: data.value,
-    });
-    // TODO show success message
-  } catch (e) {
-    // TODO show errors
+const fileList = ref<UploadUserFile[]>([])
+const upload = ref<UploadInstance>()
+const errors = ref<Record<string, string>>({});
+const errorMessage = ref<string>("");
+const successMessage = ref<string>("");
+
+
+
+await loadPrize()
+
+async function loadPrize() {
+  const response: ServerSideResponse = await $fetch(`/api/prize/${prizeId.value}`)
+  if (response.status) {
+    prize.value = response.data
+
+    return
   }
+
+  return await navigateTo('/prize/list')
 }
+
+async function submitForm() {
+  errors.value = {}
+  errorMessage.value = ''
+  successMessage.value = ''
+
+  
+  const response: any = await $fetch(`/api/prize/${prizeId.value}`, {
+    method: 'PUT',
+    body: prize.value
+  })
+
+  if (response.status) {
+    successMessage.value = 'Prize updated successfully'
+
+    return await navigateTo('/prize/list')
+  }
+
+  if (response.data.errors) {
+    errors.value = response.data.errors
+
+    return
+  }
+
+  errorMessage.value = response.data.data
+}
+
 </script>
+
 
 <template>
   <NuxtLayout name="auth-layout">
@@ -45,18 +78,18 @@ async function submitForm() {
 
   
     <div class="container mx-auto mt-10">  
-      <el-card>
+      <el-card v-if="prize">
         <form @submit.prevent="submitForm">
           <!-- Name -->
 
           <div>
             <Label for="prize_name">Pavadinimas</Label>
             <Input
+              v-model="prize.name"
               id="prize_name"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.prize_name"
-              :errors="errors.prize_name"
+              :errors="errors.name"
               required
               autoFocus
             />
@@ -68,8 +101,8 @@ async function submitForm() {
               id="prize_description"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.prize_description"
-              :errors="errors.prize_description"
+              v-model="prize.description"
+              :errors="errors.description"
               required
             />
           </div>
@@ -80,8 +113,8 @@ async function submitForm() {
               id="prize_price"
               type="number"
               class="block mt-1 w-full"
-              v-model="data.prize_price"
-              :errors="errors.prize_price"
+              v-model="prize.price"
+              :errors="errors.price"
               required
             />
           </div>
@@ -107,3 +140,5 @@ async function submitForm() {
     </div>
   </NuxtLayout>
 </template>
+
+
