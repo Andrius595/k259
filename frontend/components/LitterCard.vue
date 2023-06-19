@@ -91,7 +91,7 @@ function formatSize(size: number) {
     </div>
     <!--id-->
     <div class="mt-4">
-      <p class="text-gray-600">Šiūkšlės ID: {{ litter.id }}</p>
+      <p class="text-gray-600">Šiukšlės ID: {{ litter.id }}</p>
     </div>
 
     <!-- button -->
