@@ -72,7 +72,7 @@ function formatSize(size: number) {
     </div>
     <!-- title -->
     <div class="mt-4">
-      <h1 class="text-2xl font-bold text-gray-900">Apie šiūkšlę:</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Apie šiukšlę:</h1>
       <div class="mt-4">
         <p class="text-gray-600 min-h-40">{{ litter.description }}</p>
       </div>
