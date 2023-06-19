@@ -91,15 +91,11 @@ async function submitForm() {
     errorMessage.value = "";
     successMessage.value = "";
 
-    const datato = {
-        ...data.value,
-    };
 
-    const body = serialize(datato);
 
     const response: ServerSideResponse = await $fetch(`/api/prize/`, {
         method: "POST",
-        body,
+        body: data.value,
     });
 
     if (response.status) {

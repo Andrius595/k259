@@ -23,10 +23,11 @@
           <div>
             <Label for="event_title">Pavadinimas</Label>
             <Input
+              v-model="data.event_title"
               id="event_title"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.event_title"
+              
               :errors="errors.event_title"
               required
               autoFocus
@@ -36,27 +37,29 @@
           <div class="mt-4">
             <Label for="event_description">Aprašymas</Label>
             <Input
+              v-model="data.event_description"
               id="event_description"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.event_description"
+              
               :errors="errors.event_description"
               required
             />
           </div>
 
-          <div class="mt-4 ">
-          <client-only> 
-            <el-date-picker
-            class="w-full"
-            v-model="data.starting_date"
-            type="datetime"
-            value-format="YYYY-MM-DD HH:mm:ss"
-            placeholder="Pasirinkite renginio pradžios datą ir laiką"
+
+          <div class="mt-4">
+            <Label for="starting_date">Data</Label>
+            <Input
+              id="starting_date"
+              type="date"
+              class="block mt-1 w-full"
+              v-model="data.starting_date"
+              :errors="errors.starting_date"
+              required
             />
-          </client-only>
           </div>
-<!-- 
+
           <div class="mt-4">
             <Label for="starting_time">Prasideda</Label>
             <Input
@@ -68,7 +71,7 @@
               required
             />
           </div>
--->
+
           <!-- REPLACE WITH MAP-->
           <div class="mt-4">
             <Label for="litterMapForForm">Vieta</Label>
@@ -156,9 +159,12 @@ const errors = ref<Record<string, string[]>>({});
 async function submitForm() {
   errors.value = {};
 
+ 
+
   const datato = {
     ...data.value,
     image: fileList.value[0].raw,
+    starting_date: data.value.starting_date + " " + data.value.starting_time,
   };
 
   const body = serialize(datato)
@@ -187,7 +193,7 @@ const data = ref({
   // starting at date
   starting_date: "",
   // starting at time
-//  starting_time: "",
+  starting_time: "",
   // latitude
   latitude: coords.value?.latitude === Infinity ? 54.687157 : coords.value.latitude,
   // longitude
