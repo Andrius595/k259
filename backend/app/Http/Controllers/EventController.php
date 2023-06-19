@@ -44,7 +44,7 @@ class EventController extends Controller
     public function store(StoreEventRequest $request): JsonResponse
     {
         $data = $request->validated();
-
+        $data['user_id'] = auth()->user()->id;
         $image = $request->file('image');
         if ($image) {
             $imagePath = $image->store('event', 'public');

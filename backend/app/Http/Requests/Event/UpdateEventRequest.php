@@ -24,7 +24,20 @@ class UpdateEventRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string',
+            'description' => 'nullable|string',
+            'starting_at' => 'required|string',
+            'latitude' => 'required|numeric|min:-90|max:90',
+            'longitude' => 'required|numeric|min:-180|max:180',
+            'image' => 'nullable|image',
+            
+
+            //$table->string('title');
+            //$table->text('description')->nullable();
+           // $table->dateTime('starting_at');
+           // $table->decimal('latitude', 10, 8);
+           // $table->decimal('longitude', 11, 8);
+           // $table->string('image_path')->nullable();
         ];
     }
 }

@@ -10,7 +10,7 @@ Usage:
     <!-- company logo -->
     <div class="flex justify-center min-h-60">
       <img
-        class="w-fill h-fill object-cover"
+        class="w-fill h-fill object-cover rounded-lg"
         :src="company.logo_src || 'https://via.placeholder.com/150'"
         alt="company logo"
       />
