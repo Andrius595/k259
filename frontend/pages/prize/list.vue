@@ -9,6 +9,7 @@ const userStore = useUserStore();
 const PrizeList = ref<Prize[]>([]);
 await loadPrizes();
 
+//ran
 
 async function loadPrizes() {
   const response: any = await $fetch("/api/prize");
