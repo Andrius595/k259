@@ -4,13 +4,13 @@
 
 
     <Head>
-      <Title>Sukurti įvyki</Title>
+      <Title>Sukurti įvykį</Title>
     </Head>
 
     <template #header>
       <div class="flex justify-between items-center">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Sukurti įvyki
+          Sukurti įvykį
         </h2>
       </div>
     </template>
@@ -45,18 +45,18 @@
             />
           </div>
 
-          <div class="mt-4">
-            <Label for="starting_date">Data</Label>
-            <Input
-              id="starting_date"
-              type="date"
-              class="block mt-1 w-full"
-              v-model="data.starting_date"
-              :errors="errors.starting_date"
-              required
+          <div class="mt-4 ">
+          <client-only> 
+            <el-date-picker
+            class="w-full"
+            v-model="data.starting_date"
+            type="datetime"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="Pasirinkite renginio pradžios datą ir laiką"
             />
+          </client-only>
           </div>
-
+<!-- 
           <div class="mt-4">
             <Label for="starting_time">Prasideda</Label>
             <Input
@@ -68,7 +68,7 @@
               required
             />
           </div>
-
+-->
           <!-- REPLACE WITH MAP-->
           <div class="mt-4">
             <Label for="litterMapForForm">Vieta</Label>
@@ -95,17 +95,19 @@
               @update:latLng="updateCoordinates"
             />
           </div>
-          
+
           <div class="mt-4">
             <Label for="image_path">Nuotrauka</Label>
-            <Input
-              id="image_path"
-              type="file"
-              class="block mt-1 w-full"
-              v-model="data.image_path"
-              :errors="errors.image_path"
-              required
-            />
+            <el-upload
+                ref="upload"
+                v-model:file-list="fileList"
+                :on-exceed="handleExceed"
+                :auto-upload="false"
+                list-type="picture"
+                :limit="1"
+            >
+              <el-button type="primary">Patalpinti</el-button>
+            </el-upload>
           </div>
 
           <div class="flex items-center justify-end mt-4">
@@ -132,6 +134,7 @@
 
 <script setup lang="ts">
 import { useGeolocation } from "@vueuse/core";
+import {serialize} from 'object-to-formdata'
 
 definePageMeta({ middleware: ["auth"] });
 const { coords } = useGeolocation();
@@ -143,21 +146,32 @@ watch(coords, (newCoords) => {
   }
 })
 
+
+const fileList = ref<UploadUserFile[]>([])
+const upload = ref<UploadInstance>()
+
 const errors = ref<Record<string, string[]>>({});
 
 
 async function submitForm() {
   errors.value = {};
 
-  try {
-    const response = await $fetch("/api/event/create-event", {
-      method: "POST",
-      body: data.value,
-    });
-    // TODO show success message
-  } catch (e) {
-    // TODO show errors
+  const datato = {
+    ...data.value,
+    image: fileList.value[0].raw,
+  };
+
+  const body = serialize(datato)
+
+  const response = await $fetch("/api/event/", {
+    method: "POST",
+    body,
+  });
+
+    if (response.status) {
+  return await navigateTo('/event/list')
   }
+
 }
 
 function updateCoordinates(e:any) {
@@ -173,7 +187,7 @@ const data = ref({
   // starting at date
   starting_date: "",
   // starting at time
-  starting_time: "",
+//  starting_time: "",
   // latitude
   latitude: coords.value?.latitude === Infinity ? 54.687157 : coords.value.latitude,
   // longitude
@@ -183,4 +197,12 @@ const data = ref({
   // image path
   image_path: ""
 });
+
+
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  upload.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  file.uid = genFileId()
+  upload.value!.handleStart(file)
+}
 </script>
