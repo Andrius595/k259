@@ -28,6 +28,6 @@ class Company extends Model
             return $this->logo_path;
         }
 
-        return asset('storage/' . $this->logo_path);
+        return asset('storage/' . $this->logo_path, false);
     }
 }
