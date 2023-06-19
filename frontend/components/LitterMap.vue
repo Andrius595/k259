@@ -55,6 +55,15 @@ import {AllRoles} from "~/enums/roles";
 const userStore = useUserStore()
 
 const LittersList = ref<Litter[]>([])
+  const paginationData = ref({
+  page: 1,
+  perPage: 100,
+  total: 0,
+  sortBy: 'created_at',
+  showJoined: false,
+  showUpcoming: false,
+})
+
 await loadLitters()
 const props = defineProps<{
   myAccuracy: number;
@@ -92,10 +101,15 @@ const litterListCoordinates :any = computed(() => {
   });
 })
 
+
 async function loadLitters() {
-  const response : any = await $fetch('/api/litter')
+  const response: any = await $fetch("/api/litter", {method: 'GET', query: paginationData.value});
   if (response.status) {
-    LittersList.value = response.data
+    const responseData = response.data
+    LittersList.value = responseData.data;
+    paginationData.value.page = responseData.current_page
+    paginationData.value.perPage = responseData.per_page
+    paginationData.value.total = responseData.total
   }
 }
 
