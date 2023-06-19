@@ -107,7 +107,7 @@ async function loadLitters() {
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white border-b border-gray-200">
           <h2 class="font-semibold text-xl text-gray-800 leading-tight m-2">
-            Top savitės prizai:
+            Top savaitės prizai:
           </h2>
           
           <!-- load three prizes in PrizeCard -->
