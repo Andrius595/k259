@@ -144,13 +144,11 @@ const handleExceed: UploadProps['onExceed'] = (files) => {
 
           <div class="mt-4">
             <Label for="event_description">Aprašymas</Label>
-            <Input
-              id="event_description"
-              type="text"
-              class="block mt-1 w-full"
-              v-model="event.description"
-              :errors="errors.description"
-              required
+            <Textarea
+                id="event_description"
+                class="block mt-1 w-full"
+                v-model="event.description"
+                :errors="errors.description"
             />
           </div>
 

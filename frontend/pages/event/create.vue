@@ -36,14 +36,11 @@
 
           <div class="mt-4">
             <Label for="event_description">Aprašymas</Label>
-            <Input
-              v-model="data.event_description"
-              id="event_description"
-              type="text"
-              class="block mt-1 w-full"
-              
-              :errors="errors.event_description"
-              required
+            <Textarea
+                id="event_description"
+                class="block mt-1 w-full"
+                v-model="data.event_description"
+                :errors="errors.event_description"
             />
           </div>
 

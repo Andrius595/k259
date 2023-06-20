@@ -96,13 +96,11 @@ async function submitForm() {
 
           <div class="mt-4">
             <Label for="prize_description">Aprašymas</Label>
-            <Input
-              id="prize_description"
-              type="text"
-              class="block mt-1 w-full"
-              v-model="prize.description"
-              :errors="errors.description"
-              required
+            <Textarea
+                id="prize_description"
+                class="block mt-1 w-full"
+                v-model="prize.description"
+                :errors="errors.description"
             />
           </div>
 
