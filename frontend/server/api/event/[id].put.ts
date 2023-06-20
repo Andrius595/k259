@@ -15,8 +15,8 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
             }
 
             const duomenys = {
-                title: fields.event_title[0],
-                description: fields.event_description[0],
+                title: fields.title[0],
+                description: fields.description[0],
                 starting_at: fields.starting_date[0],
                 latitude: fields.latitude[0],
                 longitude: fields.longitude[0],
