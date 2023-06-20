@@ -20,57 +20,36 @@
       </div>
     </template>
 
-    <div class="container mx-auto mt-10">
 
-      <div v-if="errorMessage.length" class="mb-4 text-sm text-red-600">
-        {{ errorMessage }}
-      </div>
-      <div v-if="successMessage.length" class="mb-4 text-sm text-green-600">
-        {{ successMessage }}
-      </div>
+
+    <div class="container mx-auto mt-10">
 
       <el-card v-if="litter">
 
-        <!-- title -->
-        <div class="mt-4">
-          <h1 class="text-2xl font-bold text-gray-900">Litter Id: {{ litter.user.id }}</h1>
-        </div>
-
         <div v-if="litter.user">
-          <span>Reported by: </span>
+          <span>Pranešė: </span>
           <span v-if="litter.user">{{ `${litter.user.first_name} ${litter.user.last_name}` }}</span>
-          <span v-else>Anonymously</span>
+          <span v-else>Anonimas</span>
         </div>
 
-
-
-        <!-- description -->
         <div class="mt-4">
-          Description:
-          <p class="text-gray-600">{{ litter.description }}</p>
+          <span v-if="litter.image_path">
+            <img :src="litter.image_path" class="w-64 h-64 object-cover rounded-lg" />
+          </span>
+          <span v-else>Nuotrauka nepridėta</span>
         </div>
-        <!-- date -->
+
         <div class="mt-4">
-          <p class="text-gray-600">Time: {{ litter.user.created_at }}</p>
+          <Label for="litter_description">Aprašymas: </Label>
+          <span>{{ litter.description }}</span>
         </div>
 
-        <div v-if="litter.image_path" class="flex">
-          <div class="relative">
-            <span class="absolute z-10 right-3 hover:cursor-pointer" @click="removeCurrentImage">
-              <el-icon :size="20">
-                <Close />
-              </el-icon>
-            </span>
-
-
-            <el-image style="height: 200px" :src="litter.image_src" fit="contain"
-              :preview-src-list="[litter.image_src]" />
-          </div>
+        <div class="mt-4">
+          <p class="text-gray-600">
+            Laikas:
+            {{ DateTime.fromISO(litter.created_at).toFormat("yyyy-MM-dd HH:mm") }}
+          </p>
         </div>
-
-
-
-
 
 
         <form class="mt-5" @submit.prevent="submitForm">
@@ -86,12 +65,23 @@
               Atšaukti
             </NuxtLink>
 
-            <Button class="ml-3">Atnaujinti</Button>
+            <Button class="ml-3">Surinkti</Button>
 
           </div>
         </form>
-      </el-card>
+      <el-alert
+        v-if="errorMessage"
+        :title="errorMessage"
+        type="error"
+        show-icon
+        :closable="false"
+        class="mt-5" />
+      </el-card>  
+
     </div>
+
+
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
       <div class="overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 border-b border-gray-200">
@@ -109,6 +99,7 @@ import { useGeolocation } from '@vueuse/core'
 import { genFileId, UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from "element-plus";
 import { Close } from "@element-plus/icons-vue";
 import { serialize } from "object-to-formdata";
+import { DateTime } from "luxon";
 
 definePageMeta({ middleware: ["auth"] })
 
@@ -185,14 +176,14 @@ async function submitForm() {
   })
 
   if (response.status) {
-    successMessage.value = 'Litter collected successfully'
+    successMessage.value = 'Šiukšlė sėkmingai surinkta'
 
     return await navigateTo('/litter/list')
   }
 
   if (response.data.errors) {
     errors.value = response.data.errors
-
+    errorMessage.value = 'Įkelkite išvalytos aplinkos nutorauką.'
     return
   }
 
