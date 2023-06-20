@@ -61,7 +61,7 @@ async function loadLitters() {
           <div class="p-6 bg-white border-b border-gray-200">
             <div class="sm:flex justify-between">
               <a href="/litter/create" class="pr-8">
-                <button
+                <button v-if="userStore.isLoggedIn"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Sukurti naują šiukšlę

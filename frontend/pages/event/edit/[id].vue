@@ -1,39 +1,109 @@
 <script setup lang="ts">
+import Select from "~/components/Select.vue";
+import { useGeolocation } from '@vueuse/core'
+import {genFileId, UploadInstance, UploadProps, UploadRawFile, UploadUserFile} from "element-plus";
+import {serialize} from "object-to-formdata";
 
-//'title','description','starting_at','latitude','longitude','image_path','has_ended',
+definePageMeta({middleware: ["auth"]})
 
-const data = ref({
-  // event title
-  event_title: "",
-  // event description
-  event_description: "",
-  // starting at date
-  starting_date: "",
-  // starting at time
-  starting_time: "",
-  // latitude
-  latitude: "",
-  // longitude
-  longitude: "",
-  // has ended
-  has_ended: "",
-  // image path
-  image_path: ""
-});
+const { coords, locatedAt, error, resume, pause } = useGeolocation()
+const route = useRoute();
 
-const errors = ref<Record<string, string[]>>({});
-async function submitForm() {
-  errors.value = {};
+const eventId = ref(route.params.id ?? null)
 
-  try {
-    const response = await $fetch("/api/event/update-event", {
-      method: "POST",
-      body: data.value,
-    });
-    // TODO show success message
-  } catch (e) {
-    // TODO show errors
+const event : any= ref<Event | null>(null)
+const trashTypes = ref<TrashType[]>([])
+
+const selectedTrashTypes = ref<number[]>([])
+
+const fileList = ref<UploadUserFile[]>([])
+const upload = ref<UploadInstance>()
+const deleteCurrentImage = ref<boolean>(false)
+
+const errors = ref<Record<string, string>>({})
+const errorMessage = ref<string>('')
+const successMessage = ref<string>('')
+
+
+
+await loadEvent()
+await loadTrashTypes()
+
+async function loadEvent() {
+  const response :any = await $fetch(`/api/event/${eventId.value}`)
+
+  // TODO also check if user is admin or event belongs to current user, otherwise redirect to list
+  if (response.status) {
+    event.value = response.data
+
+    event.value.starting_date = response.data.starting_at.split(" ")[0];
+    event.value.starting_time = response.data.starting_at.split(" ")[1];
+
+    return
   }
+
+  return await navigateTo('/event/list')
+}
+
+async function loadTrashTypes() {
+  const response :any = await $fetch('/api/trash-types')
+  if (response.status) {
+
+    return
+  }
+
+  // navigate to list, because unable to load trash types
+  return await navigateTo('/event/list')
+}
+
+async function submitForm() {
+  errors.value = {}
+  errorMessage.value = ''
+  successMessage.value = ''
+
+  const data = {
+    ...event.value,
+    image: fileList.value[0]?.raw,
+  }
+
+  const body = serialize(data)
+
+  const response: any = await $fetch(`/api/event/${eventId.value}`, {
+    method: 'PUT',
+    body,
+  })
+
+  if (response.status) {
+    successMessage.value = 'Event updated successfully'
+
+    return await navigateTo('/event/list')
+  }
+
+  if (response.data.errors) {
+    errors.value = response.data.errors
+
+    return
+  }
+
+  errorMessage.value = response.data.data
+}
+
+
+function updateCoordinates(e:any) {
+  event.value.latitude = e.lat 
+  event.value.longitude = e.lng
+}
+
+function removeCurrentImage() {
+  event.value.image_path = null
+  deleteCurrentImage.value = true
+}
+
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  upload.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  file.uid = genFileId()
+  upload.value!.handleStart(file)
 }
 </script>
 
@@ -65,8 +135,8 @@ async function submitForm() {
               id="event_title"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.event_title"
-              :errors="errors.event_title"
+              v-model="event.title"
+              :errors="errors.title"
               required
               autoFocus
             />
@@ -78,8 +148,8 @@ async function submitForm() {
               id="event_description"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.event_description"
-              :errors="errors.event_description"
+              v-model="event.description"
+              :errors="errors.description"
               required
             />
           </div>
@@ -90,7 +160,7 @@ async function submitForm() {
               id="starting_date"
               type="date"
               class="block mt-1 w-full"
-              v-model="data.starting_date"
+              v-model="event.starting_date"
               :errors="errors.starting_date"
               required
             />
@@ -102,7 +172,7 @@ async function submitForm() {
               id="starting_time"
               type="time"
               class="block mt-1 w-full"
-              v-model="data.starting_time"
+              v-model="event.starting_time"
               :errors="errors.starting_time"
               required
             />
@@ -114,7 +184,7 @@ async function submitForm() {
               id="longitude"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.longitude"
+              v-model="event.longitude"
               :errors="errors.longitude"
               required
             />
@@ -126,23 +196,56 @@ async function submitForm() {
               id="latitude"
               type="text"
               class="block mt-1 w-full"
-              v-model="data.latitude"
+              v-model="event.latitude"
               :errors="errors.latitude"
               required
             />
           </div>
 
-          
+<!--  
           <div class="mt-4">
             <Label for="image_path">Nuotrauka</Label>
             <Input
               id="image_path"
               type="file"
               class="block mt-1 w-full"
-              v-model="data.image_path"
+              v-model="event.image_path"
               :errors="errors.image_path"
               required
             />
+              <el-button type="primary">Patalpinti</el-button>
+            </el-upload>
+          </div>
+-->
+          <div class="mt-4">
+            <Label for="event_image_path">Nuotrauka</Label>
+            <div v-if="event.image_path" class="flex">
+              <div class="relative">
+                <span class="absolute z-10 right-3 hover:cursor-pointer" @click="removeCurrentImage">
+                  <el-icon :size="20">
+                    <Close />
+                  </el-icon>
+                </span>
+
+                <el-image
+                    style="height: 200px"
+                    :src="event.image_src"
+                    fit="contain"
+                    :preview-src-list="[event.image_src]"
+                />
+              </div>
+            </div>
+            <el-upload
+                v-else
+                ref="upload"
+                v-model:file-list="fileList"
+                :on-exceed="handleExceed"
+                :auto-upload="false"
+                list-type="picture"
+                :limit="1"
+            >
+              <el-button type="primary">Patalpinti</el-button>
+            </el-upload>
           </div>
 
           <div class="flex items-center justify-end mt-4">
