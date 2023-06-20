@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {serialize} from 'object-to-formdata'
 import {ServerSideResponse} from "~/types/generalTypes";
-import {Close} from "@element-plus/icons-vue";
 
 definePageMeta({ middleware: ["auth"] });
 
