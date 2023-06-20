@@ -4,6 +4,7 @@ import { Prize } from "~~/types/prizeTypes";
 import PrizeCard from "~/components/PrizeCard.vue";
 import { useUserStore } from "~/stores/userStore";
 import {AllPermissions} from "~/enums/permissions";
+import {AllRoles} from "~/enums/roles";
 
 const userStore = useUserStore();
 const PrizeList = ref<Prize[]>([]);
@@ -18,7 +19,7 @@ async function loadPrizes() {
   }
 }
 const canCreatePrize = computed(() => {
-  return userStore.hasPermission(AllPermissions.canCreatePrize)
+  return userStore.isLoggedIn && (userStore.hasPermission(AllPermissions.canCreatePrize) || userStore.hasRole(AllRoles.Admin))
 })
 </script>
 
@@ -41,7 +42,7 @@ const canCreatePrize = computed(() => {
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white border-b border-gray-200">
             <div>
-                <a v-if="userStore.isLoggedIn" href="/prize/create" class="pr-8">
+                <a v-if="canCreatePrize" href="/prize/create" class="pr-8">
                   <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Sukurti naują prizą
                   </button>

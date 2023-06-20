@@ -10,7 +10,7 @@ const userStore = useUserStore();
 
 
 const canEditPrize = computed(() => {
-  return userStore.hasPermission(AllPermissions.canUpdatePrize) && ( userStore.hasRole(AllRoles.Admin))
+  return userStore.isLoggedIn && (userStore.hasPermission(AllPermissions.canUpdatePrize) || ( userStore.hasRole(AllRoles.Admin)))
 });
 
 //can claim prize if pize.price is less than user.points
