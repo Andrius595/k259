@@ -22,7 +22,7 @@ async function handleLogout() {
           <div class="flex-shrink-0 flex items-center">
             <NuxtLink href="/dashboard">
               <ApplicationLogo
-                class="block h-10 w-auto fill-current text-gray-600"
+                class="block h-17 w-auto fill-current text-gray-600"
               />
             </NuxtLink>
           </div>
