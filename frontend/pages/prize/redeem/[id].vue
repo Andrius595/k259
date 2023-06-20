@@ -6,6 +6,8 @@ const route = useRoute();
 const prizeId = ref(route.params.id ?? null)
 
 const prize : any= ref<Prize | null>(null)
+const successMessage = ref<string>('')
+const errorMessage = ref<string>('')
 
 await loadPrize()
 
@@ -31,14 +33,17 @@ const errors = ref<Record<string, string[]>>({});
 async function submitForm() {
   errors.value = {};
 
-  try {
-    const response = await $fetch(`/api/prize/${prizeId.value}/redeem`, {
+    const response: any = await $fetch(`/api/prize/${prizeId.value}/redeem`, {
       method: "POST",
     });
-    // TODO show success message
-  } catch (e) {
-    // TODO show errors
-  }
+
+    if (response.status) {
+      successMessage.value = response.data.message
+
+      return
+    }
+
+    errorMessage.value = response.data.message
 }
 </script>
 
@@ -90,40 +95,11 @@ async function submitForm() {
         </div>
 
         <form @submit.prevent="submitForm">
-            <!-- required toggle button "Noriu matyti kodą iškart -->
-            <div class="mb-4">
-              <el-switch
-                v-model="data.isCodeVisible"
-                active-text="Noriu gauti kodą į el. paštą"
-                inactive-text="Noriu gauti kodą dabar"
-                required
-              />
-            </div>
 
-            <!-- required input "El. paštas" when toggle is set to on-->
-            <div class="mb-4" v-if="data.isCodeVisible">
-              <label class="block text-gray-700 text-sm font-bold mb-2">
-                El. paštas:
-              </label>
-              <el-input
-                v-model="data.email"
-                required
-              />
-            </div>
-
-            <!-- required ceckbox "Patvirtinu, kad suvesti duomenys yra teisingi" when toggle is on -->
-            <div class="mb-4" v-if="data.isCodeVisible">
-              <el-checkbox
-                v-model="data.isDataCorrect"
-                required
-              >
-                Patvirtinu, kad suvesti duomenys yra teisingi
-              </el-checkbox>
-            </div>
 
           <div class="flex items-center justify-end mt-4">
             <NuxtLink
-              href="/login"
+              href="/prizes/list"
               class="underline text-sm text-gray-600 hover:text-gray-900"
             >
               Atšaukti
@@ -131,6 +107,20 @@ async function submitForm() {
             <Button class="ml-3">Atsiimti</Button>
           </div>
         </form>
+        <el-alert
+            v-if="successMessage"
+            :title="successMessage"
+            type="success"
+            show-icon
+            :closable="false"
+            class="mt-5" />
+        <el-alert
+            v-if="errorMessage"
+            :title="errorMessage"
+            type="error"
+            show-icon
+            :closable="false"
+            class="mt-5" />
       </el-card>
     </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-5">
