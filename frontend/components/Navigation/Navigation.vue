@@ -156,15 +156,15 @@ async function handleLogout() {
         <div class="flex items-center px-4">
           <div class="ml-3">
             <div class="font-medium text-base text-gray-800">
-              {{ user?.name }}
+              {{ userStore.getFullName }}
             </div>
-            <div v-if="user?.email" class="font-medium text-sm text-gray-500">
-              {{ user.email }}
+            <div v-if="userStore.getUser" class="font-medium text-sm text-gray-500">
+              {{ userStore.getUser.email }}
             </div>
           </div>
         </div>
 
-        <div class="mt-0 space-y-1">
+        <div class="mt-3 space-y-1">
           <NavigationResponsiveButton @click="navigateTo('/edit-profile')">
             Redaguoti profilį
           </NavigationResponsiveButton>
