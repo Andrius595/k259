@@ -6,8 +6,8 @@ server {
 }
 
 server {
-    listen  443 ssl default_server;
-    server_name ${SERVER_NAME};
+    listen  443 ssl;
+    server_name ec2-3-65-60-170.eu-central-1.compute.amazonaws.com;
 
     # Self signed certificates
     # Don't use them in a production server!
@@ -21,5 +21,7 @@ server {
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass	http://${APP_SERVICE};
+        root         /var/www/html/k259/backend/public/;
+        index        index.html;
     }
 }
