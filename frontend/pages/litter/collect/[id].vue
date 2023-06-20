@@ -33,8 +33,8 @@
         </div>
 
         <div class="mt-4">
-          <span v-if="litter.image_path">
-            <img :src="litter.image_path" class="w-64 h-64 object-cover rounded-lg" />
+          <span v-if="litter.image_src">
+            <img :src="litter.image_src" class="w-64 h-64 object-cover rounded-lg" />
           </span>
           <span v-else>Nuotrauka nepridėta</span>
         </div>
@@ -76,7 +76,7 @@
         show-icon
         :closable="false"
         class="mt-5" />
-      </el-card>  
+      </el-card>
 
     </div>
 
