@@ -11,8 +11,8 @@ server {
 
     # Self signed certificates
     # Don't use them in a production server!
-    ssl                 on
-    ssl_certificate     /etc/ssl/certs/certificate.crt
+    ssl                 on;
+    ssl_certificate     /etc/ssl/certs/certificate.crt;
     ssl_certificate_key /etc/ssl/certs/private.key;
 
     location / {
