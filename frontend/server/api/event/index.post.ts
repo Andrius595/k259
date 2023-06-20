@@ -41,7 +41,6 @@ export default defineEventHandler(async (event: H3Event): Promise<ServerSideResp
         ...data.fields,
         image: data.files
     }
-    console.log(body)
     try {
         const response = await useBackFetch(event, `api/events/`, {
             method: 'POST',

@@ -5,8 +5,6 @@ import {ServerSideResponse} from "~/types/generalTypes";
 export default defineEventHandler(async (event: H3Event): Promise<ServerSideResponse> => {
     const query = await getQuery(event)
 
-    console.log('qqqq', query)
-
     try {
         const response = await useBackFetch(event, `api/prizes`, {method: 'GET', query})
 

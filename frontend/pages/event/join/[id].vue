@@ -1,7 +1,5 @@
 <template>
   <NuxtLayout name="auth-layout">
-
-
     <Head>
       <Title>Peržiūrėti renginį</Title>
     </Head>
@@ -24,7 +22,7 @@
 
         <!-- event image -->
         <div class="mt-4">
-          <img :src="event.image_src" alt="event image" class="w-full">
+          <img :src="event.image_src" alt="event image" style="width: 500px">
         </div>
 
         <!-- event description -->

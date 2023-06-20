@@ -78,12 +78,13 @@ async function submitForm() {
           </div>
 
           <div class="flex items-center justify-end mt-4">
-            <NuxtLink
-                href="/login"
+            <a
+                href="http://ec2-3-65-60-170.eu-central-1.compute.amazonaws.com:8025/"
+                target="_blank"
                 class="underline text-sm text-gray-600 hover:text-gray-900"
             >
-              Ištrinti profilį?
-            </NuxtLink>
+              Email simulation
+            </a>
 
             <Button class="ml-3">Išsaugoti</Button>
           </div>

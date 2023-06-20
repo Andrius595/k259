@@ -7,6 +7,7 @@ export type Litter = {
     latitude: string|number
     longitude: string|number
     image_path: string|null
+    image_src: string
     description: string|null
     is_accessible_by_car: 0|1
     is_located_in_hole: 0|1

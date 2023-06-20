@@ -31,7 +31,6 @@ export const useUserStore = defineStore('user', {
         async fetchData() {
             const user = await $fetch('/api/user', { method: 'GET' });
 
-            console.log('user', user, this.roles, this.permissions)
             if (!user) {
                 this.clearState()
                 return
@@ -39,13 +38,11 @@ export const useUserStore = defineStore('user', {
 
             if (this.roles.length === 0) {
                 const roles = await $fetch('/api/user/roles', { method: 'GET' });
-                console.log('roles', roles)
                 this.setRoles(roles)
             }
 
             if (this.permissions.length === 0) {
                 const permissions = await $fetch('/api/user/permissions', { method: 'GET' });
-                console.log('permissions', permissions)
                 this.setPermissions(permissions)
             }
 
